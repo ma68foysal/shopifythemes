@@ -9,76 +9,546 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero_banner_ahpkxR": {
+      "type": "hero-banner",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "card_QGK8MY": {
+          "type": "card",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "media_type": "image",
+            "image": "shopify://shop_images/shopify-conversion-rate-optimization-conspire.webp",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_loop": true,
+            "overlay_opacity": 40,
+            "overlay_color": "#000000",
+            "overlay_style": "gradient",
+            "overlay_gradient_direction": "to bottom",
+            "card_icon": "shopify://shop_images/homepage_chart.svg",
+            "card_tag": "SHOPIFY WEBSITE DESIGN & DEVELOPMENT",
+            "card_title": "Shopify Website Design & Development",
+            "card_description": "Whether you need a fast, strategic Shopify launch or a fully custom tailored shopping experience.",
+            "button_label": "Learn More",
+            "button_link": "",
+            "button_style": "primary",
+            "card_min_height_mobile": 360,
+            "card_min_height_desktop": 480
           }
         },
-        "button": {
-          "type": "buttons",
+        "card_DfThxU": {
+          "type": "card",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "media_type": "image",
+            "image": "shopify://shop_images/videoframe_15061.png",
+            "video": "shopify://files/videos/d89bd037a1c2419e9a4684a32f2a6dbe.mp4",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_loop": true,
+            "overlay_opacity": 85,
+            "overlay_color": "#000000",
+            "overlay_style": "gradient",
+            "overlay_gradient_direction": "to bottom",
+            "card_icon": "shopify://shop_images/homepage_fraction.svg",
+            "card_tag": "FRACTIONAL SHOPIFY WEBSITE TEAMS",
+            "card_title": "Fractional Shopify Website Teams",
+            "card_description": "Our Los Angeles-based team provides senior strategic design and development to level up your website and drive results.",
+            "button_label": "Learn More",
+            "button_link": "",
+            "button_style": "primary",
+            "card_min_height_mobile": 360,
+            "card_min_height_desktop": 480
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "card_QGK8MY",
+        "card_DfThxU"
       ],
+      "name": "Hero Banner",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "section_bg": "#121212",
+        "heading": "We know Shopify.Your growth partner.",
+        "subtitle": "Los Angeles-based Shopify Plus design and development agency. Trusted since 2019 by high-growth eCommerce brands for strategic builds and long-term support.",
+        "badge_image": "shopify://shop_images/shopify-plus-badge.svg",
+        "button_color": "#ff4500",
+        "button_text_color": "#ffffff",
+        "button_hover_color": "#000000",
+        "button_border_radius": 4,
+        "card_border_radius": 12,
+        "color_scheme": "",
+        "padding_top": 52,
+        "padding_bottom": 52
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "logo_carousel_U99TaY": {
+      "type": "logo-carousel",
+      "blocks": {
+        "logo_FHAMFY": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/PortolaPaints-logo.webp",
+            "link": "",
+            "open_new_tab": false
+          }
+        },
+        "logo_VqqdCH": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/cml-logo.avif",
+            "link": "",
+            "open_new_tab": false
+          }
+        },
+        "logo_j8CEWj": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/vital-proteins-shopify-development-2x.avif",
+            "link": "",
+            "open_new_tab": false
+          }
+        },
+        "logo_3MgTGp": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/bodybio_1.avif",
+            "link": "",
+            "open_new_tab": false
+          }
+        },
+        "logo_EFXcD6": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/westernwelder-logo_d0569199-b5b4-410d-9fe8-8f5cc326e3a3.avif",
+            "link": "",
+            "open_new_tab": false
+          }
+        },
+        "logo_pJYdBh": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/Simms-logo.webp",
+            "link": "",
+            "open_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "logo_FHAMFY",
+        "logo_VqqdCH",
+        "logo_j8CEWj",
+        "logo_3MgTGp",
+        "logo_EFXcD6",
+        "logo_pJYdBh"
+      ],
+      "name": "Logo Carousel",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "bg_color": "#121212",
+        "border_color": "#1a1a1a",
+        "logo_height": 35,
+        "logo_height_mobile": 25,
+        "logo_opacity": 70,
+        "speed": 30,
+        "direction": "left",
+        "pause_on_hover": true,
+        "gap": 60,
+        "gap_mobile": 40,
+        "fade_edges": false,
+        "aria_label": "Our trusted partners",
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "agency_intro_3AiiBK": {
+      "type": "agency-intro",
+      "name": "Agency Intro",
+      "settings": {
+        "tags": "<p>BASED IN LOS ANGELES</p><p>SERVING SHOPIFY MERCHANTS WORLDWIDE<br/></p>",
+        "heading": "Shopify Agency eCommerce Website Development",
+        "badge_image": "shopify://shop_images/shopify-plus-badge.svg",
+        "description": "Trusted by the largest brands for high converting websites. We employ strategies to get the most out of your traffic and unlock scale.",
+        "media_type": "video",
+        "video": "shopify://files/videos/ea3422017130412b964295d4f8b43e2f.HD-1080p-7.2Mbps-26127516_086009ac-ed59-4270-884f-b89e899ac9b6.mp4",
+        "video_url": "",
+        "video_loop": true,
+        "media_border_radius": 12,
+        "button_label": "Learn More",
+        "button_link": "",
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "heading_color": "#000000",
+        "button_bg_color": "#ff4500",
+        "button_text_color": "#ffffff",
+        "button_hover_color": "#000000",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
+    },
+    "client_testimonials_f3KhQy": {
+      "type": "client-testimonials",
+      "blocks": {
+        "testimonial_yVyERq": {
+          "type": "testimonial",
+          "settings": {
+            "logo": "shopify://shop_images/bodybio.webp",
+            "company_name": "BODYBIO",
+            "quote_title": "We literally would not be where we are today if it weren't for Conspire.",
+            "quote_text": "We literally would not be where we are today if it weren't for Conspire. I cannot recommend them enough - they are attentive, highly professional, excellent communicators, quickly responsive, and beyond helpful with their website strategy and development skills.",
+            "rating": 5,
+            "rating_label": "5 STAR REVIEW",
+            "years_partnered": "6+"
+          }
+        },
+        "testimonial_zqfpR8": {
+          "type": "testimonial",
+          "settings": {
+            "logo": "shopify://shop_images/tillamook.avif",
+            "company_name": "TILLAMOOK COUNTRY SMOKER JERKY",
+            "quote_title": "Strategic thought partners who come with ideas and insight",
+            "quote_text": "Conspire has done a great job overhauling and maintaining our brand website. Not only have they consistently and efficiently delivered, but they are strategic thought partners who come with ideas and insight on how to grow my DTC business.",
+            "rating": 5,
+            "rating_label": "5 STAR REVIEW",
+            "years_partnered": "6+"
+          }
+        },
+        "testimonial_eBHxfK": {
+          "type": "testimonial",
+          "settings": {
+            "company_name": "SIMMS FISHING",
+            "quote_title": "I'd trust them with any size project and highly recommend.",
+            "quote_text": "Super helpful and provided a solution where some others could not. We will definitely be working again together. I'd trust them with any size project and highly recommend.",
+            "rating": 5,
+            "rating_label": "5 STARS REVIEW",
+            "years_partnered": "4+"
+          }
+        },
+        "testimonial_ehTbe7": {
+          "type": "testimonial",
+          "settings": {
+            "company_name": "COUSINS MAINE LOBSTER",
+            "quote_title": "Creative to the core and relentlessly solution-focused",
+            "quote_text": "The Conspire team is always a pleasure to work with. They are creative to the core and relentlessly solution-focused, and always approach complex challenges with enthusiasm.",
+            "rating": 5,
+            "rating_label": "5 STAR REVIEW",
+            "years_partnered": "5+"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_yVyERq",
+        "testimonial_zqfpR8",
+        "testimonial_eBHxfK",
+        "testimonial_ehTbe7"
+      ],
+      "name": "Client Testimonials",
+      "settings": {
+        "subheading": "RELIABLE, SEASONED AND PROFESSIONAL",
+        "heading": "What our clients say",
+        "card_border_radius": 12,
+        "bg_color": "#0a0a0a",
+        "text_color": "#ffffff",
+        "heading_color": "#ffffff",
+        "card_bg_color": "#1f1f1f",
+        "card_border_color": "#222222",
+        "accent_color": "#ff4500",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "case_studies_rjJtVQ": {
+      "type": "case-studies",
+      "blocks": {
+        "case_study_QWHnTb": {
+          "type": "case_study",
+          "settings": {
+            "title": "Zia Tile",
+            "video": "shopify://files/videos/d89bd037a1c2419e9a4684a32f2a6dbe.mp4",
+            "link": ""
+          }
+        },
+        "case_study_ezr7Ka": {
+          "type": "case_study",
+          "settings": {
+            "title": "Cousins Maine Lobster",
+            "link": ""
+          }
+        },
+        "case_study_VhwQnL": {
+          "type": "case_study",
+          "settings": {
+            "title": "Nature's Answer",
+            "link": ""
+          }
+        },
+        "case_study_DFXkrq": {
+          "type": "case_study",
+          "settings": {
+            "title": "Kinto",
+            "link": ""
+          }
+        },
+        "case_study_hy88zf": {
+          "type": "case_study",
+          "settings": {
+            "title": "Portola Paints",
+            "link": ""
+          }
+        },
+        "case_study_G9pkHp": {
+          "type": "case_study",
+          "settings": {
+            "title": "Level",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "case_study_QWHnTb",
+        "case_study_ezr7Ka",
+        "case_study_VhwQnL",
+        "case_study_DFXkrq",
+        "case_study_hy88zf",
+        "case_study_G9pkHp"
+      ],
+      "name": "Case Studies",
+      "settings": {
+        "subheading": "100+ COMPLETED PROJECTS",
+        "heading": "Our case studies",
+        "button_label": "View More",
+        "button_link": "",
+        "card_border_radius": 8,
+        "bg_color": "#0a0a0a",
+        "text_color": "#ffffff",
+        "heading_color": "#ffffff",
+        "card_bg_color": "#141414",
+        "card_border_color": "#222222",
+        "accent_color": "#ff4500",
+        "button_bg_color": "#ff4500",
+        "button_text_color": "#ffffff",
+        "button_hover_color": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "services_grid_KTTRD9": {
+      "type": "services-grid",
+      "blocks": {
+        "service_kWwKTx": {
+          "type": "service",
+          "settings": {
+            "title": "ShopifyeCommerce Websites",
+            "description": "We design and develop Shopify websites engineered for growth. By focusing on customer trust and intuitive user journeys, we turn visitors into buyers. Our builds ensure your brand doesn't just blend it, but stands out with a unique, professional shopping experience.",
+            "video": "shopify://files/videos/ea3422017130412b964295d4f8b43e2f.HD-1080p-7.2Mbps-26127516_086009ac-ed59-4270-884f-b89e899ac9b6.mp4"
+          }
+        },
+        "service_bQ8PmD": {
+          "type": "service",
+          "settings": {
+            "title": "Shopify\nGrowth & Support Teams",
+            "description": "Hire your super employees. Our Los Angeles-based team of Shopify specialists brings together design, development, CRO, and strategy under one roof. Reliable support, rapid fixes, and a dedicated partner for minor updates to major overhauls."
+          }
+        },
+        "service_wm4tWU": {
+          "type": "service",
+          "settings": {
+            "title": "Shopify\nApplications",
+            "description": "Powering hundreds of millions of dollars in annual revenue. From complex private applications to public applications used by hundreds of stores - we've done it all. We know how to build applications that scale."
+          }
+        }
+      },
+      "block_order": [
+        "service_kWwKTx",
+        "service_bQ8PmD",
+        "service_wm4tWU"
+      ],
+      "name": "Services Grid",
+      "settings": {
+        "subheading": "Specializing in Shopify since 2011",
+        "heading": "Our services",
+        "header_heading_color": "#000000",
+        "header_subheading_color": "#000000",
+        "card_border_radius": 12,
+        "bg_color": "#ffffff",
+        "text_color": "#ffffff",
+        "heading_color": "#ffffff",
+        "card_bg_color": "#141414",
+        "card_border_color": "#222222",
+        "accent_color": "#ff4500",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "cta_calendly_8wUfJ8": {
+      "type": "cta-calendly",
+      "name": "CTA Calendly",
+      "settings": {
+        "heading": "Ready to grow your business?",
+        "description": "To discuss your project please select a convenient date & time for you and we will contact you!",
+        "image": "shopify://shop_images/omre-main-image.webp",
+        "badge_image": "shopify://shop_images/shopify-plus.avif",
+        "calendly_url": "",
+        "overlay_color": "#000000",
+        "overlay_opacity_left": 82,
+        "overlay_opacity_mid": 55,
+        "overlay_opacity_right": 30,
+        "border_radius": 16,
+        "bg_color": "#ffffff",
+        "text_color": "#ffffff",
+        "heading_color": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "shopify_apps_EA88rh": {
+      "type": "shopify-apps",
+      "blocks": {
+        "app_EhT8BC": {
+          "type": "app",
+          "settings": {
+            "title": "B2B Wholesale On Any Shopify Plan",
+            "showcase_image": "shopify://shop_images/wholesale-shopify-app.webp",
+            "app_icon": "shopify://shop_images/image-51.avif",
+            "app_name": "Wholesale GOAT: B2B Pricing",
+            "app_meta": "⭐ 4.9 · Free plan available",
+            "app_description": "We understand that Shopify Plus can be an expensive upgrade, especially if you just need a B2B solution. That's why we developed an app that works seamlessly with any Shopify plan.",
+            "app_link": ""
+          }
+        },
+        "app_fBABpr": {
+          "type": "app",
+          "settings": {
+            "title": "Subscriptions, Loyalty, Upsells & Bundles",
+            "showcase_image": "shopify://shop_images/bonde-subscriptions-1.webp",
+            "app_icon": "shopify://shop_images/Bonde-Logo.avif",
+            "app_name": "Bonde: Subscriptions & Upsells",
+            "app_meta": "⭐ 4.8 · Free plan available",
+            "app_description": "Turn purchases into lifelong habits. Bonde is a growth suite designed for Shopify merchants. Bonde helps you create seamless customer connections through flexible subscriptions and intelligent upsells.",
+            "app_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_EhT8BC",
+        "app_fBABpr"
+      ],
+      "name": "Shopify Apps",
+      "settings": {
+        "heading": "Our Shopify Apps",
+        "button_label": "Contact Us",
+        "button_link": "",
+        "store_badge_image": "shopify://shop_images/image-59.avif",
+        "store_badge_link": "#",
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "heading_color": "#000000",
+        "accent_color": "#ff4500",
+        "divider_color": "#e5e5e5",
+        "button_bg_color": "#ff4500",
+        "button_text_color": "#ffffff",
+        "button_hover_color": "#000000",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "blog_posts_qUBAgJ": {
+      "type": "blog-posts",
+      "name": "Blog Posts",
+      "settings": {
+        "heading": "Scale & Shopify Blog",
+        "blog": "",
+        "posts_count": 3,
+        "button_label": "View All",
+        "card_border_radius": 12,
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "heading_color": "#000000",
+        "card_bg_color": "#ffffff",
+        "accent_color": "#ff4500",
+        "button_bg_color": "#ff4500",
+        "button_text_color": "#ffffff",
+        "button_hover_color": "#000000",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "faq_accordion_gXDU3w": {
+      "type": "faq-accordion",
+      "blocks": {
+        "category_paNhmw": {
+          "type": "category",
+          "settings": {
+            "title": "Shopify Development & Migration",
+            "subtitle": "Everything you need to know about our Shopify website development and migration services"
+          }
+        },
+        "question_HcagL8": {
+          "type": "question",
+          "settings": {
+            "question": "What results can I expect?",
+            "answer": "<p>In order to scale as a brand, you need to be able to reliably scale your ad spend. What's the point of spending all that money to go to a site that doesn't convert like it should?</p><p>So - in order to scale, you need a website that converts. Customer Trust and Customer Journey are the two pillars we focus on to produce results.</p>"
+          }
+        },
+        "question_Dh8XNF": {
+          "type": "question",
+          "settings": {
+            "question": "What kinds of clients do you work with?",
+            "answer": "<p>In order to scale as a brand, you need to be able to reliably scale your ad spend. What's the point of spending all that money to go to a site that doesn't convert like it should?</p><p>So - in order to scale, you need a website that converts. Customer Trust and Customer Journey are the two pillars we focus on to produce results.</p>"
+          }
+        },
+        "question_WamxEh": {
+          "type": "question",
+          "settings": {
+            "question": "What is a Shopify Plus partner agency?",
+            "answer": "<p>In order to scale as a brand, you need to be able to reliably scale your ad spend. What's the point of spending all that money to go to a site that doesn't convert like it should?</p><p>So - in order to scale, you need a website that converts. Customer Trust and Customer Journey are the two pillars we focus on to produce results.</p>"
+          }
+        },
+        "question_BUiPYU": {
+          "type": "question",
+          "settings": {
+            "question": "How long does migration & Shopify website development take?",
+            "answer": "<p>In order to scale as a brand, you need to be able to reliably scale your ad spend. What's the point of spending all that money to go to a site that doesn't convert like it should?</p><p>So - in order to scale, you need a website that converts. Customer Trust and Customer Journey are the two pillars we focus on to produce results.</p>"
+          }
+        },
+        "question_JTD3QC": {
+          "type": "question",
+          "settings": {
+            "question": "Do I need Shopify Plus for my business?",
+            "answer": "<p>In order to scale as a brand, you need to be able to reliably scale your ad spend. What's the point of spending all that money to go to a site that doesn't convert like it should?</p><p>So - in order to scale, you need a website that converts. Customer Trust and Customer Journey are the two pillars we focus on to produce results.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "category_paNhmw",
+        "question_HcagL8",
+        "question_Dh8XNF",
+        "question_WamxEh",
+        "question_BUiPYU",
+        "question_JTD3QC"
+      ],
+      "name": "FAQ Accordion",
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "description": "Get answers to common questions about our Los Angeles-based Shopify development, migration, and CRO services",
+        "single_open": true,
+        "bg_color": "#0a0a0a",
+        "text_color": "#ffffff",
+        "heading_color": "#ffffff",
+        "accent_color": "#ff4500",
+        "divider_color": "#222222",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "hero_banner_ahpkxR",
+    "logo_carousel_U99TaY",
+    "agency_intro_3AiiBK",
+    "client_testimonials_f3KhQy",
+    "case_studies_rjJtVQ",
+    "services_grid_KTTRD9",
+    "cta_calendly_8wUfJ8",
+    "shopify_apps_EA88rh",
+    "blog_posts_qUBAgJ",
+    "faq_accordion_gXDU3w"
   ]
 }

@@ -1,0 +1,466 @@
+{%- liquid
+  assign overlay_alpha_left = section.settings.overlay_opacity_left | divided_by: 100.0
+  assign overlay_alpha_mid = section.settings.overlay_opacity_mid | divided_by: 100.0
+  assign overlay_alpha_right = section.settings.overlay_opacity_right | divided_by: 100.0
+-%}
+
+{%- style -%}
+  #CtaCalendly-{{ section.id }} {
+    --cta-bg: {{ section.settings.bg_color }};
+    --cta-text: {{ section.settings.text_color }};
+    --cta-heading-color: {{ section.settings.heading_color }};
+    --cta-card-radius: {{ section.settings.border_radius }}px;
+    --cta-overlay-start: {{ section.settings.overlay_color | color_modify: 'alpha', overlay_alpha_left }};
+    --cta-overlay-mid: {{ section.settings.overlay_color | color_modify: 'alpha', overlay_alpha_mid }};
+    --cta-overlay-end: {{ section.settings.overlay_color | color_modify: 'alpha', overlay_alpha_right }};
+    --cta-pt: {{ section.settings.padding_top }}px;
+    --cta-pb: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #CtaCalendly-{{ section.id }} {
+      --cta-pt: {{ section.settings.padding_top | times: 0.7 | round }}px;
+      --cta-pb: {{ section.settings.padding_bottom | times: 0.7 | round }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="CtaCalendly-{{ section.id }}" class="cta-calendly">
+  <div class="cta-calendly__padding">
+    <div class="cta-calendly__inner page-width">
+      <div class="cta-calendly__wrapper">
+        {%- comment -%} Full background image {%- endcomment -%}
+        <div class="cta-calendly__bg-media">
+          {%- if section.settings.image != blank -%}
+            {{
+              section.settings.image
+              | image_url: width: 1920
+              | image_tag:
+                loading: 'lazy',
+                widths: '375, 750, 960, 1200, 1920',
+                sizes: '100vw',
+                alt: section.settings.image.alt
+              | default: 'CTA background'
+            }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Overlay for readability {%- endcomment -%}
+        <div class="cta-calendly__overlay">&nbsp;</div>
+
+        {%- comment -%} Content layer {%- endcomment -%}
+        <div class="cta-calendly__content">
+          {%- comment -%} Left: Text top + Badge bottom {%- endcomment -%}
+          <div class="cta-calendly__left">
+            <div class="cta-calendly__text">
+              {%- if section.settings.heading != blank -%}
+                <h2 class="cta-calendly__heading">{{ section.settings.heading }}</h2>
+              {%- endif -%}
+              {%- if section.settings.description != blank -%}
+                <p class="cta-calendly__description">{{ section.settings.description }}</p>
+              {%- endif -%}
+            </div>
+
+            {%- if section.settings.badge_image != blank -%}
+              <div class="cta-calendly__badge">
+                {{
+                  section.settings.badge_image
+                  | image_url: width: 160
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '80, 120, 160',
+                    sizes: '7rem',
+                    alt: section.settings.badge_image.alt
+                  | default: 'Badge'
+                }}
+              </div>
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} Right: Calendly widget {%- endcomment -%}
+          <div class="cta-calendly__right">
+            {%- if section.settings.calendly_url != blank -%}
+              <div class="cta-calendly__embed">
+                <iframe
+                  src="{{ section.settings.calendly_url }}"
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  title="Schedule a meeting"
+                  loading="lazy"
+                ></iframe>
+              </div>
+            {%- else -%}
+              <div class="cta-calendly__placeholder">
+                <p>Add your Calendly URL in section settings</p>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cta-calendly {
+    background-color: var(--cta-bg, #0a0a0a);
+    color: var(--cta-text, #ffffff);
+  }
+
+  .cta-calendly__padding {
+    padding-top: var(--cta-pt, 80px);
+    padding-bottom: var(--cta-pb, 80px);
+  }
+
+  /* Wrapper: contains bg image + content */
+  .cta-calendly__wrapper {
+    position: relative;
+    border-radius: var(--cta-card-radius, 16px);
+    overflow: hidden;
+    min-height: 44rem;
+  }
+
+  /* Full background image */
+  .cta-calendly__bg-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .cta-calendly__bg-media img,
+  .cta-calendly__bg-media .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Overlay */
+  .cta-calendly__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to right,
+      var(--cta-overlay-start) 0%,
+      var(--cta-overlay-mid) 50%,
+      var(--cta-overlay-end) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Content grid */
+  .cta-calendly__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    padding: 3.2rem 2.4rem;
+    min-height: 44rem;
+  }
+
+  /* Left column: text top, badge bottom */
+  .cta-calendly__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    flex: 1;
+  }
+
+  .cta-calendly__text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .cta-calendly__heading {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--cta-heading-color, #ffffff);
+    letter-spacing: -0.02em;
+    max-width: 40rem;
+  }
+
+  .cta-calendly__description {
+    font-size: 2rem;
+    line-height: 1.6;
+    margin: 0;
+    {% comment %} opacity: 0.8; {% endcomment %}
+    max-width: 38rem;
+  }
+
+  .cta-calendly__badge {
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    bottom: 10px;
+}
+
+  .cta-calendly__badge img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Right: Calendly embed */
+  .cta-calendly__right {
+    width: 100%;
+  }
+
+  .cta-calendly__embed {
+    width: 100%;
+    height: 38rem;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .cta-calendly__embed iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .cta-calendly__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    font-size: 1.4rem;
+    opacity: 0.5;
+  }
+
+  /* ============ TABLET+ (750px) ============ */
+  @media screen and (min-width: 750px) {
+    .cta-calendly__wrapper {
+      min-height: 50rem;
+    }
+
+    .cta-calendly__content {
+      flex-direction: row;
+      align-items: stretch;
+      padding: 4rem 3.6rem;
+      min-height: 50rem;
+      gap: 3.2rem;
+    }
+
+    .cta-calendly__left {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cta-calendly__heading {
+      font-size: 3.4rem;
+    }
+
+    .cta-calendly__right {
+      flex: 0 0 42%;
+      max-width: 42%;
+      display: flex;
+      align-items: center;
+    }
+
+    .cta-calendly__embed {
+      height: 100%;
+      min-height: 42rem;
+    }
+  }
+
+  /* ============ DESKTOP (990px) ============ */
+  @media screen and (min-width: 990px) {
+    .cta-calendly__content {
+      padding: 4.8rem 4.8rem;
+    }
+
+    .cta-calendly__heading {
+      font-size: 4.8rem;
+    }
+
+    .cta-calendly__description {
+      font-size: 1.5rem;
+    }
+
+    .cta-calendly__badge {
+    width: 140px;
+    height: 140px;
+    position: relative;
+    
+}
+
+    .cta-calendly__right {
+      flex: 0 0 38%;
+      max-width: 38%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "CTA Calendly",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ready to grow your business?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "To discuss your project please select a convenient date & time for you and we will contact you!"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Covers the entire section. Recommended: 1920x900px"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge / sticker image",
+      "info": "Positioned at bottom-left. Recommended: 160x160px"
+    },
+    {
+      "type": "header",
+      "content": "Calendly"
+    },
+    {
+      "type": "url",
+      "id": "calendly_url",
+      "label": "Calendly embed URL",
+      "info": "Paste your Calendly scheduling page URL (e.g. https://calendly.com/yourname)"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity_left",
+      "label": "Overlay opacity (left / text side)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 82
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity_mid",
+      "label": "Overlay opacity (middle)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity_right",
+      "label": "Overlay opacity (right / calendly side)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Container border radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA Calendly"
+    }
+  ]
+}
+{% endschema %}

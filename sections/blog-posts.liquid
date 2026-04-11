@@ -1,0 +1,467 @@
+{%- style -%}
+  #BlogPosts-{{ section.id }} {
+    --blog-bg: {{ section.settings.bg_color }};
+    --blog-text: {{ section.settings.text_color }};
+    --blog-heading-color: {{ section.settings.heading_color }};
+    --blog-card-bg: {{ section.settings.card_bg_color }};
+    --blog-accent: {{ section.settings.accent_color }};
+    --blog-btn-bg: {{ section.settings.button_bg_color }};
+    --blog-btn-text: {{ section.settings.button_text_color }};
+    --blog-btn-hover-bg: {{ section.settings.button_hover_color }};
+    --blog-card-radius: {{ section.settings.card_border_radius }}px;
+    --blog-pt: {{ section.settings.padding_top }}px;
+    --blog-pb: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #BlogPosts-{{ section.id }} {
+      --blog-pt: {{ section.settings.padding_top | times: 0.7 | round }}px;
+      --blog-pb: {{ section.settings.padding_bottom | times: 0.7 | round }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign blog = blogs[section.settings.blog]
+  assign posts_count = section.settings.posts_count
+-%}
+
+<div id="BlogPosts-{{ section.id }}" class="blog-posts-section">
+  <div class="blog-posts-section__padding">
+    <div class="blog-posts-section__inner page-width">
+      {%- comment -%} Header {%- endcomment -%}
+      <div class="blog-posts-section__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="blog-posts-section__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a
+            {% if blog %}
+              href="{{ blog.url }}"
+            {% else %}
+              role="link" aria-disabled="true"
+            {% endif %}
+            class="blog-posts-section__header-btn"
+          >
+            <span>{{ section.settings.button_label | escape }}</span>
+            <span class="blog-posts-section__header-btn-icon" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </span>
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Posts Grid {%- endcomment -%}
+      <div class="blog-posts-section__grid">
+        {%- if blog != blank -%}
+          {%- for article in blog.articles limit: posts_count -%}
+            <article class="blog-posts-section__card">
+              {%- if article.image != blank -%}
+                <a href="{{ article.url }}" class="blog-posts-section__card-media">
+                  {{
+                    article.image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '300, 500, 600, 800',
+                      sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw',
+                      alt: article.image.alt
+                    | default: article.title
+                  }}
+                </a>
+              {%- endif -%}
+
+              <div class="blog-posts-section__card-content">
+                <span class="blog-posts-section__card-date">
+                  {{ article.published_at | date: '%b %d, %Y' }}
+                </span>
+
+                <h3 class="blog-posts-section__card-title">
+                  <a href="{{ article.url }}">{{ article.title }}</a>
+                </h3>
+
+                {%- if article.excerpt_or_content != blank -%}
+                  <p class="blog-posts-section__card-excerpt">
+                    {{ article.excerpt_or_content | strip_html | truncatewords: 25 }}
+                  </p>
+                {%- endif -%}
+
+                <a href="{{ article.url }}" class="blog-posts-section__card-link"> Read more </a>
+              </div>
+            </article>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..posts_count) -%}
+            <article class="blog-posts-section__card">
+              <div class="blog-posts-section__card-media blog-posts-section__card-media--placeholder">
+                {{ 'blog-apparel-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="blog-posts-section__card-content">
+                <span class="blog-posts-section__card-date">Jan 01, 2026</span>
+                <h3 class="blog-posts-section__card-title">Blog post title</h3>
+                <p class="blog-posts-section__card-excerpt">
+                  This is a placeholder blog post excerpt. Select a blog in section settings to display real articles.
+                </p>
+                <span class="blog-posts-section__card-link">Read more</span>
+              </div>
+            </article>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .blog-posts-section {
+    background-color: var(--blog-bg, #ffffff);
+    color: var(--blog-text, #1a1a1a);
+  }
+
+  .blog-posts-section__padding {
+    padding-top: var(--blog-pt, 80px);
+    padding-bottom: var(--blog-pb, 80px);
+  }
+
+  .blog-posts-section__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+  }
+
+  /* Header */
+  .blog-posts-section__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .blog-posts-section__heading {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--blog-heading-color, #000000);
+    letter-spacing: -0.02em;
+  }
+
+  .blog-posts-section__header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0.6rem 0.6rem 2rem;
+    border-radius: 100px;
+    background-color: var(--blog-btn-bg, #ff4500);
+    color: var(--blog-btn-text, #ffffff);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    transition: color 0.4s ease;
+  }
+
+  .blog-posts-section__header-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--blog-btn-hover-bg, #000000);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    border-radius: inherit;
+  }
+
+  .blog-posts-section__header-btn:hover::before {
+    transform: translateY(0);
+  }
+
+  .blog-posts-section__header-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    {% comment %} background-color: rgba(255, 255, 255, 0.2); {% endcomment %}
+  }
+
+  .blog-posts-section__header-btn-icon svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  /* Grid */
+  .blog-posts-section__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+
+  /* Card */
+  .blog-posts-section__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background-color: var(--blog-card-bg, #ffffff);
+    border-radius: var(--blog-card-radius, 12px);
+    overflow: hidden;
+  }
+
+  .blog-posts-section__card-media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    display: block;
+  }
+
+  .blog-posts-section__card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .blog-posts-section__card:hover .blog-posts-section__card-media img {
+    transform: scale(1.04);
+  }
+
+  .blog-posts-section__card-media--placeholder {
+    background: #f0f0f0;
+  }
+
+  .blog-posts-section__card-media .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .blog-posts-section__card-content {
+    padding: 2rem 0.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .blog-posts-section__card-date {
+    font-size: 1.1rem;
+    opacity: 0.45;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .blog-posts-section__card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0;
+    color: var(--blog-heading-color, #000000);
+  }
+
+  .blog-posts-section__card-title a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .blog-posts-section__card-excerpt {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.6;
+  }
+
+  .blog-posts-section__card-link {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--blog-accent, #ff4500);
+    text-decoration: none;
+    margin-top: 0.4rem;
+    transition: opacity 0.3s ease;
+  }
+
+  .blog-posts-section__card-link:hover {
+    opacity: 0.7;
+  }
+
+  @media screen and (min-width: 750px) {
+    .blog-posts-section__heading {
+      font-size: 3.6rem;
+    }
+
+    .blog-posts-section__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .blog-posts-section__heading {
+      font-size: 4.2rem;
+    }
+
+    .blog-posts-section__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .blog-posts-section__card-title {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Blog Posts",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Scale & Shopify Blog"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "posts_count",
+      "label": "Number of posts",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View All"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / link color",
+      "default": "#ff4500"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#ff4500"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Posts"
+    }
+  ]
+}
+{% endschema %}

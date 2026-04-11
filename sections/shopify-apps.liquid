@@ -1,0 +1,628 @@
+{%- style -%}
+  #ShopifyApps-{{ section.id }} {
+    --apps-bg: {{ section.settings.bg_color }};
+    --apps-text: {{ section.settings.text_color }};
+    --apps-heading-color: {{ section.settings.heading_color }};
+    --apps-accent: {{ section.settings.accent_color }};
+    --apps-divider: {{ section.settings.divider_color }};
+    --apps-btn-bg: {{ section.settings.button_bg_color }};
+    --apps-btn-text: {{ section.settings.button_text_color }};
+    --apps-btn-hover-bg: {{ section.settings.button_hover_color }};
+    --apps-pt: {{ section.settings.padding_top }}px;
+    --apps-pb: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #ShopifyApps-{{ section.id }} {
+      --apps-pt: {{ section.settings.padding_top | times: 0.7 | round }}px;
+      --apps-pb: {{ section.settings.padding_bottom | times: 0.7 | round }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="ShopifyApps-{{ section.id }}" class="shopify-apps">
+  <div class="shopify-apps__padding">
+    <div class="shopify-apps__inner page-width">
+      {%- comment -%} Header {%- endcomment -%}
+      <div class="shopify-apps__header">
+        <div class="shopify-apps__header-left">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="shopify-apps__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+        </div>
+        <div class="shopify-apps__header-right">
+          {%- if section.settings.button_label != blank -%}
+            <a
+              {% if section.settings.button_link != blank %}
+                href="{{ section.settings.button_link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              class="shopify-apps__header-btn"
+            >
+              <span>{{ section.settings.button_label | escape }}</span>
+              <span class="shopify-apps__header-btn-icon" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </span>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.store_badge_image != blank -%}
+            <div class="shopify-apps__store-badge">
+              {%- if section.settings.store_badge_link != blank -%}
+                <a href="{{ section.settings.store_badge_link }}" target="_blank" rel="noopener noreferrer">
+              {%- endif -%}
+              {{
+                section.settings.store_badge_image
+                | image_url: width: 300
+                | image_tag: loading: 'lazy', widths: '150, 200, 300', sizes: '14rem', alt: 'Shopify App Store'
+              }}
+              {%- if section.settings.store_badge_link != blank -%}</a>{%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} App Blocks {%- endcomment -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="shopify-apps__list">
+          {%- for block in section.blocks -%}
+            <div class="shopify-apps__item" {{ block.shopify_attributes }}>
+              <div class="shopify-apps__item-header">
+                <span class="shopify-apps__item-slash">//</span>
+                {%- if block.settings.title != blank -%}
+                  <h3 class="shopify-apps__item-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+              </div>
+
+              <div class="shopify-apps__item-content">
+                {%- comment -%} Left: App showcase image {%- endcomment -%}
+                <div class="shopify-apps__item-media">
+                  {%- if block.settings.showcase_image != blank -%}
+                    {{
+                      block.settings.showcase_image
+                      | image_url: width: 800
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '300, 500, 600, 800',
+                        sizes: '(min-width: 750px) 40vw, 90vw',
+                        alt: block.settings.showcase_image.alt
+                      | default: block.settings.title
+                    }}
+                  {%- else -%}
+                    {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </div>
+
+                {%- comment -%} Right: App store listing info {%- endcomment -%}
+                <div class="shopify-apps__item-info">
+                  <div class="shopify-apps__item-icon">
+                      {%- if block.settings.app_icon != blank -%}
+                      {{
+                        block.settings.app_icon
+                        | image_url: width: 100
+                        | image_tag: loading: 'lazy', widths: '50, 80, 100', sizes: '4rem', alt: block.settings.title
+                      }}
+                    {%- endif -%}
+                    <div class="shopify-apps__item-meta-details">
+                      {%- if block.settings.app_name != blank -%}
+                    <h4 class="shopify-apps__item-name">{{ block.settings.app_name }}</h4>
+                  {%- endif -%}
+
+                  {%- if block.settings.app_meta != blank -%}
+                    <span class="shopify-apps__item-meta">{{ block.settings.app_meta }}</span>
+                  {%- endif -%}
+
+                      </div>
+                    </div>
+
+
+                  
+
+                  {%- if block.settings.app_description != blank -%}
+                    <p class="shopify-apps__item-desc">{{ block.settings.app_description }}</p>
+                  {%- endif -%}
+
+                  {%- if block.settings.app_link != blank -%}
+                    <a
+                      href="{{ block.settings.app_link }}"
+                      class="shopify-apps__item-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View on Shopify App Store →
+                    </a>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .shopify-apps {
+    background-color: var(--apps-bg, #ffffff);
+    color: var(--apps-text, #1a1a1a);
+  }
+
+  .shopify-apps__padding {
+    padding-top: var(--apps-pt, 80px);
+    padding-bottom: var(--apps-pb, 80px);
+  }
+
+  .shopify-apps__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  /* Header */
+  .shopify-apps__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 2rem;
+  }
+
+  .shopify-apps__heading {
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--apps-heading-color, #000000);
+    letter-spacing: -0.02em;
+  }
+
+  .shopify-apps__header-right {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .shopify-apps__header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 12px 20px;
+    border-radius: 100px;
+    background-color: var(--apps-btn-bg, #ff4500);
+    color: var(--apps-btn-text, #ffffff);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    transition: color 0.4s ease;
+    display:none;
+  }
+
+  .shopify-apps__header-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--apps-btn-hover-bg, #000000);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    border-radius: inherit;
+  }
+
+  .shopify-apps__header-btn:hover::before {
+    transform: translateY(0);
+  }
+
+  .shopify-apps__header-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    {% comment %} background-color: rgba(255, 255, 255, 0.2); {% endcomment %}
+  }
+
+  .shopify-apps__header-btn-icon svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .shopify-apps__store-badge {
+    height: 3.6rem;
+    border-radius:100px;
+  }
+ 
+
+  .shopify-apps__store-badge img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    border-radius:100px;
+  }
+
+  /* App List */
+  .shopify-apps__list {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  /* App Item */
+  .shopify-apps__item {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid var(--apps-divider, #e5e5e5);
+  }
+
+  .shopify-apps__item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .shopify-apps__item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .shopify-apps__item-slash {
+    color: var(--apps-accent, #ff4500);
+    font-weight: 800;
+    font-size: 1.6rem;
+  }
+
+  .shopify-apps__item-title {
+    font-size: 2.4rem;
+    font-weight: 300;
+    margin: 0;
+    color: var(--apps-heading-color, #000000);
+    line-height: -.02em;
+  }
+
+  .shopify-apps__item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  .shopify-apps__item-media {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .shopify-apps__item-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .shopify-apps__item-media .placeholder-svg {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+  }
+
+  .shopify-apps__item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  .shopify-apps__item-icon {
+    
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .shopify-apps__item-icon img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border-radius:12px;
+  }
+
+  .shopify-apps__item-name {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 0;
+    color: var(--apps-heading-color, #1a1a1a);
+  }
+  .shopify-apps__item-meta{
+    display: flex;
+  flex-direction: column;
+  gap: 12px;
+  }
+
+  .shopify-apps__item-meta {
+    font-size: 1.4rem;
+    color: #979797;
+    font-weight:500;
+    {% comment %} opacity: 0.5; {% endcomment %}
+  }
+
+  .shopify-apps__item-desc {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    margin: 0;
+    color: #979797;
+  }
+
+  .shopify-apps__item-link {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--apps-accent, #ff4500);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .shopify-apps__item-link:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (min-width: 750px) {
+    .shopify-apps__heading {
+      font-size: 3.6rem;
+    }
+
+    .shopify-apps__item-content {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 3.2rem;
+    }
+
+    .shopify-apps__item-media {
+      flex: 0 0 45%;
+      max-width: 45%;
+    }
+
+    .shopify-apps__item-info {
+      flex: 1;
+      padding-top: 0.4rem;
+      gap:24px;
+    }
+
+    .shopify-apps__item-title {
+      font-size: 2.4rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .shopify-apps__heading {
+      font-size: 4.8rem;
+    }
+
+    .shopify-apps__item-desc {
+      font-size: 1.8rem;
+    }
+    .shopify-apps__header-btn{
+      display:block;
+    }
+     .shopify-apps__store-badge a{
+    padding: 4px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Shopify Apps",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Shopify Apps"
+    },
+    {
+      "type": "header",
+      "content": "Header button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "store_badge_image",
+      "label": "App Store badge image",
+      "info": "E.g. Shopify App Store badge"
+    },
+    {
+      "type": "url",
+      "id": "store_badge_link",
+      "label": "App Store badge link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff4500"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#ff4500"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "app",
+      "name": "App",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section title",
+          "default": "B2B Wholesale On Any Shopify Plan"
+        },
+        {
+          "type": "image_picker",
+          "id": "showcase_image",
+          "label": "Showcase image",
+          "info": "Marketing image for the app. Recommended: 800x500px"
+        },
+        {
+          "type": "image_picker",
+          "id": "app_icon",
+          "label": "App icon",
+          "info": "App store icon. Recommended: 100x100px"
+        },
+        {
+          "type": "text",
+          "id": "app_name",
+          "label": "App name",
+          "default": "Wholesale GOAT: B2B Pricing"
+        },
+        {
+          "type": "text",
+          "id": "app_meta",
+          "label": "App meta info",
+          "default": "⭐ 4.9 · Free plan available"
+        },
+        {
+          "type": "textarea",
+          "id": "app_description",
+          "label": "App description",
+          "default": "We understand that Shopify Plus can be an expensive upgrade, especially if you just need a B2B solution. That's why we developed an app that works seamlessly with any Shopify plan."
+        },
+        {
+          "type": "url",
+          "id": "app_link",
+          "label": "App Store link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shopify Apps",
+      "blocks": [
+        {
+          "type": "app",
+          "settings": {
+            "title": "B2B Wholesale On Any Shopify Plan",
+            "app_name": "Wholesale GOAT: B2B Pricing",
+            "app_meta": "⭐ 4.9 · Free plan available",
+            "app_description": "We understand that Shopify Plus can be an expensive upgrade, especially if you just need a B2B solution. That's why we developed an app that works seamlessly with any Shopify plan."
+          }
+        },
+        {
+          "type": "app",
+          "settings": {
+            "title": "Subscriptions, Loyalty, Upsells & Bundles",
+            "app_name": "Bonde: Subscriptions & Upsells",
+            "app_meta": "⭐ 4.8 · Free plan available",
+            "app_description": "Turn purchases into lifelong habits. Bonde is a growth suite designed for Shopify merchants. Bonde helps you create seamless customer connections through flexible subscriptions and intelligent upsells."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

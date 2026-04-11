@@ -25,6 +25,7 @@
       "block_order": [
         "announcement-bar-0"
       ],
+      "disabled": true,
       "settings": {
         "auto_rotate": false,
         "change_slides_speed": 5,
@@ -33,6 +34,20 @@
         "show_social": false,
         "enable_country_selector": false,
         "enable_language_selector": false
+      }
+    },
+    "marquee_bar_mRa4tj": {
+      "type": "marquee-bar",
+      "name": "Marquee Bar",
+      "settings": {
+        "text": "Official Shopify Plus Agency Partners|9 Figures In Revenue By Managed Merchants In 2025|Millions Of Customers Served By Our Websites & Apps Monthly",
+        "speed": 25,
+        "direction": "left",
+        "bg_color": "#ff4500",
+        "text_color": "#ffffff",
+        "dot_color": "#ffffff",
+        "padding_top": 10,
+        "padding_bottom": 10
       }
     },
     "header": {
@@ -44,7 +59,7 @@
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-3",
         "menu_color_scheme": "scheme-1",
         "enable_country_selector": true,
         "enable_language_selector": true,
@@ -57,6 +72,7 @@
   },
   "order": [
     "announcement-bar",
+    "marquee_bar_mRa4tj",
     "header"
   ]
 }

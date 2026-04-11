@@ -1,0 +1,125 @@
+/* ============================================
+   LOGO CAROUSEL - Infinite Smooth Marquee
+   ============================================ */
+
+.logo-carousel {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--logo-carousel-bg, #000000);
+  border-top: 1px solid var(--logo-carousel-border, rgba(255, 255, 255, 0.1));
+  border-bottom: 1px solid var(--logo-carousel-border, rgba(255, 255, 255, 0.1));
+}
+
+.logo-carousel__padding {
+  padding-top: var(--logo-carousel-pt, 20px);
+  padding-bottom: var(--logo-carousel-pb, 20px);
+}
+
+/* --- Marquee Track --- */
+.logo-carousel__track {
+  display: flex;
+  width: max-content;
+  animation: logoMarquee var(--logo-carousel-speed, 30s) linear infinite;
+  gap: var(--logo-carousel-gap, 6rem);
+  align-items: center;
+}
+
+.logo-carousel__track:hover {
+  animation-play-state: var(--logo-carousel-pause, running);
+}
+
+/* --- Individual Logo Item --- */
+.logo-carousel__item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--logo-carousel-height, 3.5rem);
+    opacity: var(--logo-carousel-opacity, .7);
+    transition: opacity .3s ease;
+    width: 225px;
+    height: 140px;
+    padding: 40px;
+    background-color: #1f1f1f;
+    border-radius: 24px;
+}
+
+.logo-carousel__item:hover {
+  opacity: 1;
+}
+
+.logo-carousel__item img {
+  height: 100%;
+  width: auto;
+  max-width: 16rem;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) invert(.6);
+}
+
+.logo-carousel__item svg,
+.logo-carousel__item .placeholder-svg {
+  height: 100%;
+  width: auto;
+  max-width: 12rem;
+  object-fit: contain;
+}
+
+/* --- Marquee Animation --- */
+@keyframes logoMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Reverse direction */
+.logo-carousel__track--reverse {
+  animation-direction: reverse;
+}
+
+/* --- Edge Fade (optional) --- */
+.logo-carousel--fade-edges::before,
+.logo-carousel--fade-edges::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logo-carousel--fade-edges::before {
+  left: 0;
+  background: linear-gradient(to right, var(--logo-carousel-bg, #000000), transparent);
+}
+
+.logo-carousel--fade-edges::after {
+  right: 0;
+  background: linear-gradient(to left, var(--logo-carousel-bg, #000000), transparent);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media screen and (max-width: 749px) {
+  .logo-carousel__item {
+    height: var(--logo-carousel-height-mobile, 2.5rem);
+            width: 150px;
+        height: 90px;
+        padding: 20px;
+        border-radius: 15px;
+  }
+
+  .logo-carousel__track {
+    gap: var(--logo-carousel-gap-mobile, 4rem);
+  }
+
+  .logo-carousel--fade-edges::before,
+  .logo-carousel--fade-edges::after {
+    width: 4rem;
+  }
+}

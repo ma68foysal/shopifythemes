@@ -11,8 +11,70 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "custom_footer_VWdKhf": {
+      "type": "custom-footer",
+      "blocks": {
+        "menu_column_6kn3yD": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Services",
+            "menu": "footer"
+          }
+        },
+        "menu_column_KLVrJN": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Information",
+            "menu": "footer"
+          }
+        },
+        "menu_column_TKKGAq": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Markets",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "menu_column_6kn3yD",
+        "menu_column_KLVrJN",
+        "menu_column_TKKGAq"
+      ],
+      "name": "Custom Footer",
+      "settings": {
+        "show_back_to_top": true,
+        "logo": "shopify://shop_images/themestudio-logo-black.svg",
+        "show_social": true,
+        "badge_image": "shopify://shop_images/shopify-plus-badge.svg",
+        "bg_color": "#121212",
+        "text_color": "#ffffff",
+        "heading_color": "#ffffff",
+        "link_hover_color": "#ff4500",
+        "divider_color": "#222222",
+        "back_to_top_bg": "#1a1a1a",
+        "back_to_top_text": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "marquee_bar_XeDkNy": {
+      "type": "marquee-bar",
+      "name": "Marquee Bar",
+      "settings": {
+        "text": "Official Shopify Plus Agency Partners|9 Figures In Revenue By Managed Merchants In 2025|Millions Of Customers Served By Our Websites & Apps Monthly",
+        "speed": 25,
+        "direction": "left",
+        "bg_color": "#ff4500",
+        "text_color": "#ffffff",
+        "dot_color": "#ffffff",
+        "padding_top": 10,
+        "padding_bottom": 10
+      }
+    },
     "footer": {
       "type": "footer",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
@@ -30,6 +92,8 @@
     }
   },
   "order": [
+    "custom_footer_VWdKhf",
+    "marquee_bar_XeDkNy",
     "footer"
   ]
 }

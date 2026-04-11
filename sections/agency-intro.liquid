@@ -1,0 +1,388 @@
+{{ 'section-agency-intro.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #AgencyIntro-{{ section.id }} {
+    --agency-bg: {{ section.settings.bg_color }};
+    --agency-text: {{ section.settings.text_color }};
+    --agency-heading-color: {{ section.settings.heading_color }};
+    --agency-btn-bg: {{ section.settings.button_bg_color }};
+    --agency-btn-text: {{ section.settings.button_text_color }};
+    --agency-btn-hover-bg: {{ section.settings.button_hover_color }};
+    --agency-media-radius: {{ section.settings.media_border_radius }}px;
+    --agency-pt: {{ section.settings.padding_top }}px;
+    --agency-pb: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #AgencyIntro-{{ section.id }} {
+      --agency-pt: {{ section.settings.padding_top | times: 0.7 | round }}px;
+      --agency-pb: {{ section.settings.padding_bottom | times: 0.7 | round }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="AgencyIntro-{{ section.id }}" class="agency-intro">
+  <div class="agency-intro__padding">
+    <div class="agency-intro__inner page-width">
+      {%- comment -%} Top Tags {%- endcomment -%}
+      {%- if section.settings.tags != blank -%}
+        <div class="agency-intro__tags">
+         
+          
+            <span>{{ section.settings.tags  }}</span>
+          
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Text Block {%- endcomment -%}
+      <div class="agency-intro__text-block">
+        {%- if section.settings.heading != blank or section.settings.badge_image != blank -%}
+          <div class="agency-intro__heading-row">
+            {%- if section.settings.heading != blank -%}
+              <h2 class="agency-intro__heading">
+                {{ section.settings.heading }}
+              </h2>
+            {%- endif -%}
+
+            {%- if section.settings.badge_image != blank -%}
+              <div class="agency-intro__badge">
+                {{
+                  section.settings.badge_image
+                  | image_url: width: 200
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '80, 120, 160, 200',
+                    sizes: '7rem',
+                    alt: section.settings.badge_image.alt
+                  | default: 'Badge'
+                }}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <p class="agency-intro__description">
+            {{ section.settings.description }}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Media Block — Image or Video with floating screenshots {%- endcomment -%}
+      <div class="agency-intro__media">
+        <div class="agency-intro__media-main" id="AgencyMedia-{{ section.id }}">
+          {%- if section.settings.media_type == 'video' and section.settings.video != blank -%}
+            {{
+              section.settings.video
+              | video_tag:
+                image_size: '2000x',
+                autoplay: true,
+                loop: section.settings.video_loop,
+                muted: true,
+                controls: false
+            }}
+
+          {%- elsif section.settings.media_type == 'video_url' and section.settings.video_url != blank -%}
+            {%- liquid
+              assign video_id = section.settings.video_url | split: '/' | last
+              assign video_id = video_id | split: '=' | last | split: '&' | first
+              assign video_host = 'youtube'
+              if section.settings.video_url contains 'vimeo'
+                assign video_host = 'vimeo'
+              endif
+            -%}
+            {%- if video_host == 'youtube' -%}
+              <iframe
+                src="https://www.youtube.com/embed/{{ video_id }}?autoplay=1&mute=1&loop=1&playlist={{ video_id }}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+                frameborder="0"
+                title="Video"
+              ></iframe>
+            {%- elsif video_host == 'vimeo' -%}
+              <iframe
+                src="https://player.vimeo.com/video/{{ video_id }}?autoplay=1&muted=1&loop=1&controls=0&background=1"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+                frameborder="0"
+                title="Video"
+              ></iframe>
+            {%- endif -%}
+
+          {%- elsif section.settings.main_image != blank -%}
+            {{
+              section.settings.main_image
+              | image_url: width: 1920
+              | image_tag:
+                loading: 'lazy',
+                widths: '375, 550, 750, 960, 1200, 1920',
+                sizes: '100vw',
+                alt: section.settings.main_image.alt
+              | default: 'Agency work'
+            }}
+          {%- else -%}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.float_image_1 != blank -%}
+          <div class="agency-intro__float agency-intro__float--1">
+            {{
+              section.settings.float_image_1
+              | image_url: width: 600
+              | image_tag:
+                loading: 'lazy',
+                widths: '200, 300, 400, 600',
+                sizes: '30rem',
+                alt: section.settings.float_image_1.alt
+              | default: 'Project screenshot'
+            }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.float_image_2 != blank -%}
+          <div class="agency-intro__float agency-intro__float--2">
+            {{
+              section.settings.float_image_2
+              | image_url: width: 600
+              | image_tag:
+                loading: 'lazy',
+                widths: '200, 300, 400, 600',
+                sizes: '26rem',
+                alt: section.settings.float_image_2.alt
+              | default: 'Project screenshot'
+            }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} CTA Button {%- endcomment -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="agency-intro__cta">
+          <a
+            {% if section.settings.button_link != blank %}
+              href="{{ section.settings.button_link }}"
+            {% else %}
+              role="link" aria-disabled="true"
+            {% endif %}
+            class="agency-intro__btn"
+          >
+            <span class="agency-intro__btn-text">
+              {{ section.settings.button_label | escape }}
+            </span>
+            <span class="agency-intro__btn-icon" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Agency Intro",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top tags"
+    },
+    {
+      "type": "richtext",
+      "id": "tags",
+      "label": "Tags",
+      
+      "info": "Comma-separated list shown above the heading"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shopify Agency eCommerce Website Development"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge image",
+      "info": "Displayed beside the heading. E.g. Shopify Partner badge. Recommended: 160x160px"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Trusted by the largest brands for high converting websites. We employ strategies to get the most out of your traffic and unlock scale."
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Media type",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Shopify hosted video" },
+        { "value": "video_url", "label": "Video URL (YouTube/Vimeo)" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main image",
+      "info": "Displayed when media type is Image. Recommended: 1920x1080px"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Shopify hosted video",
+      "info": "Displayed when media type is Shopify hosted video"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL",
+      "info": "YouTube or Vimeo URL. Displayed when media type is Video URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_loop",
+      "label": "Loop video",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "media_border_radius",
+      "label": "Media border radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Floating screenshots"
+    },
+    {
+      "type": "image_picker",
+      "id": "float_image_1",
+      "label": "Floating image 1 (bottom-left)",
+      "info": "Overlapping screenshot. Recommended: 600x400px"
+    },
+    {
+      "type": "image_picker",
+      "id": "float_image_2",
+      "label": "Floating image 2 (top-right)",
+      "info": "Overlapping screenshot. Recommended: 500x350px"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background color",
+      "default": "#ff4500"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#000000",
+      "info": "Background sweeps from bottom on hover"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Agency Intro"
+    }
+  ]
+}
+{% endschema %}
