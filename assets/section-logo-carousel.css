@@ -12,7 +12,7 @@
 
 .logo-carousel__padding {
   padding-top: var(--logo-carousel-pt, 20px);
-  padding-bottom: var(--logo-carousel-pb, 20px);
+  padding-bottom: var(--logo-carousel-pb, 40px);
 }
 
 /* --- Marquee Track --- */
@@ -20,7 +20,7 @@
   display: flex;
   width: max-content;
   animation: logoMarquee var(--logo-carousel-speed, 30s) linear infinite;
-  gap: var(--logo-carousel-gap, 6rem);
+  gap: var(--logo-carousel-gap, 2rem);
   align-items: center;
 }
 

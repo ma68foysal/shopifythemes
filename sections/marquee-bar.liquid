@@ -37,14 +37,18 @@
   }
 
   .marquee-bar__padding {
-    padding-top: var(--marquee-pt, 10px);
-    padding-bottom: var(--marquee-pb, 10px);
+    padding-top: var(--marquee-pt, 16px);
+    padding-bottom: var(--marquee-pb, 16px);
   }
 
   .marquee-bar__track {
     display: flex;
     width: max-content;
-    animation: marqueeBarScroll var(--marquee-speed, 25s) linear infinite;
+    animation: marqueeBarScroll var(--marquee-speed, 40s) linear infinite;
+  }
+
+  .marquee-bar__track:hover {
+    animation-play-state: paused;
   }
 
   .marquee-bar__track--reverse {

@@ -51,11 +51,12 @@
 
 .hero-banner__badge {
   flex-shrink: 0;
-  width: 6rem;
-  height: 3rem;
+  width: 10rem;
+  height: 5rem;
   border-radius: 0.8rem;
   overflow: hidden;
   background-color:#ffffff;
+  padding: 0.4rem 0.8rem;
 }
 
  .hero-banner__badge img {
@@ -193,14 +194,14 @@
 .hero-banner__card-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
+  gap: 1rem;
+  padding: 1.4rem 2.8rem;
+  font-size: 1.3rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   text-decoration: none;
-  border-radius: var(--hero-btn-radius, 0.4rem);
+  border-radius: 100px;
   border: none;
   cursor: pointer;
   line-height: 1;
@@ -245,13 +246,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.8rem;
-  height: 2.8rem;
-  border-radius: 50%;
-  background-color: var(--hero-btn-bg, #ff4500);
-  color: var(--hero-btn-text, #ffffff);
+  color: inherit;
   flex-shrink: 0;
-  transition: transform 0.3s ease;
 }
 
 .hero-banner__card-btn-icon svg {
@@ -338,8 +334,8 @@
   }
 
   .hero-banner__badge {
-    width: 7rem;
-    height: 5rem;
+    width: 12rem;
+    height: 5.5rem;
   }
 }
 
@@ -381,12 +377,12 @@
   }
 
   .hero-banner__card-btn {
-    font-size: 1.3rem;
-    padding: 1.2rem 2.4rem;
+    font-size: 1.4rem;
+    padding: 1.6rem 3.2rem;
   }
 
   .hero-banner__badge {
-    width: 8rem;
-    height: 5rem;
+    width: 14rem;
+    height: 6rem;
   }
 }

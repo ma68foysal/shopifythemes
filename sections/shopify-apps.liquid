@@ -156,6 +156,7 @@
   .shopify-apps {
     background-color: var(--apps-bg, #ffffff);
     color: var(--apps-text, #1a1a1a);
+    border-top: 1px solid var(--apps-divider, #e5e5e5);
   }
 
   .shopify-apps__padding {
@@ -199,12 +200,14 @@
     display: inline-flex;
     align-items: center;
     gap: 1rem;
-    padding: 12px 20px;
+    padding: 1.2rem 2.4rem;
     border-radius: 100px;
     background-color: var(--apps-btn-bg, #ff4500);
     color: var(--apps-btn-text, #ffffff);
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    text-align: center;
+    justify-content: center;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -247,7 +250,7 @@
   }
 
   .shopify-apps__store-badge {
-    height: 3.6rem;
+    height: 3rem;
     border-radius:100px;
   }
  
@@ -293,11 +296,12 @@
   }
 
   .shopify-apps__item-title {
-    font-size: 2.4rem;
+    font-size: 2.8rem;
     font-weight: 300;
     margin: 0;
     color: var(--apps-heading-color, #000000);
-    line-height: -.02em;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
   .shopify-apps__item-content {

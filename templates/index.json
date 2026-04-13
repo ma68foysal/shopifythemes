@@ -324,7 +324,7 @@
         "accent_color": "#ff4500",
         "button_bg_color": "#ff4500",
         "button_text_color": "#ffffff",
-        "button_hover_color": "#ffffff",
+        "button_hover_color": "#121212",
         "padding_top": 80,
         "padding_bottom": 80
       }
