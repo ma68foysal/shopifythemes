@@ -1,0 +1,318 @@
+<style>
+  .about-stiletto {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .about-stiletto__inner {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: {{ section.settings.text_width }}fr {{ section.settings.image_width }}fr;
+    gap: {{ section.settings.grid_gap }}px;
+    align-items: start;
+  }
+
+  /* Text side */
+  .about-stiletto__text {
+    padding: {{ section.settings.text_padding }}px 0;
+  }
+
+  .about-stiletto__subtitle {
+    font-size: {{ section.settings.subtitle_size }}px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+    font-weight: 500;
+    opacity: 0.6;
+  }
+
+  .about-stiletto__heading {
+    font-size: clamp(22px, {{ section.settings.heading_size }}px, 48px);
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.35;
+    margin: 0 0 24px;
+    font-family: var(--font-heading-family);
+    letter-spacing: 0.01em;
+  }
+
+  .about-stiletto__heading strong,
+  .about-stiletto__heading b {
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  .about-stiletto__link {
+    display: inline-block;
+    color: {{ section.settings.text_color }};
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1.5px;
+    font-size: {{ section.settings.link_size }}px;
+    letter-spacing: 0.02em;
+    transition: opacity 0.2s ease;
+  }
+
+  .about-stiletto__link:hover {
+    opacity: 0.6;
+  }
+
+  /* Image side */
+  .about-stiletto__image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-stiletto__image img,
+  .about-stiletto__image svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Responsive */
+  @media screen and (max-width: 749px) {
+    .about-stiletto__inner {
+      grid-template-columns: 1fr;
+      padding: 0 24px;
+      gap: 30px;
+    }
+
+    .about-stiletto__text {
+      order: {{ section.settings.mobile_text_first | default: 1 }};
+    }
+
+    .about-stiletto__image {
+      order: {{ section.settings.mobile_text_first | default: 2 }};
+    }
+  }
+</style>
+
+<section class="about-stiletto">
+  <div class="about-stiletto__inner">
+
+    {%- if section.settings.layout == 'text_left' -%}
+      <div class="about-stiletto__text">
+        {%- if section.settings.subtitle != blank -%}
+          <p class="about-stiletto__subtitle">{{ section.settings.subtitle | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="about-stiletto__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.link_text != blank -%}
+          <a href="{{ section.settings.link_url | default: '#' }}" class="about-stiletto__link">{{ section.settings.link_text | escape }}</a>
+        {%- endif -%}
+      </div>
+      <div class="about-stiletto__image">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(max-width: 749px) 100vw, 55vw', widths: '375, 550, 750, 1000, 1200' }}
+        {%- else -%}
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div class="about-stiletto__image">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(max-width: 749px) 100vw, 55vw', widths: '375, 550, 750, 1000, 1200' }}
+        {%- else -%}
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+      <div class="about-stiletto__text">
+        {%- if section.settings.subtitle != blank -%}
+          <p class="about-stiletto__subtitle">{{ section.settings.subtitle | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="about-stiletto__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.link_text != blank -%}
+          <a href="{{ section.settings.link_url | default: '#' }}" class="about-stiletto__link">{{ section.settings.link_text | escape }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Stiletto",
+  "tag": "section",
+  "class": "about-stiletto-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "ABOUT"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>A <em><strong>female owned & run label</strong></em>, based in Melbourne, embracing the essence of travel & celebrating the diversity of women throughout the world.</p>"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "text_left", "label": "Text left / Image right" },
+        { "value": "text_right", "label": "Image left / Text right" }
+      ],
+      "default": "text_left"
+    },
+    {
+      "type": "range",
+      "id": "text_width",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Text column width",
+      "default": 1,
+      "info": "Ratio relative to image column"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Image column width",
+      "default": 1,
+      "info": "Ratio relative to text column"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between columns",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 22,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "link_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Link text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f7f4ef"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "text_padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Text vertical padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Stiletto"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,309 @@
+{%- style -%}
+  .faq-inova {
+    --fi-text: {{ section.settings.text_color }};
+    --fi-cream: {{ section.settings.bg_color }};
+    --fi-heading-color: {{ section.settings.heading_color }};
+    --fi-pt: {{ section.settings.padding_top }}px;
+    --fi-pb: {{ section.settings.padding_bottom }}px;
+    background: var(--fi-cream);
+    padding: var(--fi-pt) 0 var(--fi-pb);
+    position: relative;
+    z-index: 2;
+  }
+
+  .faq-inova__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .faq-inova__heading {
+    font-family: var(--font-heading-family);
+    font-size: clamp(24px, 3vw, 40px);
+    color: var(--fi-heading-color);
+    font-weight: var(--font-heading-weight);
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 48px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Accordion item */
+  .faq-inova__item {
+    border-bottom: 1px solid rgba(47,19,12,0.12);
+  }
+  .faq-inova__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 0;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-heading-family);
+    font-size: clamp(15px, 1.3vw, 18px);
+    color: var(--fi-text);
+    font-weight: 500;
+    line-height: 1.4;
+    transition: color 0.3s;
+  }
+  .faq-inova__question:hover {
+    color: rgba(47,19,12,0.7);
+  }
+
+  /* Icon: + / x */
+  .faq-inova__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }
+  .faq-inova__icon span {
+    position: absolute;
+    background: var(--fi-text);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .faq-inova__icon span:first-child {
+    width: 100%;
+    height: 1.5px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  .faq-inova__icon span:last-child {
+    width: 1.5px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+  .faq-inova__item.is-open .faq-inova__icon span:last-child {
+    transform: translateX(-50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  /* Answer */
+  .faq-inova__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0 0;
+  }
+  .faq-inova__item.is-open .faq-inova__answer {
+    padding: 0 0 20px;
+  }
+  .faq-inova__answer-text {
+    font-size: clamp(13px, 1vw, 15px);
+    color: rgba(47,19,12,0.7);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  @media (max-width: 749px) {
+    .faq-inova__inner {
+      padding: 0 16px;
+    }
+    .faq-inova__heading {
+      font-size: 24px;
+      margin-bottom: 32px;
+    }
+    .faq-inova__question {
+      font-size: 14px;
+      padding: 16px 0;
+      gap: 12px;
+    }
+    .faq-inova__icon {
+      width: 16px;
+      height: 16px;
+    }
+    .faq-inova__answer-text {
+      font-size: 13px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="faq-inova" id="FaqInova-{{ section.id }}">
+  <div class="faq-inova__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="faq-inova__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      <div class="faq-inova__item{% if forloop.first %} is-open{% endif %}" data-faq-item {{ block.shopify_attributes }}>
+        <button class="faq-inova__question" data-faq-toggle>
+          <span>{{ block.settings.question }}</span>
+          <div class="faq-inova__icon">
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+        <div class="faq-inova__answer" {% if forloop.first %}style="max-height: 500px;"{% endif %}>
+          <p class="faq-inova__answer-text">{{ block.settings.answer }}</p>
+        </div>
+      </div>
+    {%- endfor -%}
+
+    {%- if section.blocks.size == 0 -%}
+      {%- assign placeholder_q = 'What makes The Conscious Bar healthier than other chocolate?,What does Indulge Freely mean exactly?,What are the health benefits of dark chocolate?,Why do we use organic dates to sweeten our bars?' | split: ',' -%}
+      {%- for q in placeholder_q -%}
+        <div class="faq-inova__item{% if forloop.first %} is-open{% endif %}" data-faq-item>
+          <button class="faq-inova__question" data-faq-toggle>
+            <span>{{ q }}</span>
+            <div class="faq-inova__icon"><span></span><span></span></div>
+          </button>
+          <div class="faq-inova__answer" {% if forloop.first %}style="max-height: 500px;"{% endif %}>
+            <p class="faq-inova__answer-text">We consciously created bean-to-bar chocolate using two superfoods - Organic Cacao & Organic Dates. We intentionally wanted to use a sweetener that is rich both in taste and nutrients to create a memorable, and guilt free experience.</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var section = document.getElementById('FaqInova-{{ section.id }}');
+  if (!section) return;
+
+  section.querySelectorAll('[data-faq-toggle]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.closest('[data-faq-item]');
+      var answer = item.querySelector('.faq-inova__answer');
+      var isOpen = item.classList.contains('is-open');
+
+      /* Close all */
+      section.querySelectorAll('[data-faq-item]').forEach(function(i) {
+        i.classList.remove('is-open');
+        i.querySelector('.faq-inova__answer').style.maxHeight = '0';
+      });
+
+      /* Toggle current */
+      if (!isOpen) {
+        item.classList.add('is-open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Inova",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FREQUENTLY ASKED QUESTIONS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What makes The Conscious Bar healthier than other chocolate?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>We consciously created bean-to-bar chocolate using two superfoods - Organic Cacao & Organic Dates. We intentionally wanted to use a sweetener that is rich both in taste and nutrients to create a memorable, and guilt free experience.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Inova",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "question": "What makes The Conscious Bar healthier than other chocolate?",
+            "answer": "<p>We consciously created bean-to-bar chocolate using two superfoods - Organic Cacao & OrganicDates. We intentionally wanted to use a sweetener that is rich both in taste and nutrients to create a memorable, and guilt free experience.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "What does Indulge Freely mean exactly?"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "What are the health benefits of dark chocolate?"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Why do we use organic dates to sweeten our bars?"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

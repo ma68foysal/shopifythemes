@@ -1,0 +1,541 @@
+{%- style -%}
+  .blog-inova {
+    --bi-bg: {{ section.settings.bg_color }};
+    --bi-text: {{ section.settings.text_color }};
+    --bi-heading-color: {{ section.settings.heading_color }};
+    --bi-subtitle-color: {{ section.settings.subtitle_color }};
+    --bi-card-title-color: {{ section.settings.card_title_color }};
+    --bi-card-text-color: {{ section.settings.card_text_color }};
+    --bi-btn-color: {{ section.settings.btn_color }};
+    --bi-btn-bg: {{ section.settings.btn_bg }};
+    --bi-btn-hover-color: {{ section.settings.btn_hover_color }};
+    --bi-btn-hover-bg: {{ section.settings.btn_hover_bg }};
+    --bi-heading-size: {{ section.settings.heading_size }}px;
+    --bi-subtitle-size: {{ section.settings.subtitle_size }}px;
+    --bi-card-title-size: {{ section.settings.card_title_size }}px;
+    --bi-card-text-size: {{ section.settings.card_text_size }}px;
+    --bi-btn-size: {{ section.settings.btn_size }}px;
+    --bi-content-gap: {{ section.settings.content_gap }}px;
+    --bi-heading-align: {{ section.settings.heading_align }};
+    --bi-content-align: {{ section.settings.content_align }};
+    --bi-pt: {{ section.settings.padding_top }}px;
+    --bi-pb: {{ section.settings.padding_bottom }}px;
+    background: var(--bi-bg);
+    padding: var(--bi-pt) 48px var(--bi-pb);
+  }
+
+  .blog-inova__inner {
+    margin: 0 auto;
+    padding: 0 20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+  }
+
+  /* Header */
+  .blog-inova__header {
+    text-align: var(--bi-heading-align);
+    margin-bottom: 48px;
+    width:auto;
+  }
+  .blog-inova__heading {
+    font-family: var(--font-heading-family);
+    font-size: var(--bi-heading-size);
+    color: var(--bi-heading-color);
+    font-weight: var(--font-heading-weight);
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .blog-inova__subtitle {
+    font-size: var(--bi-subtitle-size);
+    color: var(--bi-subtitle-color);
+    margin: 12px auto 0;
+    line-height: 1.55;
+    /* max-width: 600px; */
+  }
+  .blog-inova__header[style*="center"] .blog-inova__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Grid: slider on mobile, 3-col on desktop */
+  .blog-inova__grid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .blog-inova__grid::-webkit-scrollbar {
+    display: none;
+  }
+  @media (min-width: 750px) {
+    .blog-inova__header{
+      width:895px;
+    }
+    .blog-inova__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 60px;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+  }
+
+  /* Card */
+  .blog-inova__card {
+    display: flex;
+    flex-direction: column;
+    text-align: var(--bi-content-align);
+    gap: var(--bi-content-gap);
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+  }
+  @media (min-width: 750px) {
+    .blog-inova__card {
+      flex: auto;
+    }
+  }
+  .blog-inova__card-image {
+    aspect-ratio: 4 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .blog-inova__card-image img,
+  .blog-inova__card-image svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .blog-inova__card:hover .blog-inova__card-image img {
+    transform: scale(1.05);
+  }
+  .blog-inova__card-tag {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(47,19,12,0.45);
+    margin: 0;
+    font-weight: 600;
+  }
+  .blog-inova__card-title {
+    font-family: var(--font-heading-family);
+    font-size: var(--bi-card-title-size);
+    font-weight: 400;
+    color: var(--bi-card-title-color);
+    margin: 0;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+  .blog-inova__card-title a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .blog-inova__card-excerpt {
+    font-size: var(--bi-card-text-size);
+    color: var(--bi-card-text-color);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Button — slide-up hover effect */
+  .blog-inova__card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 28px;
+    font-size: var(--bi-btn-size);
+    font-weight: 400;
+    color: var(--bi-btn-color);
+    background: var(--bi-btn-bg);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: 1.5px solid var(--bi-btn-color);
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.4s ease, border-color 0.4s ease;
+    z-index: 1;
+  }
+  .blog-inova__card-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    background: var(--bi-btn-hover-bg);
+    transition: height 0.4s ease;
+    z-index: -1;
+  }
+  .blog-inova__card-link:hover {
+    color: var(--bi-btn-hover-color);
+    border-color: var(--bi-btn-hover-bg);
+  }
+  .blog-inova__card-link:hover::before {
+    height: 100%;
+  }
+  /* Reverse out: top to bottom */
+  .blog-inova__card-link:not(:hover)::before {
+    bottom: auto;
+    top: 0;
+    height: 0;
+  }
+  .blog-inova__card-link svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    transition: transform 0.3s;
+  }
+  .blog-inova__card-link:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* Mobile */
+  @media (max-width: 749px) {
+     .blog-inova {
+      padding: 54px 16px;
+    }
+
+    .blog-inova__inner {
+      padding: 0 16px;
+    }
+    .blog-inova__heading {
+      font-size: calc(var(--bi-heading-size) * 0.6);
+    }
+    .blog-inova__subtitle {
+      font-size: calc(var(--bi-subtitle-size) * 0.85);
+    }
+    .blog-inova__header {
+      margin-bottom: 32px;
+    }
+    .blog-inova__card-title {
+      font-size: calc(var(--bi-card-title-size) * 0.85);
+    }
+    .blog-inova__card-excerpt {
+      font-size: calc(var(--bi-card-text-size) * 0.9);
+    }
+    .blog-inova__card-link {
+      padding: 10px 24px;
+      font-size: calc(var(--bi-btn-size) * 0.9);
+    }
+  }
+{%- endstyle -%}
+
+<section class="blog-inova" id="BlogInova-{{ section.id }}">
+  <div class="blog-inova__inner">
+    <div class="blog-inova__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="blog-inova__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="blog-inova__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="blog-inova__grid">
+      {%- if section.settings.blog != blank -%}
+        {%- for article in section.settings.blog.articles limit: section.settings.posts_limit -%}
+          <div class="blog-inova__card">
+            <div class="blog-inova__card-image">
+              {%- if article.image != blank -%}
+                {{
+                  article.image
+                  | image_url: width: 800
+                  | image_tag: sizes: '(min-width: 750px) 33vw, 90vw', widths: '375,550,800', loading: 'lazy'
+                }}
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            {%- if article.tags.size > 0 -%}
+              <p class="blog-inova__card-tag">{{ article.tags | first }}</p>
+            {%- endif -%}
+            <h3 class="blog-inova__card-title">
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            </h3>
+            {%- if article.excerpt_or_content != blank -%}
+              <p class="blog-inova__card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+            {%- endif -%}
+            <div>
+              <a href="{{ article.url }}" class="blog-inova__card-link">
+                LEARN MORE
+                <svg viewBox="0 0 24 24">
+                  <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign placeholder_titles = 'DIRECT TRADE,SUSTAINABILITY,NOURISHMENT' | split: ',' -%}
+        {%- assign placeholder_texts = 'orking directly with farmers enables us to ensure the welfare and success of the entire value chain. This also allows us to provide & market our products responsibility so that our customers can enjoy the experience of indulging in our products while feeling at ease that our farmers are well taken care of.,orking directly with farmers enables us to ensure the welfare and success of the entire value chain. This also allows us to provide & market our products responsibility so that our customers can enjoy the experience of indulging in our products while feeling at ease that our farmers are well taken care of.,orking directly with farmers enables us to ensure the welfare and success of the entire value chain. This also allows us to provide & market our products responsibility so that our customers can enjoy the experience of indulging in our products while feeling at ease that our farmers are well taken care of.'
+          | split: ','
+        -%}
+        {%- for i in (1..3) -%}
+          <div class="blog-inova__card">
+            <div class="blog-inova__card-image">
+              <div style="width:100%;height:100%;background:#d4c4b0;display:flex;align-items:center;justify-content:center;">
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            </div>
+            <h3 class="blog-inova__card-title">{{ placeholder_titles[forloop.index0] }}</h3>
+            <p class="blog-inova__card-excerpt">{{ placeholder_texts[forloop.index0] }}</p>
+            <div>
+              <a href="#" class="blog-inova__card-link">
+                LEARN MORE
+                <svg viewBox="0 0 24 24">
+                  <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Inova",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WE DON'T CUT CORNERS."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "We set out to build a chocolate brand you can trust, all the way through. From our farmers to our ingredients, to our packaging, we are intentional in making sure sustainability and ethics lie at the core of what we do."
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "posts_limit",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "Posts to show"
+    },
+    {
+      "type": "header",
+      "content": "Heading style"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading font size",
+      "default": 64
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Subtitle style"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle font size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#6b5a50"
+    },
+    {
+      "type": "header",
+      "content": "Card content style"
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "Card content alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Content gap",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Card title font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "range",
+      "id": "card_text_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card text font size",
+      "default": 13
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#6b5a50"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "btn_color",
+      "label": "Button text color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_color",
+      "label": "Button hover text color",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button hover background",
+      "default": "#2f130c"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Inova"
+    }
+  ]
+}
+{% endschema %}

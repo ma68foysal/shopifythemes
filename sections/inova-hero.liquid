@@ -1,0 +1,876 @@
+{%- style -%}
+  /* ========== INOVA HERO ========== */
+  .inova-hero {
+    --ih-bg: {{ section.settings.bg_color }};
+    --ih-text-color: {{ section.settings.text_color }};
+    --ih-heading-color: {{ section.settings.heading_color }};
+    --ih-text: {{ section.settings.text_color }};
+    --ih-cream: {{ section.settings.bg_color }};
+    --ih-gold: #c8902e;
+    --ih-pt: {{ section.settings.padding_top }}px;
+    --ih-pb: {{ section.settings.padding_bottom }}px;
+    background: var(--ih-bg);
+    padding: var(--ih-pt) 0 var(--ih-pb);
+  }
+
+  /* --- HERO HEADING --- */
+  .inova-hero__heading-wrap {
+    padding: 0px 20px 60px;
+    text-align: center;
+  }
+  @media (max-width: 749px) {
+    .inova-hero__heading-wrap {
+      padding: 40px 16px 24px;
+    }
+  }
+  .inova-hero__heading {
+    font-family: var(--font-heading-family);
+    font-size: clamp(48px, 4.73vw, 90px);
+    color: var(--ih-heading-color);
+    font-weight: var(--font-heading-weight);
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin: 0 auto;
+    max-width: 900px;
+    letter-spacing: -0.01em;
+  }
+  .inova-hero__heading-img {
+    display: inline-block;
+    vertical-align: middle;
+    width: clamp(48px, 5vw, 90px);
+    height: clamp(48px, 5vw, 90px);
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 4px;
+    position: relative;
+    top: -4px;
+  }
+  .inova-hero__heading-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* --- PRODUCTS SECTION --- */
+  .inova-hero__products {
+    padding: 60px 20px 60px;
+    
+    margin: 0 auto;
+  }
+  @media (max-width: 749px) {
+    .inova-hero__products {
+      padding: 0 16px 40px;
+    }
+  }
+
+  /* Products header row */
+  .inova-hero__products-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .inova-hero__products-title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(24px, 3vw, 64px);
+    color: var(--ih-heading-color);
+    font-weight: var(--font-heading-weight);
+    text-transform: uppercase;
+    margin: 0 0 4px;
+    line-height: 1.1;
+  }
+  .inova-hero__products-sub {
+    font-size: 20px;
+    color: var(--ih-text);
+    margin: 0 0 8px;
+  }
+  .inova-hero__products-sub strong {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  /* View All button (mobile: top, desktop: bottom) */
+  .inova-hero__view-all-top {
+    display: none;
+  }
+  @media (max-width: 989px) {
+    .inova-hero__view-all-top {
+      display: inline-flex;
+      margin-bottom: 16px;
+    }
+  }
+  .inova-hero__view-all-bottom {
+    text-align: center;
+    margin-top: 40px;
+  }
+  @media (max-width: 989px) {
+    .inova-hero__view-all-bottom {
+      display: none;
+    }
+  }
+  .inova-hero__view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border: 1.5px solid var(--ih-text);
+    border-radius: 40px;
+    color: var(--ih-text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: transparent;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+  }
+  .inova-hero__view-btn:hover {
+    background: var(--ih-text);
+    color: #fff;
+  }
+  .inova-hero__view-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  /* Slider nav arrows (all screens) */
+  .inova-hero__slider-nav {
+    display: flex;
+    gap: 8px;
+  }
+  .inova-hero__slider-nav button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(47,19,12,0.2);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ih-text);
+    transition: border-color 0.3s;
+  }
+  .inova-hero__slider-nav button:hover {
+    border-color: var(--ih-text);
+  }
+  .inova-hero__slider-nav svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* --- PRODUCT SLIDER (all screens) --- */
+  .inova-hero__grid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .inova-hero__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* --- PRODUCT CARD --- */
+  .inova-hero__card {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+    position: relative;
+  }
+  @media (min-width: 750px) and (max-width: 989px) {
+    .inova-hero__card {
+      flex: 0 0 46%;
+    }
+  }
+  @media (min-width: 990px) {
+    .inova-hero__card {
+      flex: 0 0 calc(25% - 12px);
+    }
+  }
+
+  /* Card image area */
+  .inova-hero__card-images {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #d9ccbc;
+  }
+  .inova-hero__card-images img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .inova-hero__card-images img.is-active {
+    opacity: 1;
+  }
+
+  /* Rating badge */
+  .inova-hero__card-rating {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 20px;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ih-text);
+    z-index: 3;
+  }
+  .inova-hero__card-rating svg {
+    width: 12px;
+    height: 12px;
+    fill: var(--ih-gold);
+  }
+
+  /* Quick view eye — hover only */
+  .inova-hero__card-eye {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .inova-hero__card:hover .inova-hero__card-eye {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .inova-hero__card-eye svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--ih-text);
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  /* Image dots — hover only */
+  .inova-hero__card-dots {
+    position: absolute;
+    bottom: 56px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .inova-hero__card:hover .inova-hero__card-dots {
+    opacity: 1;
+  }
+  .inova-hero__card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s;
+  }
+  .inova-hero__card-dot.is-active {
+    background: #fff;
+  }
+
+  /* Add to Cart button — hover only */
+  .inova-hero__card-atc {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .inova-hero__card:hover .inova-hero__card-atc {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .inova-hero__card-atc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    background: var(--ih-text);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: background 0.3s;
+  }
+  .inova-hero__card-atc-btn:hover {
+    background: #1a0704;
+  }
+  .inova-hero__card-atc-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  /* Hover overlay tint */
+  .inova-hero__card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    border-radius: 12px;
+    transition: background 0.3s;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .inova-hero__card:hover .inova-hero__card-overlay {
+    background: rgba(0,0,0,0.15);
+  }
+
+  /* Card info */
+  .inova-hero__card-info {
+    padding: 12px 4px;
+    text-align: center;
+  }
+  .inova-hero__card-vendor {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(47,19,12,0.5);
+    margin: 0 0 4px;
+  }
+  .inova-hero__card-name {
+    font-family: var(--font-heading-family);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ih-text);
+    margin: 0 0 4px;
+    letter-spacing: 0.04em;
+  }
+  .inova-hero__card-name a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .inova-hero__card-price {
+    font-size: 14px;
+    color: var(--ih-gold);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* --- SOCIAL SIDEBAR --- */
+  .inova-hero__social {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 8px;
+    background: #fff;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.06);
+  }
+  @media (min-width: 750px) {
+    .inova-hero__social {
+      display: flex;
+    }
+  }
+  .inova-hero__social a {
+    color: var(--ih-text);
+    display: flex;
+    width: 22px;
+    height: 22px;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+  }
+  .inova-hero__social a:hover {
+    color: var(--ih-gold);
+  }
+  .inova-hero__social a svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+  .inova-hero__social-divider {
+    width: 16px;
+    height: 1px;
+    background: rgba(47,19,12,0.15);
+  }
+  .inova-hero__social-cta {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ih-text);
+    padding: 8px 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .inova-hero__social-cta:hover {
+    color: var(--ih-gold);
+  }
+{%- endstyle -%}
+
+<div class="inova-hero" id="InovaHero-{{ section.id }}">
+  <!-- HERO HEADING -->
+  <div class="inova-hero__heading-wrap">
+    <h1 class="inova-hero__heading">
+      {{ section.settings.heading_line1 }}
+      {%- if section.settings.heading_inline_image != blank -%}
+        <span class="inova-hero__heading-img">
+          {{ section.settings.heading_inline_image | image_url: width: 200 | image_tag: sizes: '90px', widths: '48,90,200', loading: 'eager' }}
+        </span>
+      {%- endif -%}
+      {{ section.settings.heading_line2 }}
+      {{ section.settings.heading_line3 }}
+    </h1>
+  </div>
+
+  <!-- PRODUCTS -->
+  {%- liquid
+    assign has_products = false
+    if section.settings.collection != blank and section.settings.collection.products.size > 0
+      assign has_products = true
+    endif
+  -%}
+
+    <div class="inova-hero__products">
+      <div class="inova-hero__products-top">
+        <div>
+          <h2 class="inova-hero__products-title">{{ section.settings.products_heading }}</h2>
+          <p class="inova-hero__products-sub">
+            <strong>{{ section.settings.products_badge }}</strong> {{ section.settings.products_subtext }}
+          </p>
+          {%- if section.settings.view_all_link != blank -%}
+            <a href="{{ section.settings.view_all_link }}" class="inova-hero__view-btn inova-hero__view-all-top">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              VIEW ALL
+            </a>
+          {%- endif -%}
+        </div>
+        <div class="inova-hero__slider-nav">
+          <button class="inova-hero__prev" aria-label="Previous">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="inova-hero__next" aria-label="Next">
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Slider -->
+      <div class="inova-hero__grid" data-inova-slider>
+        {%- if has_products -%}
+          {%- for product in section.settings.collection.products limit: section.settings.products_limit -%}
+            <div class="inova-hero__card" data-product-handle="{{ product.handle }}">
+              <div class="inova-hero__card-images">
+                {%- for image in product.images limit: 4 -%}
+                  <img
+                    src="{{ image | image_url: width: 600 }}"
+                    alt="{{ image.alt | escape }}"
+                    width="600"
+                    height="{{ 600 | divided_by: image.aspect_ratio | round }}"
+                    loading="lazy"
+                    class="{% if forloop.first %}is-active{% endif %}"
+                    data-img-idx="{{ forloop.index0 }}"
+                  >
+                {%- endfor -%}
+
+                {%- if product.images.size == 0 -%}
+                  <div style="width:100%;height:100%;background:#d4c4b0;" class="is-active"></div>
+                {%- endif -%}
+
+                <div class="inova-hero__card-overlay"></div>
+
+                <div class="inova-hero__card-rating">
+                  <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  {%- if product.metafields.reviews.rating.value != blank -%}
+                    {{ product.metafields.reviews.rating.value | round: 1 }}
+                  {%- else -%}
+                    4.8
+                  {%- endif -%}
+                </div>
+
+                <button class="inova-hero__card-eye" aria-label="Quick view">
+                  <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+
+                {%- if product.images.size > 1 -%}
+                  <div class="inova-hero__card-dots">
+                    {%- for image in product.images limit: 4 -%}
+                      <button class="inova-hero__card-dot{% if forloop.first %} is-active{% endif %}" data-dot-idx="{{ forloop.index0 }}" aria-label="Image {{ forloop.index }}"></button>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+
+                <div class="inova-hero__card-atc">
+                  <button class="inova-hero__card-atc-btn" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                    <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    ADD TO CART
+                  </button>
+                </div>
+              </div>
+
+              <div class="inova-hero__card-info">
+                <p class="inova-hero__card-vendor">{{ product.vendor }}</p>
+                <h3 class="inova-hero__card-name">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+                <p class="inova-hero__card-price">{{ product.price | money }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign placeholder_names = 'Almond Sea Salt,Orange Blossom,Creamy Tahini,Roasted Hazelnut' | split: ',' -%}
+          {%- for i in (1..4) -%}
+            <div class="inova-hero__card">
+              <div class="inova-hero__card-images">
+                <div class="is-active" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#d9ccbc;">
+                  {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+
+                <div class="inova-hero__card-overlay"></div>
+
+                <div class="inova-hero__card-rating">
+                  <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  4.8
+                </div>
+
+                <button class="inova-hero__card-eye" aria-label="Quick view">
+                  <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+
+                <div class="inova-hero__card-dots">
+                  <button class="inova-hero__card-dot is-active" aria-label="Image 1"></button>
+                  <button class="inova-hero__card-dot" aria-label="Image 2"></button>
+                  <button class="inova-hero__card-dot" aria-label="Image 3"></button>
+                </div>
+
+                <div class="inova-hero__card-atc">
+                  <button class="inova-hero__card-atc-btn">
+                    <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    ADD TO CART
+                  </button>
+                </div>
+              </div>
+
+              <div class="inova-hero__card-info">
+                <p class="inova-hero__card-vendor">THE CONSCIOUS BAR</p>
+                <h3 class="inova-hero__card-name">{{ placeholder_names[forloop.index0] }}</h3>
+                <p class="inova-hero__card-price">$10.00</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+
+      <!-- View All (desktop) -->
+      {%- if section.settings.view_all_link != blank -%}
+        <div class="inova-hero__view-all-bottom">
+          <a href="{{ section.settings.view_all_link }}" class="inova-hero__view-btn">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            VIEW ALL
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+  <!-- SOCIAL SIDEBAR -->
+  {%- if section.settings.show_social -%}
+    <div class="inova-hero__social">
+      {%- if settings.social_facebook_link != blank -%}
+        <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      {%- endif -%}
+      {%- if settings.social_instagram_link != blank -%}
+        <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      {%- endif -%}
+      {%- if settings.social_youtube_link != blank -%}
+        <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+        </a>
+      {%- endif -%}
+      {%- if settings.social_tiktok_link != blank -%}
+        <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+        </a>
+      {%- endif -%}
+      {%- if settings.social_linkedin_link != blank -%}
+        <a href="{{ settings.social_linkedin_link }}" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      {%- endif -%}
+      <div class="inova-hero__social-divider"></div>
+      <a href="{{ section.settings.discount_link | default: '#' }}" class="inova-hero__social-cta">
+        {{ section.settings.discount_text | default: 'GET 20% OFF' }}
+      </a>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var hero = document.getElementById('InovaHero-{{ section.id }}');
+  if (!hero) return;
+
+  /* ===== IMAGE DOTS: switch product images ===== */
+  hero.querySelectorAll('.inova-hero__card').forEach(function(card) {
+    var imgs = card.querySelectorAll('.inova-hero__card-images img');
+    var dots = card.querySelectorAll('.inova-hero__card-dot');
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        var idx = parseInt(dot.dataset.dotIdx, 10);
+        imgs.forEach(function(img) { img.classList.remove('is-active'); });
+        dots.forEach(function(d) { d.classList.remove('is-active'); });
+        if (imgs[idx]) imgs[idx].classList.add('is-active');
+        dot.classList.add('is-active');
+      });
+    });
+  });
+
+  /* ===== MOBILE SLIDER NAV ===== */
+  var slider = hero.querySelector('[data-inova-slider]');
+  var prevBtn = hero.querySelector('.inova-hero__prev');
+  var nextBtn = hero.querySelector('.inova-hero__next');
+  if (slider && prevBtn && nextBtn) {
+    var scrollAmt = function() {
+      var card = slider.querySelector('.inova-hero__card');
+      return card ? card.offsetWidth + 16 : 300;
+    };
+    prevBtn.addEventListener('click', function() {
+      slider.scrollBy({ left: -scrollAmt(), behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', function() {
+      slider.scrollBy({ left: scrollAmt(), behavior: 'smooth' });
+    });
+  }
+
+  /* ===== ADD TO CART ===== */
+  hero.querySelectorAll('.inova-hero__card-atc-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var vid = btn.dataset.variantId;
+      if (!vid) return;
+      var origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.textContent = 'ADDING...';
+      fetch(window.routes ? window.routes.cart_add_url : '/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: [{ id: parseInt(vid, 10), quantity: 1 }] })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function() {
+        btn.textContent = 'ADDED!';
+        setTimeout(function() {
+          btn.innerHTML = origText;
+          btn.disabled = false;
+        }, 1500);
+      })
+      .catch(function() {
+        btn.innerHTML = origText;
+        btn.disabled = false;
+      });
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Inova Hero",
+  "tag": "section",
+  "class": "inova-hero-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Hero Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "JUST ORGANIC CACAO"
+    },
+    {
+      "type": "image_picker",
+      "id": "heading_inline_image",
+      "label": "Inline round image",
+      "info": "Small image displayed inline with heading text"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2",
+      "default": "& ORGANIC DATES."
+    },
+    {
+      "type": "text",
+      "id": "heading_line3",
+      "label": "Heading line 3",
+      "default": "NOTHING ELSE."
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Products heading",
+      "default": "SHOP DATE SWEETENED CHOCOLATE"
+    },
+    {
+      "type": "text",
+      "id": "products_badge",
+      "label": "Badge text",
+      "default": "BUNDLE & SAVE:"
+    },
+    {
+      "type": "text",
+      "id": "products_subtext",
+      "label": "Subtext",
+      "default": "Save up to 20% on your order when you bundle!"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View all link"
+    },
+    {
+      "type": "header",
+      "content": "Social Sidebar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show social sidebar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "discount_text",
+      "label": "Discount text",
+      "default": "GET 20% OFF"
+    },
+    {
+      "type": "url",
+      "id": "discount_link",
+      "label": "Discount link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inova Hero"
+    }
+  ]
+}
+{% endschema %}

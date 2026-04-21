@@ -1,0 +1,610 @@
+{%- style -%}
+  .footer-inova {
+    --fi-bg: {{ section.settings.bg_color }};
+    --fi-text: {{ section.settings.text_color }};
+    --fi-heading-color: {{ section.settings.heading_color }};
+    --fi-link-color: {{ section.settings.link_color }};
+    --fi-link-hover: {{ section.settings.link_hover_color }};
+    --fi-divider-color: {{ section.settings.divider_color }};
+    --fi-input-bg: {{ section.settings.input_bg }};
+    --fi-input-border: {{ section.settings.input_border }};
+    --fi-btn-bg: {{ section.settings.btn_bg }};
+    --fi-btn-hover: {{ section.settings.btn_hover_bg }};
+    --fi-heading-size: {{ section.settings.heading_size }}px;
+    --fi-text-size: {{ section.settings.text_size }}px;
+    --fi-social-size: {{ section.settings.social_size }}px;
+    --fi-pt: {{ section.settings.padding_top }}px;
+    --fi-pb: {{ section.settings.padding_bottom }}px;
+    background: var(--fi-bg);
+    color: var(--fi-text);
+    padding: var(--fi-pt) 0 var(--fi-pb);
+  }
+
+  /* The section BEFORE this footer gets pinned by GSAP,
+     so the footer scrolls up behind it like a curtain reveal */
+
+  .footer-inova__inner {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Main grid: newsletter+social | divider | nav col 1 | nav col 2 */
+  .footer-inova__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  @media (min-width: 750px) {
+    .footer-inova__grid {
+      grid-template-columns: 1.3fr auto 1fr 1fr;
+      gap: 0;
+      align-items: start;
+    }
+  }
+
+  /* Vertical divider */
+  .footer-inova__divider {
+    display: none;
+  }
+  @media (min-width: 750px) {
+    .footer-inova__divider {
+      display: block;
+      width: 1px;
+      background: var(--fi-divider-color);
+      align-self: stretch;
+      margin: 0 32px;
+    }
+  }
+
+  /* Newsletter column */
+  .footer-inova__newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .footer-inova__heading {
+    font-family: var(--font-heading-family);
+    font-size: var(--fi-heading-size);
+    color: var(--fi-heading-color);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  /* Email form */
+  .footer-inova__form {
+    display: flex;
+    gap: 0;
+    max-width: 400px;
+  }
+  .footer-inova__input {
+    flex: 1;
+    padding: 14px 20px;
+    background: var(--fi-input-bg);
+    border: 1px solid var(--fi-input-border);
+    border-right: none;
+    border-radius: 40px 0 0 40px;
+    color: var(--fi-text);
+    font-size: var(--fi-text-size);
+    font-family: var(--font-body-family);
+    outline: none;
+  }
+  .footer-inova__input::placeholder {
+    color: var(--fi-link-color);
+  }
+  .footer-inova__submit {
+    width: 48px;
+    height: 48px;
+    border-radius: 0 40px 40px 0;
+    background: var(--fi-btn-bg);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    flex-shrink: 0;
+  }
+  .footer-inova__submit:hover {
+    background: var(--fi-btn-hover);
+  }
+  .footer-inova__submit svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--fi-bg);
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* Social icons — below email input */
+  .footer-inova__social {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .footer-inova__social a {
+    color: var(--fi-text);
+    display: flex;
+    width: var(--fi-social-size);
+    height: var(--fi-social-size);
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+  }
+  .footer-inova__social a:hover {
+    color: var(--fi-link-hover);
+  }
+  .footer-inova__social svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  /* Nav columns */
+  .footer-inova__nav {
+    padding-top: 4px;
+  }
+  .footer-inova__nav-title {
+    font-family: var(--font-heading-family);
+    font-size: var(--fi-heading-size);
+    color: var(--fi-heading-color);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 20px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .footer-inova__nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-inova__nav-list li {
+    margin-bottom: 10px;
+  }
+  .footer-inova__nav-list a {
+    color: var(--fi-link-color);
+    text-decoration: none;
+    font-size: var(--fi-text-size);
+    font-family: var(--font-body-family);
+    transition: color 0.3s;
+  }
+  .footer-inova__nav-list a:hover {
+    color: var(--fi-link-hover);
+  }
+  .footer-inova__nav-text {
+    color: var(--fi-link-color);
+    font-size: var(--fi-text-size);
+    font-family: var(--font-body-family);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 749px) {
+    .footer-inova {
+      padding: 40px 0 32px;
+    }
+    .footer-inova__inner {
+      padding: 0 16px;
+    }
+    .footer-inova__heading,
+    .footer-inova__nav-title {
+      font-size: 14px;
+    }
+    .footer-inova__input {
+      padding: 12px 16px;
+      font-size: 13px;
+    }
+    .footer-inova__submit {
+      width: 44px;
+      height: 44px;
+    }
+    .footer-inova__nav-list a,
+    .footer-inova__nav-text {
+      font-size: 13px;
+    }
+    .footer-inova__social {
+      gap: 16px;
+    }
+    .footer-inova__social a {
+      width: 20px;
+      height: 20px;
+    }
+  }
+{%- endstyle -%}
+
+{%- if template.suffix == 'inova' -%}
+<footer class="footer-inova" id="FooterInova-{{ section.id }}" data-footer-inova>
+  <div class="footer-inova__inner">
+    <div class="footer-inova__grid">
+      <!-- Newsletter + Social -->
+      <div class="footer-inova__newsletter">
+        <h3 class="footer-inova__heading">
+          {{ section.settings.newsletter_title | default: 'SUBSCRIBE TO OUR NEWSLETTER' }}
+        </h3>
+        <form class="footer-inova__form" action="/contact#contact_form" method="post" accept-charset="UTF-8">
+          <input type="hidden" name="form_type" value="customer">
+          <input type="hidden" name="utf8" value="✓">
+          <input
+            type="email"
+            name="contact[email]"
+            class="footer-inova__input"
+            placeholder="{{ section.settings.input_placeholder | default: 'Enter your email' }}"
+            required
+            autocomplete="email"
+          >
+          <button type="submit" class="footer-inova__submit" aria-label="Subscribe">
+            <svg viewBox="0 0 24 24">
+              <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+        <div class="footer-inova__social">
+          {%- if settings.social_facebook_link != blank -%}
+            <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_instagram_link != blank -%}
+            <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_youtube_link != blank -%}
+            <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube">
+              <svg viewBox="0 0 24 24">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+              </svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_tiktok_link != blank -%}
+            <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+              </svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_linkedin_link != blank -%}
+            <a href="{{ settings.social_linkedin_link }}" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Vertical Divider -->
+      <div class="footer-inova__divider">&nbsp;</div>
+
+      <!-- Nav Column 1 -->
+      <div class="footer-inova__nav">
+        <h3 class="footer-inova__nav-title">{{ section.settings.col1_title | default: 'INFORMATION' }}</h3>
+        <ul class="footer-inova__nav-list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'link_col1' -%}
+              <li>
+                <a href="{{ block.settings.link | default: '#' }}">{{ block.settings.label }}</a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- assign has_col1 = false -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'link_col1' -%}{%- assign has_col1 = true -%}{%- endif -%}
+          {%- endfor -%}
+          {%- unless has_col1 -%}
+            <li><a href="/pages/contact">Contact</a></li>
+            <li><a href="mailto:support@theconsciousbar.co">support@theconsciousbar.co</a></li>
+          {%- endunless -%}
+        </ul>
+      </div>
+
+      <!-- Nav Column 2 -->
+      <div class="footer-inova__nav">
+        <h3 class="footer-inova__nav-title">
+          {{ section.settings.col2_title | default: 'BEGIN WITH THE FUNDAMENTALS.' }}
+        </h3>
+        <p class="footer-inova__nav-text">
+          {{ section.settings.col2_text | default: 'Frameworks that make the craft feel simple again.' }}
+        </p>
+        <ul class="footer-inova__nav-list" style="margin-top:12px;">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'link_col2' -%}
+              <li>
+                <a href="{{ block.settings.link | default: '#' }}">{{ block.settings.label }}</a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    var footer = document.querySelector('[data-footer-inova]');
+    if (!footer) return;
+
+    /* Find the last visible section before the footer.
+       Could be in #MainContent or in a section group — walk backwards
+       through all .shopify-section elements on the page. */
+    var allSections = document.querySelectorAll('.shopify-section');
+    var footerWrapper = footer.closest('.shopify-section');
+    var prevSection = null;
+
+    for (var i = 0; i < allSections.length; i++) {
+      if (allSections[i] === footerWrapper) {
+        /* Walk backwards to find the first visible section */
+        for (var j = i - 1; j >= 0; j--) {
+          if (allSections[j].offsetHeight > 0) {
+            prevSection = allSections[j];
+            break;
+          }
+        }
+        break;
+      }
+    }
+
+    if (!prevSection) return;
+
+    /* Pin the section above the footer.
+       As user scrolls past it, the pinned section stays fixed
+       and the footer scrolls up from behind — curtain reveal. */
+    ScrollTrigger.create({
+      trigger: prevSection,
+      start: 'bottom bottom',
+      endTrigger: footer,
+      end: 'top bottom',
+      pin: true,
+      pinSpacing: false
+    });
+  });
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Footer Inova",
+  "tag": "section",
+  "class": "footer-inova-section",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter title",
+      "default": "SUBSCRIBE TO OUR NEWSLETTER"
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Input placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "text",
+      "id": "col1_title",
+      "label": "Column 1 title",
+      "default": "INFORMATION"
+    },
+    {
+      "type": "text",
+      "id": "col2_title",
+      "label": "Column 2 title",
+      "default": "BEGIN WITH THE FUNDAMENTALS."
+    },
+    {
+      "type": "textarea",
+      "id": "col2_text",
+      "label": "Column 2 text",
+      "default": "Frameworks that make the craft feel simple again."
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Body text font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "social_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Social icon size",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#2a1208"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link / muted text color",
+      "default": "#b5a494"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "header",
+      "content": "Divider"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#4a3020"
+    },
+    {
+      "type": "header",
+      "content": "Input & Button"
+    },
+    {
+      "type": "color",
+      "id": "input_bg",
+      "label": "Input background",
+      "default": "#3d2214"
+    },
+    {
+      "type": "color",
+      "id": "input_border",
+      "label": "Input border",
+      "default": "#4a3020"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Submit button background",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Submit button hover",
+      "default": "#c8902e"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_col1",
+      "name": "Link (Column 1)",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Contact"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "link_col2",
+      "name": "Link (Column 2)",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "About"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Inova",
+      "blocks": [
+        {
+          "type": "link_col1",
+          "settings": { "label": "Contact" }
+        },
+        {
+          "type": "link_col1",
+          "settings": { "label": "support@theconsciousbar.co" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

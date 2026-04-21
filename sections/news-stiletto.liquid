@@ -1,0 +1,406 @@
+<style>
+  .news-stiletto {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .news-stiletto__inner {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* Header */
+  .news-stiletto__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .news-stiletto__title {
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    font-family: var(--font-heading-family);
+  }
+
+  .news-stiletto__view-all {
+    font-size: 13px;
+    color: {{ section.settings.text_color }};
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s ease;
+  }
+
+  .news-stiletto__view-all:hover {
+    opacity: 0.6;
+  }
+
+  /* Grid */
+  .news-stiletto__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  /* Card: 24-col grid, image left, content right overlapping */
+  .news-stiletto__card {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+  }
+
+  .news-stiletto__card-image {
+    grid-column: 1 / 16;
+    grid-row: 1;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: {{ section.settings.image_ratio }};
+    background: #eee;
+  }
+
+  .news-stiletto__card-image a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .news-stiletto__card-image img,
+  .news-stiletto__card-image svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .news-stiletto__card:hover .news-stiletto__card-image img {
+    transform: scale(1.04);
+  }
+
+  /* Content overlaps right side of image */
+  .news-stiletto__card-body {
+    grid-column: 11 / 25;
+    grid-row: 1;
+    margin-top: 28px;
+    z-index: 2;
+    background: {{ section.settings.card_bg }};
+    padding: {{ section.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    align-self: end;
+  }
+
+  .news-stiletto__card-heading {
+    font-size: {{ section.settings.card_heading_size }}px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.25;
+    margin: 0 0 6px;
+    font-family: var(--font-heading-family);
+  }
+
+  .news-stiletto__card-heading a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .news-stiletto__card-heading a:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .news-stiletto__card-date {
+    font-size: 11px;
+    opacity: 0.5;
+    margin: 0 0 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .news-stiletto__card-excerpt {
+    font-size: {{ section.settings.excerpt_size }}px;
+    line-height: 1.6;
+    margin: 0 0 16px;
+    opacity: 0.7;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .news-stiletto__card-link {
+    font-size: 13px;
+    color: {{ section.settings.text_color }};
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s ease;
+    margin-top: auto;
+  }
+
+  .news-stiletto__card-link:hover {
+    opacity: 0.6;
+  }
+
+  /* Responsive */
+  @media screen and (max-width: 989px) {
+    .news-stiletto__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .news-stiletto__inner {
+      padding: 0 24px;
+    }
+  }
+
+  @media screen and (max-width: 549px) {
+    .news-stiletto__card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-stiletto__card-body {
+      margin-top: 0;
+    }
+  }
+</style>
+
+<section class="news-stiletto">
+  <div class="news-stiletto__inner">
+
+    <div class="news-stiletto__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="news-stiletto__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.blog != blank and section.settings.show_view_all -%}
+        <a href="{{ section.settings.blog.url }}" class="news-stiletto__view-all">View all posts</a>
+      {%- endif -%}
+    </div>
+
+    <div class="news-stiletto__grid">
+      {%- if section.settings.blog != blank -%}
+        {%- for article in section.settings.blog.articles limit: section.settings.posts_limit -%}
+          <article class="news-stiletto__card">
+            <div class="news-stiletto__card-image">
+              <a href="{{ article.url }}">
+                {%- if article.image != blank -%}
+                  {{ article.image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(max-width: 549px) 100vw, (max-width: 989px) 45vw, 30vw', widths: '200, 300, 400, 600' }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </a>
+            </div>
+            <div class="news-stiletto__card-body">
+              <h3 class="news-stiletto__card-heading"><a href="{{ article.url }}">{{ article.title | escape }}</a></h3>
+              <p class="news-stiletto__card-date">{{ article.published_at | date: section.settings.date_format }}</p>
+              {%- if section.settings.show_excerpt and article.excerpt_or_content != blank -%}
+                <p class="news-stiletto__card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 160 }}</p>
+              {%- endif -%}
+              <a href="{{ article.url }}" class="news-stiletto__card-link">Read more</a>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..3) -%}
+          <article class="news-stiletto__card">
+            <div class="news-stiletto__card-image">
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            <div class="news-stiletto__card-body">
+              <h3 class="news-stiletto__card-heading">Article title</h3>
+              <p class="news-stiletto__card-date">Jan 01, 2026</p>
+              <p class="news-stiletto__card-excerpt">All product images and descriptions belong to their respective owners...</p>
+              <a href="#" class="news-stiletto__card-link">Read more</a>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "News Stiletto",
+  "tag": "section",
+  "class": "news-stiletto-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Latest stories"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "posts_limit",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Number of posts",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "default": true,
+      "label": "Show excerpt"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View all posts'"
+    },
+    {
+      "type": "text",
+      "id": "date_format",
+      "label": "Date format",
+      "default": "%b %d, %Y",
+      "info": "e.g. %b %d, %Y = Jan 01, 2026"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Columns (desktop)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 12,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "3 / 4", "label": "Portrait (3:4)" },
+        { "value": "4 / 5", "label": "Classic (4:5)" },
+        { "value": "1 / 1", "label": "Square" },
+        { "value": "16 / 9", "label": "Landscape (16:9)" }
+      ],
+      "default": "1 / 1"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Section title size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_heading_size",
+      "min": 16,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Card heading size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "excerpt_size",
+      "min": 11,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Excerpt size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card body background",
+      "default": "#f7f4ef"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 12,
+      "max": 36,
+      "step": 4,
+      "unit": "px",
+      "label": "Card body padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "News Stiletto"
+    }
+  ]
+}
+{% endschema %}

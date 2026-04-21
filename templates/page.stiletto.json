@@ -1,0 +1,854 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "announcement_bar_stiletto_zXUeR7": {
+      "type": "announcement-bar-stiletto",
+      "blocks": {
+        "announcement_YgzzrG": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free shipping on orders over $250",
+            "link": ""
+          }
+        },
+        "announcement_Lhk4yq": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free shipping on orders over $250",
+            "link": ""
+          }
+        },
+        "announcement_DB7cze": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free shipping on orders over $250",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_YgzzrG",
+        "announcement_Lhk4yq",
+        "announcement_DB7cze"
+      ],
+      "name": "Announcement Stiletto",
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "bg_color": "#f5f0e1",
+        "text_color": "#1a1a1a",
+        "font_size": 13,
+        "padding_top": 10,
+        "padding_bottom": 10
+      }
+    },
+    "header_stiletto_P6kxJA": {
+      "type": "header-stiletto",
+      "blocks": {
+        "mega_image_RhYRad": {
+          "type": "mega_image",
+          "settings": {
+            "menu_handle": "home",
+            "image": "shopify://shop_images/gif_03_f43ed7b1-9b0f-4ee6-95e2-f0db82c0e0ff.webp",
+            "image_heading": "The City Edit",
+            "image_button_label": "View Lookbook",
+            "image_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "mega_image_RhYRad"
+      ],
+      "disabled": true,
+      "name": "Header Stiletto",
+      "settings": {
+        "logo_width": 300,
+        "menu": "mega-menu",
+        "top_menu": "main-menu",
+        "mega_menu_width": 800,
+        "nav_font_size": 14,
+        "top_menu_font_size": 12,
+        "show_search": true,
+        "icon_size": 22,
+        "icon_gap": 18,
+        "enable_sticky": true,
+        "show_social_mobile": true,
+        "color_scheme": "",
+        "menu_color_scheme": "",
+        "padding_top": 8,
+        "padding_bottom": 16
+      }
+    },
+    "hero_stiletto_ct4dbm": {
+      "type": "hero-stiletto",
+      "blocks": {
+        "slide_zAJVNf": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/gif_03_f43ed7b1-9b0f-4ee6-95e2-f0db82c0e0ff.webp",
+            "overlay_color": "#000000",
+            "overlay_opacity": 80,
+            "subtitle": "New Arrivals",
+            "heading": "The City Edit",
+            "text_color": "#fcfcf9",
+            "heading_font_size": 58,
+            "content_position": "middle-center",
+            "button_label": "View Lookbook",
+            "button_link": "",
+            "btn_font_size": 12,
+            "btn_text_color": "#1a1a1a",
+            "btn_bg_color": "#faf7c3",
+            "btn_hover_text_color": "#121212",
+            "btn_hover_bg_color": "#f7f3a2"
+          }
+        },
+        "static_LF4Wi4": {
+          "type": "static",
+          "settings": {
+            "image": "shopify://shop_images/BEA-BLAZER-DRESS-IN-BUTTERCUP-BOSKEMPER-29223697_9eb042f0-ade3-4a5b-90b7-bb7b3e8df6f2.webp",
+            "overlay_color": "#000000",
+            "overlay_opacity": 20,
+            "subtitle": "Edit, merges and curates",
+            "heading": "Resort Collection",
+            "text_color": "#fcfcf9",
+            "heading_font_size": 58,
+            "content_position": "middle-center",
+            "button_label": "Shop Now",
+            "button_link": "",
+            "btn_font_size": 12,
+            "btn_text_color": "#121212",
+            "btn_bg_color": "#faf7c3",
+            "btn_hover_text_color": "#121212",
+            "btn_hover_bg_color": "#f7f3a2"
+          }
+        }
+      },
+      "block_order": [
+        "slide_zAJVNf",
+        "static_LF4Wi4"
+      ],
+      "name": "Hero Stiletto",
+      "settings": {
+        "autoplay": true,
+        "slide_speed": 5,
+        "column_gap": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0
+      }
+    },
+    "marquee_slider_stiletto_z43M4c": {
+      "type": "marquee-slider-stiletto",
+      "blocks": {
+        "text_YiaKAW": {
+          "type": "text",
+          "settings": {
+            "text": "End of season sale",
+            "link": ""
+          }
+        },
+        "text_6qtzEq": {
+          "type": "text",
+          "settings": {
+            "text": "Shop the sale",
+            "link": ""
+          }
+        },
+        "text_hhLXcW": {
+          "type": "text",
+          "settings": {
+            "text": "End of season sale",
+            "link": ""
+          }
+        },
+        "text_MCP8dw": {
+          "type": "text",
+          "settings": {
+            "text": "Shop the sale",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_YiaKAW",
+        "text_6qtzEq",
+        "text_hhLXcW",
+        "text_MCP8dw"
+      ],
+      "name": "Marquee Slider Stiletto",
+      "settings": {
+        "speed": 17,
+        "direction": "right",
+        "bg_color": "#242526",
+        "text_color": "#eae8b8",
+        "dot_color": "#242526",
+        "font_size": 20,
+        "letter_spacing": 0,
+        "text_transform": "none",
+        "separator_gap": 30,
+        "padding_top": 22,
+        "padding_bottom": 22
+      }
+    },
+    "philosophy_stiletto_VWMRHY": {
+      "type": "philosophy-stiletto",
+      "blocks": {
+        "collection_card_dHtzKU": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "mens",
+            "title": "Trousers",
+            "link": ""
+          }
+        },
+        "collection_card_KGQAkf": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "title": "Dresses",
+            "link": "#"
+          }
+        },
+        "collection_card_JaGwAJ": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "title": "Jackets",
+            "link": "#"
+          }
+        },
+        "collection_card_RNqQAn": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "title": "Knitwear",
+            "link": "#"
+          }
+        },
+        "collection_card_FJrt6T": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "title": "Minis",
+            "link": "#"
+          }
+        },
+        "collection_card_ktNjRg": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "title": "t shirt",
+            "link": "#"
+          }
+        },
+        "collection_card_afTYx7": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_card_dHtzKU",
+        "collection_card_KGQAkf",
+        "collection_card_JaGwAJ",
+        "collection_card_RNqQAn",
+        "collection_card_FJrt6T",
+        "collection_card_ktNjRg",
+        "collection_card_afTYx7"
+      ],
+      "name": "Philosophy Stiletto",
+      "settings": {
+        "subtitle": "OUR PHILOSOPHY",
+        "heading": "<p>Our effortless yet distinctive pieces are designed to be mixed & matched, worn together to transform an outfit into an art of functional self-expression.</p>",
+        "link_text": "Read more",
+        "link_url": "",
+        "show_divider": true,
+        "divider_spacing": 40,
+        "slider_title": "Find the perfect piece",
+        "cards_per_row": 5,
+        "card_gap": 16,
+        "card_aspect_ratio": "3 / 4",
+        "subtitle_font_size": 13,
+        "heading_font_size": 50,
+        "slider_title_font_size": 36,
+        "bg_color": "#fcfcf9",
+        "text_color": "#22292d",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "countdown_timer_stiletto_GKaLf4": {
+      "type": "countdown-timer-stiletto",
+      "name": "Countdown Timer Stiletto",
+      "settings": {
+        "end_date": "2026-12-31",
+        "end_time": "23:59",
+        "heading": "Get it before it's gone",
+        "promo_text": "Get 30% off on our seasonal sale!",
+        "button_label": "Shop sale",
+        "button_link": "",
+        "heading_size": 36,
+        "number_size": 44,
+        "label_size": 10,
+        "promo_size": 14,
+        "button_font_size": 13,
+        "bg_color": "#f5f0d0",
+        "text_color": "#242526",
+        "button_bg": "#242526",
+        "button_text": "#ffffff",
+        "button_padding_x": 24,
+        "button_padding_y": 12,
+        "gap": 40,
+        "unit_padding": 16,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "image_with_text_overlay_stiletto_6q4T8N": {
+      "type": "image-with-text-overlay-stiletto",
+      "name": "Image Overlay Stiletto",
+      "settings": {
+        "media_type": "image",
+        "image": "shopify://shop_images/20230921_BOSKEMPER_S24_CAMPAIGN_0684-BW.webp",
+        "video_url": "",
+        "layout": "full_width",
+        "min_height_desktop": 520,
+        "min_height_mobile": 360,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "subtitle": "New",
+        "heading": "Collection VOUS",
+        "description": "<p>Our city daywear collection is designed for the modern, on-the-go lifestyle. Featuring versatile pieces that blend comfort with effortless glamour, this collection is perfect for navigating urban streets.</p>",
+        "button_label": "",
+        "button_link": "",
+        "content_position": "bottom-left",
+        "content_max_width": 480,
+        "content_padding": 24,
+        "content_padding_desktop": 52,
+        "subtitle_size": 12,
+        "heading_size": 70,
+        "description_size": 14,
+        "button_size": 12,
+        "text_color": "#ffffff",
+        "button_hover_color": "#1a1a1a"
+      }
+    },
+    "featured_collection_stiletto_c3QWTE": {
+      "type": "featured-collection-stiletto",
+      "blocks": {
+        "collection_tab_HYdifB": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "frontpage",
+            "tab_label": "Shop All",
+            "show_view_all": true
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_HYdifB"
+      ],
+      "name": "Collection Stiletto",
+      "settings": {
+        "cards_per_row": 4,
+        "card_gap": 16,
+        "products_limit": 10,
+        "card_ratio": "2 / 3",
+        "tab_font_size": 15,
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "sale_banner_stiletto_XTrnPp": {
+      "type": "sale-banner-stiletto",
+      "name": "Sale Banner Stiletto",
+      "settings": {
+        "image": "shopify://shop_images/20230424_BOSKEMPER_RESORT23_CAMPAIGN_0990_BW2_44f0ea84-7700-475b-8d7e-15f0250f0056.webp",
+        "min_height": 400,
+        "overlay_color": "#000000",
+        "overlay_opacity": 80,
+        "pretitle": "Up to *",
+        "discount_text": "50% off",
+        "terms": "*Ends August 15, 2025, 11:59 PST. T&C's Apply",
+        "show_divider": true,
+        "divider_gap": 40,
+        "heading": "Black Friday Sale",
+        "description": "Discounts of up to 50% on select styles.",
+        "button_label": "Shop Sale",
+        "button_link": "",
+        "pretitle_size": 16,
+        "discount_size": 80,
+        "terms_size": 11,
+        "heading_size": 28,
+        "description_size": 14,
+        "button_size": 12,
+        "outer_bg": "#fcfcf9",
+        "text_color": "#ffffff",
+        "btn_text_color": "#242526",
+        "button_bg": "#faf7c3",
+        "button_hover_text": "#242526",
+        "content_padding": 48,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "shoppable_feature_stiletto_7BKxmi": {
+      "type": "shoppable-feature-stiletto",
+      "blocks": {
+        "product_dot_wNYLF6": {
+          "type": "product_dot",
+          "settings": {
+            "dot_x": 43,
+            "dot_y": 31,
+            "product": "classic-leather-jacket",
+            "custom_image": "shopify://shop_images/MAGNOLIA-TOP-IN-NOIR-BOSKEMPER-29200749.webp",
+            "title": "Carrie Skirt in Noir",
+            "price": "",
+            "link": ""
+          }
+        },
+        "product_dot_qyjwhk": {
+          "type": "product_dot",
+          "settings": {
+            "dot_x": 78,
+            "dot_y": 54,
+            "product": "red-sports-tee",
+            "custom_image": "shopify://shop_images/CARRIE-SKIRT-IN-NOIR-BOSKEMPER-29247026.webp",
+            "title": "Magnolia Top in Noir",
+            "price": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_dot_wNYLF6",
+        "product_dot_qyjwhk"
+      ],
+      "name": "Shoppable Stiletto",
+      "settings": {
+        "image": "shopify://shop_images/20230424_BOSKEMPER_RESORT23_CAMPAIGN_1356_1.webp",
+        "heading": "Recreate the look",
+        "shop_link_text": "Shop now",
+        "shop_link_url": "",
+        "title_size": 28,
+        "bg_color": "#fcfcf9",
+        "text_color": "#1a1a1a",
+        "grid_gap": 48,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "image_with_text_overlay_stiletto_38eNLr": {
+      "type": "image-with-text-overlay-stiletto",
+      "name": "Image Overlay Stiletto",
+      "settings": {
+        "media_type": "video",
+        "video": "shopify://files/videos/ded011d602384fec9c77e3fa5a52a891.HD-1080p-4.8Mbps-37772507.mp4",
+        "video_url": "",
+        "layout": "full_width",
+        "min_height_desktop": 520,
+        "min_height_mobile": 360,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "subtitle": "Back in stock",
+        "heading": "The city edit",
+        "description": "<p>Our city daywear collection is designed for the modern, on-the-go lifestyle. Featuring versatile pieces that blend comfort with effortless glamour, this collection is perfect for navigating urban streets.</p>",
+        "button_label": "View Collection",
+        "button_link": "",
+        "content_position": "middle-left",
+        "content_max_width": 480,
+        "content_padding": 24,
+        "content_padding_desktop": 52,
+        "subtitle_size": 12,
+        "heading_size": 42,
+        "description_size": 14,
+        "button_size": 12,
+        "text_color": "#ffffff",
+        "button_hover_color": "#1a1a1a"
+      }
+    },
+    "dual_feature_stiletto_XbjdcP": {
+      "type": "dual-feature-stiletto",
+      "blocks": {
+        "slide_3hHL9m": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/gif_03_f43ed7b1-9b0f-4ee6-95e2-f0db82c0e0ff.webp",
+            "heading": "Elegance after dark",
+            "description": "Perfect for gala dates, events, or nightouts!",
+            "btn_label": "Shop now",
+            "btn_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_3hHL9m"
+      ],
+      "name": "Dual Feature Stiletto",
+      "settings": {
+        "left_image": "shopify://shop_images/BEA-BLAZER-DRESS-IN-BUTTERCUP-BOSKEMPER-29223697_9eb042f0-ade3-4a5b-90b7-bb7b3e8df6f2.webp",
+        "left_heading": "Unforgettable",
+        "left_description": "Make a mark in all with the 24 Collection",
+        "left_btn_label": "Shop now",
+        "left_btn_link": "",
+        "left_position": "middle-center",
+        "left_overlay_color": "#000000",
+        "left_overlay_opacity": 50,
+        "slide_speed": 5,
+        "right_position": "middle-center",
+        "right_overlay_color": "#000000",
+        "right_overlay_opacity": 30,
+        "heading_size": 32,
+        "desc_size": 13,
+        "btn_size": 12,
+        "bg_color": "#ffffff",
+        "text_color": "#ffffff",
+        "btn_text_color": "#252526",
+        "btn_bg": "#f5f0d0",
+        "btn_hover_text": "#1a1a1a",
+        "btn_hover_bg": "#f7f3a2",
+        "card_ratio": "4 / 5",
+        "grid_gap": 16,
+        "content_padding": 32,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_side": 20
+      }
+    },
+    "featured_collection_stiletto_tYxziM": {
+      "type": "featured-collection-stiletto",
+      "blocks": {
+        "collection_tab_bftT6B": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "mens",
+            "tab_label": "Men's",
+            "show_view_all": true
+          }
+        },
+        "collection_tab_V4rghH": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "womens",
+            "tab_label": "Women's",
+            "show_view_all": true
+          }
+        },
+        "collection_tab_fYcXW8": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "frontpage",
+            "tab_label": "Shop All",
+            "show_view_all": true
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_bftT6B",
+        "collection_tab_V4rghH",
+        "collection_tab_fYcXW8"
+      ],
+      "name": "Collection Stiletto",
+      "settings": {
+        "cards_per_row": 4,
+        "card_gap": 16,
+        "products_limit": 10,
+        "card_ratio": "2 / 3",
+        "tab_font_size": 15,
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "testimonial_stiletto_wfLWFi": {
+      "type": "testimonial-stiletto",
+      "blocks": {
+        "testimonial_APkRQL": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "We're confident that this store will be the next big thing in its industry, and that its products will be timeless.",
+            "name": "VOGUE"
+          }
+        },
+        "testimonial_RJgwTw": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "A masterclass in modern elegance. Every piece feels intentional and luxurious.",
+            "name": "allure"
+          }
+        },
+        "testimonial_R6zyEx": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Setting the standard for what contemporary fashion should look and feel like.",
+            "name": "FAST COMPANY"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_APkRQL",
+        "testimonial_RJgwTw",
+        "testimonial_R6zyEx"
+      ],
+      "name": "Testimonial Stiletto",
+      "settings": {
+        "quote_size": 30,
+        "name_size": 15,
+        "logo_height": 22,
+        "bg_color": "#f7f4ef",
+        "text_color": "#1a1a1a",
+        "active_color": "#1a1a1a",
+        "max_width": 850,
+        "name_gap": 32,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "image_with_text_overlay_stiletto_zMba7Q": {
+      "type": "image-with-text-overlay-stiletto",
+      "name": "Image Overlay Stiletto",
+      "settings": {
+        "media_type": "image",
+        "image": "shopify://shop_images/20230921_BOSKEMPER_S24_CAMPAIGN_0852_1_704a79f0-b7c8-49ff-8172-7512430733fc_1.webp",
+        "video_url": "",
+        "layout": "full_width",
+        "min_height_desktop": 520,
+        "min_height_mobile": 360,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "subtitle": "Back in stock",
+        "heading": "The city edit",
+        "description": "<p>Our city daywear collection is designed for the modern, on-the-go lifestyle. Featuring versatile pieces that blend comfort with effortless glamour, this collection is perfect for navigating urban streets.</p>",
+        "button_label": "View Collection",
+        "button_link": "",
+        "content_position": "middle-left",
+        "content_max_width": 480,
+        "content_padding": 24,
+        "content_padding_desktop": 52,
+        "subtitle_size": 12,
+        "heading_size": 42,
+        "description_size": 14,
+        "button_size": 12,
+        "text_color": "#ffffff",
+        "button_hover_color": "#1a1a1a"
+      }
+    },
+    "about_stiletto_9bcrzF": {
+      "type": "about-stiletto",
+      "name": "About Stiletto",
+      "settings": {
+        "subtitle": "ABOUT",
+        "heading": "<p>A <em><strong>female owned & run label</strong></em>, based in Melbourne, embracing the essence of travel & celebrating the diversity of women throughout the world.</p>",
+        "link_text": "Learn More",
+        "link_url": "",
+        "image": "shopify://shop_images/portrait4.webp",
+        "layout": "text_left",
+        "text_width": 1,
+        "image_width": 1,
+        "grid_gap": 48,
+        "subtitle_size": 11,
+        "heading_size": 30,
+        "link_size": 14,
+        "bg_color": "#f7f7e8",
+        "text_color": "#1a1a1a",
+        "text_padding": 20,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "news_stiletto_8TcbRj": {
+      "type": "news-stiletto",
+      "name": "News Stiletto",
+      "settings": {
+        "title": "Latest stories",
+        "blog": "news",
+        "posts_limit": 2,
+        "show_excerpt": true,
+        "show_view_all": true,
+        "date_format": "%b %d, %Y",
+        "columns": 2,
+        "grid_gap": 24,
+        "image_ratio": "1 / 1",
+        "title_size": 28,
+        "card_heading_size": 20,
+        "excerpt_size": 12,
+        "bg_color": "#fcfcf9",
+        "text_color": "#1a1a1a",
+        "card_bg": "#f7f4ef",
+        "card_padding": 20,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "features_stiletto_dmizic": {
+      "type": "features-stiletto",
+      "blocks": {
+        "feature_EpQj7d": {
+          "type": "feature",
+          "settings": {
+            "icon": "return",
+            "title": "Easy Returns",
+            "description": "Your exchange ships out as soon as you email us.",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "feature_HfXA9e": {
+          "type": "feature",
+          "settings": {
+            "icon": "globe",
+            "title": "Worldwide Shipping",
+            "description": "Receive your order around 3-5 days after shipment",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "feature_Cxzbpg": {
+          "type": "feature",
+          "settings": {
+            "icon": "diamond",
+            "title": "Atelier Grade",
+            "description": "Made with love, using high-quality premium materials",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "feature_P6idik": {
+          "type": "feature",
+          "settings": {
+            "icon": "wallet",
+            "title": "Buy Now, Pay Later",
+            "description": "Instalments with 0% interest and no extra charges through Shop Pay",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_EpQj7d",
+        "feature_HfXA9e",
+        "feature_Cxzbpg",
+        "feature_P6idik"
+      ],
+      "name": "Features Stiletto",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": 28,
+        "heading_align": "center",
+        "heading_bottom_gap": 36,
+        "columns": 4,
+        "mobile_columns": "1fr",
+        "column_gap": 24,
+        "row_gap": 24,
+        "card_layout": "vertical",
+        "card_align": "center",
+        "card_padding": 16,
+        "card_bg": "rgba(0,0,0,0)",
+        "show_card_border": false,
+        "show_column_dividers": false,
+        "show_border_top": false,
+        "show_border_bottom": true,
+        "border_color": "#e0ddd6",
+        "icon_size": 32,
+        "icon_color": "#1a1a1a",
+        "icon_bottom_gap": 12,
+        "title_size": 18,
+        "title_weight": "300",
+        "title_style": "italic",
+        "title_bottom_gap": 8,
+        "desc_size": 13,
+        "desc_opacity": 70,
+        "bg_color": "#f7f4ef",
+        "text_color": "#1a1a1a",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "footer_stiletto_TnrpbX": {
+      "type": "footer-stiletto",
+      "blocks": {
+        "menu_column_nfARqP": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "SHOP COLLECTIONS",
+            "menu": "main-menu"
+          }
+        },
+        "menu_column_JrNr3G": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "THE COMPANY",
+            "menu": "main-menu"
+          }
+        }
+      },
+      "block_order": [
+        "menu_column_nfARqP",
+        "menu_column_JrNr3G"
+      ],
+      "name": "Footer Stiletto",
+      "settings": {
+        "logo_height": 40,
+        "description": "<p>All product content for the theme demo was kindly provided by <a href=\"#\">BOSKEMPER</a>.</p>",
+        "show_newsletter": true,
+        "newsletter_heading": "Sign up and save on your first order",
+        "newsletter_placeholder": "Your email",
+        "newsletter_btn_text": "SUBSCRIBE",
+        "newsletter_heading_size": 22,
+        "show_social": true,
+        "show_country_selector": true,
+        "show_payment": true,
+        "show_powered_by": true,
+        "copyright_text": "All rights reserved. See our terms of use and privacy notice.",
+        "desc_size": 13,
+        "menu_heading_size": 12,
+        "menu_link_size": 14,
+        "bg_color": "#171819",
+        "text_color": "#f7f7e8",
+        "heading_color": "#f7f7e8",
+        "link_hover_color": "#f7f7e8",
+        "divider_color": "#f7f7e8",
+        "column_gap": 48,
+        "section_gap": 36,
+        "padding_top": 60,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "announcement_bar_stiletto_zXUeR7",
+    "header_stiletto_P6kxJA",
+    "hero_stiletto_ct4dbm",
+    "marquee_slider_stiletto_z43M4c",
+    "philosophy_stiletto_VWMRHY",
+    "countdown_timer_stiletto_GKaLf4",
+    "image_with_text_overlay_stiletto_6q4T8N",
+    "featured_collection_stiletto_c3QWTE",
+    "sale_banner_stiletto_XTrnPp",
+    "shoppable_feature_stiletto_7BKxmi",
+    "image_with_text_overlay_stiletto_38eNLr",
+    "dual_feature_stiletto_XbjdcP",
+    "featured_collection_stiletto_tYxziM",
+    "testimonial_stiletto_wfLWFi",
+    "image_with_text_overlay_stiletto_zMba7Q",
+    "about_stiletto_9bcrzF",
+    "news_stiletto_8TcbRj",
+    "features_stiletto_dmizic",
+    "footer_stiletto_TnrpbX"
+  ]
+}

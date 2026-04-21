@@ -36,6 +36,40 @@
         "enable_language_selector": false
       }
     },
+    "tcb_hero_xqTPqA": {
+      "type": "tcb-hero",
+      "blocks": {
+        "slide_GBhQXc": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/GIF_DEFINITIVO_header_chocolate.webp",
+            "video_url": "",
+            "heading": "DATE SWEETENED CHOCOLATE",
+            "subheading": "",
+            "button_label": "SHOP NOW",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_GBhQXc"
+      ],
+      "name": "TCB Slideshow",
+      "settings": {
+        "slide_height": "100vh",
+        "overlay_opacity": 50,
+        "auto_rotate": true,
+        "slide_speed": 5,
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "heading_size": 54,
+        "subheading_size": 15,
+        "button_bg": "#c8902e",
+        "button_text_color": "#ffffff",
+        "button_hover_bg": "#6b3a2a",
+        "button_font_size": 12
+      }
+    },
     "marquee_bar_mRa4tj": {
       "type": "marquee-bar",
       "name": "Marquee Bar",
@@ -72,6 +106,7 @@
   },
   "order": [
     "announcement-bar",
+    "tcb_hero_xqTPqA",
     "marquee_bar_mRa4tj",
     "header"
   ]

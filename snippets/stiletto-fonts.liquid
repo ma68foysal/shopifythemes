@@ -1,0 +1,107 @@
+{%- comment -%}
+  Stiletto Fonts - Local assets
+  Fraunces (heading) + Instrument Sans (body)
+  Render on index template only.
+{%- endcomment -%}
+
+<style>
+  /* Fraunces - Heading font */
+  @font-face {
+    font-family: 'Fraunces';
+    src: url({{ 'Fraunces_72pt-Thin.ttf' | asset_url }}) format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fraunces';
+    src: url({{ 'Fraunces_72pt-Light.ttf' | asset_url }}) format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fraunces';
+    src: url({{ 'Fraunces_72pt-Regular.ttf' | asset_url }}) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fraunces';
+    src: url({{ 'Fraunces_72pt-SemiBold.ttf' | asset_url }}) format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fraunces';
+    src: url({{ 'Fraunces_72pt-Bold.ttf' | asset_url }}) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fraunces';
+    src: url({{ 'Fraunces_72pt-Black.ttf' | asset_url }}) format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* Instrument Sans - Body font */
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url({{ 'InstrumentSans-Regular.ttf' | asset_url }}) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url({{ 'InstrumentSans-Medium.ttf' | asset_url }}) format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url({{ 'InstrumentSans-SemiBold.ttf' | asset_url }}) format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url({{ 'InstrumentSans-Bold.ttf' | asset_url }}) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* Override Dawn CSS variables */
+  :root {
+    --font-heading-family: 'Fraunces', serif;
+    --font-heading-style: normal;
+    --font-heading-weight: 300;
+
+    --font-body-family: 'Instrument Sans', sans-serif;
+    --font-body-style: normal;
+    --font-body-weight: 400;
+    --font-body-weight-bold: 700;
+  }
+
+  body {
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: var(--font-body-weight);
+  }
+</style>

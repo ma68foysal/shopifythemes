@@ -1,0 +1,432 @@
+<style>
+  .iwto-stiletto {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .iwto-stiletto__media {
+    position: relative;
+    width: 100%;
+    min-height: {{ section.settings.min_height_mobile }}px;
+  }
+
+  .iwto-stiletto__media img,
+  .iwto-stiletto__media svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .iwto-stiletto__media video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .iwto-stiletto__placeholder {
+    position: absolute;
+    inset: 0;
+    background: #2a2a2a;
+  }
+
+  /* Overlay */
+  .iwto-stiletto__overlay {
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+  }
+
+  /* Content */
+  .iwto-stiletto__content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    padding: {{ section.settings.content_padding }}px;
+  }
+
+  /* Content position */
+  .iwto-stiletto__content--top-left { align-items: flex-start; justify-content: flex-start; }
+  .iwto-stiletto__content--top-center { align-items: flex-start; justify-content: center; text-align: center; }
+  .iwto-stiletto__content--top-right { align-items: flex-start; justify-content: flex-end; text-align: right; }
+  .iwto-stiletto__content--middle-left { align-items: center; justify-content: flex-start; }
+  .iwto-stiletto__content--middle-center { align-items: center; justify-content: center; text-align: center; }
+  .iwto-stiletto__content--middle-right { align-items: center; justify-content: flex-end; text-align: right; }
+  .iwto-stiletto__content--bottom-left { align-items: flex-end; justify-content: flex-start; }
+  .iwto-stiletto__content--bottom-center { align-items: flex-end; justify-content: center; text-align: center; }
+  .iwto-stiletto__content--bottom-right { align-items: flex-end; justify-content: flex-end; text-align: right; }
+
+  .iwto-stiletto__text-box {
+    max-width: {{ section.settings.content_max_width }}px;
+    color: {{ section.settings.text_color }};
+  }
+
+  .iwto-stiletto__subtitle {
+    font-size: {{ section.settings.subtitle_size }}px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    font-weight: 500;
+    opacity: 0.85;
+  }
+
+  .iwto-stiletto__heading {
+    font-size: clamp(24px, {{ section.settings.heading_size }}px, 73px);
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    font-family: var(--font-heading-family);
+    letter-spacing: 0.01em;
+    color:#fff;
+  }
+
+  .iwto-stiletto__description {
+    font-size: {{ section.settings.description_size }}px;
+    line-height: 1.6;
+    margin: 0 0 24px;
+    
+  }
+
+  .iwto-stiletto__btn {
+    display: inline-block;
+    text-decoration: none;
+    font-size: {{ section.settings.button_size }}px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border: 1px solid;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: {{ section.settings.text_color }};
+    border-color: {{ section.settings.text_color }};
+  }
+
+  .iwto-stiletto__btn:hover {
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.button_hover_color }};
+  }
+
+  /* Desktop height */
+  @media screen and (min-width: 750px) {
+    .iwto-stiletto__media {
+      min-height: {{ section.settings.min_height_desktop }}px;
+    }
+
+    .iwto-stiletto__content {
+      padding: {{ section.settings.content_padding_desktop }}px;
+    }
+  }
+
+  /* Full width or page width */
+  {%- if section.settings.layout == 'page_width' -%}
+    .iwto-stiletto {
+      max-width: var(--page-width, 1200px);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+  {%- endif -%}
+</style>
+
+<section class="iwto-stiletto">
+  <div class="iwto-stiletto__media">
+    {%- if section.settings.media_type == 'video' and section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false }}
+    {%- elsif section.settings.media_type == 'video_url' and section.settings.video_url != blank -%}
+      {%- if section.settings.video_url.type == 'youtube' -%}
+        <iframe
+          src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay=1&mute=1&loop=1&playlist={{ section.settings.video_url.id }}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          frameborder="0"
+          style="position:absolute;inset:0;width:100%;height:100%;border:0;"
+        ></iframe>
+      {%- elsif section.settings.video_url.type == 'vimeo' -%}
+        <iframe
+          src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1&muted=1&loop=1&background=1&playsinline=1"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          frameborder="0"
+          style="position:absolute;inset:0;width:100%;height:100%;border:0;"
+        ></iframe>
+      {%- endif -%}
+    {%- elsif section.settings.image != blank -%}
+      {%- assign height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio | round -%}
+      {{ section.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', sizes: '100vw', widths: '375, 750, 1100, 1500, 2000', height: height }}
+    {%- else -%}
+      <div class="iwto-stiletto__placeholder"></div>
+      {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+
+    <div class="iwto-stiletto__overlay">&nbsp;</div>
+
+    <div class="iwto-stiletto__content iwto-stiletto__content--{{ section.settings.content_position }}">
+      <div class="iwto-stiletto__text-box">
+        {%- if section.settings.subtitle != blank -%}
+          <p class="iwto-stiletto__subtitle">{{ section.settings.subtitle | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="iwto-stiletto__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="iwto-stiletto__description">{{ section.settings.description }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: '#' }}" class="iwto-stiletto__btn">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image Overlay Stiletto",
+  "tag": "section",
+  "class": "image-overlay-stiletto-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Media type",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video (Shopify hosted)" },
+        { "value": "video_url", "label": "Video (YouTube / Vimeo)" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Shopify hosted video"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "YouTube or Vimeo URL",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "full_width", "label": "Full width" },
+        { "value": "page_width", "label": "Page width" }
+      ],
+      "default": "full_width"
+    },
+    {
+      "type": "range",
+      "id": "min_height_desktop",
+      "min": 200,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Min height (desktop)",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "label": "Min height (mobile)",
+      "default": 360
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Back in stock"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The city edit"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Our city daywear collection is designed for the modern, on-the-go lifestyle. Featuring versatile pieces that blend comfort with effortless glamour, this collection is perfect for navigating urban streets.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Content position"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position",
+      "options": [
+        { "value": "top-left", "label": "Top left" },
+        { "value": "top-center", "label": "Top center" },
+        { "value": "top-right", "label": "Top right" },
+        { "value": "middle-left", "label": "Middle left" },
+        { "value": "middle-center", "label": "Middle center" },
+        { "value": "middle-right", "label": "Middle right" },
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-center", "label": "Bottom center" },
+        { "value": "bottom-right", "label": "Bottom right" }
+      ],
+      "default": "top-left"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 300,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 480
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Content padding (mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_padding_desktop",
+      "min": 24,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Content padding (desktop)",
+      "default": 52
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle font size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading font size",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Description font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover text color",
+      "default": "#1a1a1a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Overlay Stiletto"
+    }
+  ]
+}
+{% endschema %}

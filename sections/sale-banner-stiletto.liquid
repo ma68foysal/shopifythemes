@@ -1,0 +1,461 @@
+<style>
+  .sale-banner-stiletto {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.outer_bg }};
+  }
+
+  .sale-banner-stiletto__inner {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .sale-banner-stiletto__card {
+    position: relative;
+    overflow: hidden;
+    min-height: {{ section.settings.min_height }}px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Background image */
+  .sale-banner-stiletto__bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .sale-banner-stiletto__bg img,
+  .sale-banner-stiletto__bg svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sale-banner-stiletto__bg-placeholder {
+    position: absolute;
+    inset: 0;
+    background: #333;
+  }
+
+  .sale-banner-stiletto__overlay {
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+
+  /* Content grid: left | divider | right */
+  .sale-banner-stiletto__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: {{ section.settings.content_padding }}px;
+    gap: {{ section.settings.divider_gap }}px;
+    color: {{ section.settings.text_color }};
+  }
+
+  /* Left side - big discount */
+  .sale-banner-stiletto__left {
+    flex: 1;
+  }
+
+  .sale-banner-stiletto__pretitle {
+    font-size: {{ section.settings.pretitle_size }}px;
+    margin: 0 0 4px;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+
+  .sale-banner-stiletto__discount {
+    font-size: clamp(48px, {{ section.settings.discount_size }}px, 120px);
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1;
+    margin: 0 0 8px;
+    font-family: var(--font-heading-family);
+    letter-spacing: -0.02em;
+  }
+
+  .sale-banner-stiletto__terms {
+    font-size: {{ section.settings.terms_size }}px;
+    margin: 0;
+    opacity: 0.6;
+  }
+
+  /* Vertical divider */
+  .sale-banner-stiletto__divider {
+    width: 1px;
+    align-self: stretch;
+    background: {{ section.settings.text_color }};
+    opacity: 0.25;
+    flex-shrink: 0;
+  }
+
+  /* Right side - heading + description + button */
+  .sale-banner-stiletto__right {
+    flex: 1;
+  }
+
+  .sale-banner-stiletto__heading {
+    font-size: clamp(20px, {{ section.settings.heading_size }}px, 40px);
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.2;
+    margin: 0 0 8px;
+    font-family: var(--font-heading-family);
+  }
+
+  .sale-banner-stiletto__description {
+    font-size: {{ section.settings.description_size }}px;
+    margin: 0 0 20px;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+
+  .sale-banner-stiletto__btn {
+    display: inline-block;
+    text-decoration: none;
+    font-size: {{ section.settings.button_size }}px;
+    letter-spacing: 0.06em;
+    padding: 10px 24px;
+    border: 1px solid {{ section.settings.btn_text_color }};
+    color: {{ section.settings.btn_text_color }};
+    background: {{ section.settings.button_bg }};
+    transition: all 0.3s ease;
+  }
+
+  .sale-banner-stiletto__btn:hover {
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.button_hover_text }};
+  }
+
+  /* Responsive */
+  @media screen and (max-width: 749px) {
+    .sale-banner-stiletto__inner {
+      padding: 0 20px;
+    }
+
+    .sale-banner-stiletto__content {
+      flex-direction: column;
+      text-align: center;
+      gap: 24px;
+    }
+
+    .sale-banner-stiletto__divider {
+      width: 60px;
+      height: 1px;
+      align-self: center;
+    }
+
+    .sale-banner-stiletto__discount {
+      font-size: 64px;
+    }
+  }
+</style>
+
+<section class="sale-banner-stiletto">
+  <div class="sale-banner-stiletto__inner">
+    <div class="sale-banner-stiletto__card">
+
+      <div class="sale-banner-stiletto__bg">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '100vw', widths: '375, 750, 1100, 1400, 1600' }}
+        {%- else -%}
+          <div class="sale-banner-stiletto__bg-placeholder"></div>
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        <div class="sale-banner-stiletto__overlay">&nbsp;</div>
+      </div>
+
+      <div class="sale-banner-stiletto__content">
+        <div class="sale-banner-stiletto__left">
+          {%- if section.settings.pretitle != blank -%}
+            <p class="sale-banner-stiletto__pretitle">{{ section.settings.pretitle | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.discount_text != blank -%}
+            <p class="sale-banner-stiletto__discount">{{ section.settings.discount_text }}</p>
+          {%- endif -%}
+          {%- if section.settings.terms != blank -%}
+            <p class="sale-banner-stiletto__terms">{{ section.settings.terms | escape }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.show_divider -%}
+          <div class="sale-banner-stiletto__divider">&nbsp;</div>
+        {%- endif -%}
+
+        <div class="sale-banner-stiletto__right">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="sale-banner-stiletto__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <p class="sale-banner-stiletto__description">{{ section.settings.description | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank -%}
+            <a href="{{ section.settings.button_link | default: '#' }}" class="sale-banner-stiletto__btn">
+              {{ section.settings.button_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sale Banner Stiletto",
+  "tag": "section",
+  "class": "sale-banner-stiletto-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 200,
+      "max": 500,
+      "step": 20,
+      "unit": "px",
+      "label": "Min height",
+      "default": 300
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Left side (discount)"
+    },
+    {
+      "type": "text",
+      "id": "pretitle",
+      "label": "Pre-title",
+      "default": "Up to *"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "discount_text",
+      "label": "Discount text",
+      "default": "50% off"
+    },
+    {
+      "type": "text",
+      "id": "terms",
+      "label": "Terms text",
+      "default": "*Ends August 15, 2025, 11:59 PST. T&C's Apply"
+    },
+    {
+      "type": "header",
+      "content": "Divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "default": true,
+      "label": "Show vertical divider"
+    },
+    {
+      "type": "range",
+      "id": "divider_gap",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Divider gap",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Right side (info)"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Black Friday Sale"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Discounts of up to 50% on select styles."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Sale"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "pretitle_size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Pre-title size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "discount_size",
+      "min": 48,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Discount text size",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "terms_size",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Terms text size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "outer_bg",
+      "label": "Outer background",
+      "default": "#f7f4ef"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button color",
+      "default": "#242526"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background",
+      "default": "#f5f0d0"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Button hover text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Content padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Section top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Section bottom padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sale Banner Stiletto"
+    }
+  ]
+}
+{% endschema %}

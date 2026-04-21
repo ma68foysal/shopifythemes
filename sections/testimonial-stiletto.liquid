@@ -1,0 +1,400 @@
+<style>
+  .testi-stiletto {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .testi-stiletto__inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 40px;
+    text-align: center;
+  }
+
+  /* Quote slider area */
+  .testi-stiletto__slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .testi-stiletto__arrow {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: {{ section.settings.text_color }};
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+    flex-shrink: 0;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .testi-stiletto__arrow:hover {
+    opacity: 0.7;
+  }
+
+  .testi-stiletto__viewport {
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .testi-stiletto__track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .testi-stiletto__slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    padding: 0 20px;
+  }
+
+  .testi-stiletto__quote {
+    font-size: clamp(20px, {{ section.settings.quote_size }}px, 44px);
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.4;
+    margin: 0;
+    font-family: var(--font-heading-family);
+    letter-spacing: 0.01em;
+  }
+
+  .testi-stiletto__quote::before {
+    content: '\201C';
+  }
+
+  .testi-stiletto__quote::after {
+    content: '\201D';
+  }
+
+  /* Names as dots/tabs */
+  .testi-stiletto__names {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: {{ section.settings.name_gap }}px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .testi-stiletto__name {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 0 6px;
+    font-family: inherit;
+    font-size: {{ section.settings.name_size }}px;
+    letter-spacing: 0.04em;
+    color: {{ section.settings.text_color }};
+    opacity: 0.35;
+    transition: opacity 0.3s ease;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .testi-stiletto__name:hover {
+    opacity: 0.6;
+  }
+
+  .testi-stiletto__name.is-active {
+    opacity: 1;
+  }
+
+  /* Active underline */
+  .testi-stiletto__name::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: {{ section.settings.active_color }};
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .testi-stiletto__name.is-active::after {
+    transform: scaleX(1);
+  }
+
+  /* Name uses image logos */
+  .testi-stiletto__name-logo {
+    height: {{ section.settings.logo_height }}px;
+    width: auto;
+    display: block;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+    filter: grayscale(100%);
+  }
+
+  .testi-stiletto__name.is-active .testi-stiletto__name-logo {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+
+  .testi-stiletto__name:hover .testi-stiletto__name-logo {
+    opacity: 0.7;
+  }
+
+  /* Responsive */
+  @media screen and (max-width: 749px) {
+    .testi-stiletto__inner {
+      padding: 0 20px;
+    }
+
+    .testi-stiletto__names {
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .testi-stiletto__slide {
+      padding: 0 8px;
+    }
+  }
+</style>
+
+<section class="testi-stiletto">
+  <div class="testi-stiletto__inner">
+
+    <testi-slider-stiletto class="testi-stiletto__slider" data-total="{{ section.blocks.size }}">
+      {%- if section.blocks.size > 1 -%}
+        <button class="testi-stiletto__arrow" data-prev aria-label="Previous">&lsaquo;</button>
+      {%- endif -%}
+
+      <div class="testi-stiletto__viewport">
+        <div class="testi-stiletto__track" data-track>
+          {%- for block in section.blocks -%}
+            <div class="testi-stiletto__slide" {{ block.shopify_attributes }}>
+              <p class="testi-stiletto__quote">{{ block.settings.quote | escape }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- if section.blocks.size > 1 -%}
+        <button class="testi-stiletto__arrow" data-next aria-label="Next">&rsaquo;</button>
+      {%- endif -%}
+    </testi-slider-stiletto>
+
+    {%- if section.blocks.size > 1 -%}
+      <ul class="testi-stiletto__names" role="list">
+        {%- for block in section.blocks -%}
+          <li>
+            <button
+              class="testi-stiletto__name{% if forloop.first %} is-active{% endif %}"
+              data-name-index="{{ forloop.index0 }}"
+              aria-label="{{ block.settings.name | escape }}"
+            >
+              {%- if block.settings.logo != blank -%}
+                {{ block.settings.logo | image_url: width: 200 | image_tag: class: 'testi-stiletto__name-logo', loading: 'lazy', alt: block.settings.name }}
+              {%- else -%}
+                {{ block.settings.name | escape }}
+              {%- endif -%}
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script>
+  if (!customElements.get('testi-slider-stiletto')) {
+    customElements.define('testi-slider-stiletto', class extends HTMLElement {
+      connectedCallback() {
+        this.track = this.querySelector('[data-track]');
+        this.total = parseInt(this.getAttribute('data-total')) || 0;
+        this.current = 0;
+        this.names = document.querySelectorAll('.testi-stiletto__name');
+        this.prevBtn = this.querySelector('[data-prev]');
+        this.nextBtn = this.querySelector('[data-next]');
+
+        if (this.total <= 1) return;
+
+        this.names.forEach(name => {
+          name.addEventListener('click', () => {
+            this.goTo(parseInt(name.getAttribute('data-name-index')));
+          });
+        });
+
+        if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.goTo(this.current - 1));
+        if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.goTo(this.current + 1));
+
+        // Touch swipe
+        let startX = 0;
+        this.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+        this.addEventListener('touchend', (e) => {
+          const diff = startX - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 50) this.goTo(this.current + (diff > 0 ? 1 : -1));
+        }, { passive: true });
+      }
+
+      goTo(index) {
+        this.current = ((index % this.total) + this.total) % this.total;
+        this.track.style.transform = 'translateX(-' + (this.current * 100) + '%)';
+
+        this.names.forEach((name, i) => {
+          name.classList.toggle('is-active', i === this.current);
+        });
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Testimonial Stiletto",
+  "tag": "section",
+  "class": "testimonial-stiletto-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "quote_size",
+      "min": 20,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "label": "Quote font size",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "name_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Name font size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 14,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Logo height (if using images)",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f7f4ef"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "active_color",
+      "label": "Active underline color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Max content width",
+      "default": 850
+    },
+    {
+      "type": "range",
+      "id": "name_gap",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between names",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "We're confident that this store will be the next big thing in its industry, and that its products will be timeless."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name / Publication",
+          "default": "VOGUE",
+          "info": "Shown as text if no logo image"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo image",
+          "info": "Optional: use a logo image instead of text name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial Stiletto",
+      "blocks": [
+        { "type": "testimonial", "settings": { "quote": "We're confident that this store will be the next big thing in its industry, and that its products will be timeless.", "name": "VOGUE" } },
+        { "type": "testimonial", "settings": { "quote": "A masterclass in modern elegance. Every piece feels intentional and luxurious.", "name": "allure" } },
+        { "type": "testimonial", "settings": { "quote": "Setting the standard for what contemporary fashion should look and feel like.", "name": "FAST COMPANY" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

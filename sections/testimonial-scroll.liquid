@@ -1,0 +1,428 @@
+{%- style -%}
+  .tscroll {
+    --ts-text: {{ section.settings.text_color }};
+    --ts-cream: {{ section.settings.bg_color }};
+    --ts-heading-color: {{ section.settings.heading_color }};
+    
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: var(--ts-cream);
+    padding: var(--section-padding-top) 0 var(--section-padding-bottom);
+    
+      --ts-name-color:{{ section.settings.name_color }};
+      --ts-card-bg-color:{{ section.settings.card_bg_color }};
+      --ts-title-color:{{ section.settings.title_color }};
+      --ts-text-color:{{ section.settings.card_text_color }};
+    
+  }
+
+  .tscroll__inner {
+    max-width: var(--page-width, 1200px);
+    margin: -80px auto 0;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  /* Heading: one h2 with two span groups */
+  .tscroll__title {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+    pointer-events: none;
+    padding: 0 20px;
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+  }
+  .tscroll__heading {
+    font-family: var(--font-heading-family);
+    font-size: clamp(36px, 5.5vw, 128px);
+    color: var(--ts-heading-color);
+    font-weight: var(--font-heading-weight);
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin: 0;
+    font-style: italic;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+  }
+  .tscroll__heading-group {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* Cards column: centered, narrow */
+  .tscroll__cards {
+    display: grid;
+    gap: 16px;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  @media (min-width: 750px) {
+    .tscroll__cards {
+      gap: 40px;
+    }
+  }
+
+  /* Card */
+  .tscroll__card {
+    background: var(--ts-card-bg-color);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 12px;
+    padding: 24px 32px;
+    /* box-shadow: 0 4px 20px rgba(47,19,12,0.07); */
+    backdrop-filter: blur(12px);
+    will-change: transform;
+  }
+  .tscroll__card:nth-child(odd) {
+    border: 1px solid rgba(47,19,12,0.08);
+  }
+
+  .tscroll__card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .tscroll__card-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #d9ccbc;
+  }
+  .tscroll__card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tscroll__card-meta {
+    flex: 1;
+  }
+  .tscroll__card-name {
+    font-family: var(--font-heading-family);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ts-name-color);
+    margin: 0;
+    line-height: 1.3;
+  }
+  .tscroll__card-title {
+    font-size: 16px;
+    font-family: var(--font-heading-family);
+    color: var(--ts-title-color);
+    margin: 2px 0 0;
+    line-height: 1.3;
+  }
+  .tscroll__card-text {
+    font-size: 20px;
+    color: var(--ts-text-color);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  @media (max-width: 749px) {
+    .tscroll__title {
+      position: relative;
+      top: auto;
+      transform: none;
+      margin-bottom: 24px;
+      padding: 0 16px;
+    }
+    .tscroll__heading {
+      display: block;
+      font-size: 32px;
+    }
+    .tscroll__inner {
+      margin-top: 0;
+      padding: 0 16px;
+    }
+    .tscroll__cards {
+      max-width: 100%;
+      gap: 16px;
+    }
+    .tscroll__card {
+      padding: 20px 16px;
+    }
+    .tscroll__card-header {
+      margin-bottom: 16px;
+    }
+    .tscroll__card-name {
+      font-size: 15px;
+    }
+    .tscroll__card-title {
+      font-size: 12px;
+    }
+    .tscroll__card-text {
+      font-size: 14px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="tscroll" id="TScroll-{{ section.id }}">
+  <!-- Heading: one h2, two groups split left/right on desktop -->
+  <div class="tscroll__title">
+    <h2 class="tscroll__heading">
+      <span class="tscroll__heading-group">{{ section.settings.heading_line1 | default: 'What experts' }}</span>
+      <span class="tscroll__heading-group">{{ section.settings.heading_line2 | default: 'are saying' }}</span>
+    </h2>
+  </div>
+
+  <div class="tscroll__inner">
+    <!-- Cards with individual parallax -->
+    <div class="tscroll__cards">
+      {%- for block in section.blocks -%}
+        {%- comment -%}
+          Alternate parallax speeds:
+          odd cards: start 0%, stop 0% (normal scroll)
+          even cards: start 60%, stop -20% (faster parallax)
+        {%- endcomment -%}
+        {%- assign is_even = forloop.index | modulo: 2 -%}
+        <div
+          class="tscroll__card"
+          data-tscroll-card
+          data-parallax-start="{% if is_even == 0 %}60{% else %}0{% endif %}"
+          data-parallax-stop="{% if is_even == 0 %}-20{% else %}0{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="tscroll__card-header">
+            <div class="tscroll__card-avatar">
+              {%- if block.settings.avatar != blank -%}
+                {{ block.settings.avatar | image_url: width: 120 | image_tag: sizes: '44px', widths: '44,88,120', loading: 'lazy' }}
+              {%- else -%}
+                &nbsp;
+              {%- endif -%}
+            </div>
+            <div class="tscroll__card-meta">
+              <p class="tscroll__card-name">{{ block.settings.name }}</p>
+              <p class="tscroll__card-title">{{ block.settings.title }}</p>
+            </div>
+          </div>
+          <p class="tscroll__card-text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+
+      {%- if section.blocks.size == 0 -%}
+        {%- for i in (1..3) -%}
+          <div class="tscroll__card" data-tscroll-card data-parallax-start="{% cycle '0', '60', '0' %}" data-parallax-stop="{% cycle '0', '-20', '0' %}">
+            <div class="tscroll__card-header">
+              <div class="tscroll__card-avatar">&nbsp;</div>
+              <div class="tscroll__card-meta">
+                <p class="tscroll__card-name">Expert Name</p>
+                <p class="tscroll__card-title">Title & Company</p>
+              </div>
+            </div>
+            <p class="tscroll__card-text">This is a placeholder testimonial. Add your expert reviews here to showcase what people are saying about your products.</p>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  var section = document.getElementById('TScroll-{{ section.id }}');
+  if (!section) return;
+
+  /* Skip parallax on mobile — cards are static */
+  if (window.innerWidth < 750) return;
+
+  var cards = section.querySelectorAll('[data-tscroll-card]');
+  if (!cards.length) return;
+
+  cards.forEach(function(card) {
+    var startVal = parseFloat(card.dataset.parallaxStart) || 0;
+    var stopVal = parseFloat(card.dataset.parallaxStop) || 0;
+
+    if (startVal === 0 && stopVal === 0) return;
+
+    gsap.fromTo(card,
+      { yPercent: startVal },
+      {
+        yPercent: stopVal,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      }
+    );
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Testimonial Scroll",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading left",
+      "default": "What experts"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading right",
+      "default": "are saying"
+    },
+    {
+          "type": "header",
+          "content": "Card"
+        },
+        
+        {
+          "type": "color",
+          "id": "card_bg_color",
+          "label": "Card Background",
+          "default": "#f5eddebf"
+        },
+        {
+          "type": "color",
+          "id": "name_color",
+          "label": "Name",
+          "default": "#f5ece0"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title",
+          "default": "#2f130c"
+        },
+        {
+          "type": "color",
+          "id": "card_text_color",
+          "label": "Text",
+          "default": "#2f130c"
+        },
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Laura Warner-Gray"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Certified Nutritionist, Best-Selling Author"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testimonial text",
+          "default": "The first thing I did when I saw The Conscious Bar chocolate was to look at the ingredients and I must say, wow! A premium chocolate bar, vegan & gently sweetened with organic dates!"
+        },
+        
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial Scroll",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Liana Werner-Gray",
+            "title": "Certified Nutritionist & Best-Selling Author 'Cancer-Free with Food'",
+            "text": "The first thing I did when I saw The Conscious Bar chocolate was to look at the ingredients and I must say, wow! A premium chocolate bar, vegan & gently sweetened with organic dates! I was so excited to try it, and as soon as I tasted it I was amazed. The flavors are incredible, very uplifting and you can clearly taste the pure ingredients which are essentially two superfoods and nothing else."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Sean Shabani",
+            "title": "Health and Wellness Advocate, Co-Founder of Carnivoreishh",
+            "text": "Transparency and integrity are at the core of everything carnivoreishh stand for, and The Conscious Bar perfectly aligns with that mission. It's not just a chocolate bar; it's the cleanest on the planet — truly sustainable, ethically sourced, and incredibly indulgent. You can feel good about every bite, knowing you're choosing a product that prioritizes both health and the environment. Thank you for setting the standard so high!"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "John Iatrellis",
+            "title": "Corporate Executive Chef, Lifehouse Hotels",
+            "text": "The Conscious Bar is truly innovating the craft chocolate space. As a Chef we try to speak the language of the foods from the lands in which our journey has allowed us to experience. These guys speak in the most fluent and natural epicurean language with delicious, clean & honest ingredients that fuel the soul and literally give back to mother nature through their commitment to sustainability."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

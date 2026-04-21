@@ -1,0 +1,298 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "inova_hero_f84Kgr": {
+      "type": "inova-hero",
+      "name": "Inova Hero",
+      "settings": {
+        "bg_color": "#f5ece0",
+        "text_color": "#2f130c",
+        "heading_color": "#2f130c",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "heading_line1": "JUST ORGANIC CACAO",
+        "heading_inline_image": "shopify://shop_images/Original_The_Benefits_Of_Cacao_1-min.webp",
+        "heading_line2": "& ORGANIC DATES.",
+        "heading_line3": "NOTHING ELSE.",
+        "collection": "",
+        "products_limit": 4,
+        "products_heading": "SHOP DATE SWEETENED CHOCOLATE",
+        "products_badge": "BUNDLE & SAVE:",
+        "products_subtext": "Save up to 20% on your order when you bundle!",
+        "view_all_link": "",
+        "show_social": false,
+        "discount_text": "GET 20% OFF",
+        "discount_link": ""
+      }
+    },
+    "power_of_dates_c6Q6yk": {
+      "type": "power-of-dates",
+      "blocks": {
+        "card_kD7dXe": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Original_The_Benefits_Of_Cacao_1-min.webp",
+            "heading": "ANTIOXIDANT POWERHOUSE, NATURE'S SHIELD",
+            "text": "Think of cacao as your body's personal bouncer, kicking out free radicals before they can crash the health party. Packed with antioxidants, cacao's powerful flavonoids go to work defending your cells against premature aging and disease."
+          }
+        },
+        "card_gHBQXw": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Original_The_Benefits_Of_Cacao_1-min.webp",
+            "heading": "NATURAL MOOD BOOSTER",
+            "text": "When life needs a little brightness, cacao steps in as the ultimate feel-good agent. It's rich in compounds that encourage serotonin, dopamine, and endorphins — turning every bite into a mini happiness boost. Forget sugar highs and crashes; with cacao, you're getting a natural lift that's as steady as it is delicious."
+          }
+        },
+        "card_rrNWUg": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Original_The_Benefits_Of_Cacao_1-min.webp",
+            "heading": "NUTRITIONAL POWERHOUSE2",
+            "text": "Cacao may come in a humble bean, but it's packed with essentials like magnesium, iron, and fiber. This is no empty treat; it's full-on nourishment, giving you minerals that are essential for muscles, mood, and energy. In short, cacao is as nourishing as it is flavorful."
+          }
+        }
+      },
+      "block_order": [
+        "card_kD7dXe",
+        "card_gHBQXw",
+        "card_rrNWUg"
+      ],
+      "name": "Power of Dates",
+      "settings": {
+        "bg_color": "#ece3d5",
+        "text_color": "#2f130c",
+        "heading_color": "#2f130c",
+        "padding_top": 60,
+        "padding_bottom": 0,
+        "title": "THE POWER OF DATES"
+      }
+    },
+    "image_scroll_overlay_XVqQXT": {
+      "type": "image-scroll-overlay",
+      "blocks": {
+        "image_kyTAHE": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/videoframe_15061.png"
+          }
+        },
+        "image_cmkNNf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/shopify-conversion-rate-optimization-conspire.webp"
+          }
+        },
+        "image_9hjRwX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/videoframe_15061.png"
+          }
+        },
+        "image_9tKziR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/shopify-conversion-rate-optimization-conspire.webp"
+          }
+        },
+        "image_X9K4wB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/videoframe_15061.png"
+          }
+        }
+      },
+      "block_order": [
+        "image_kyTAHE",
+        "image_cmkNNf",
+        "image_9hjRwX",
+        "image_9tKziR",
+        "image_X9K4wB"
+      ],
+      "name": "Image Scroll Overlay",
+      "settings": {
+        "bg_color": "#31211c",
+        "text_color": "#f5edde",
+        "heading_color": "#f5edde",
+        "subtitle": "CRAFT CHOCOLATE REIMAGINED",
+        "heading": "IMAGE WITH TEXT OVERLAY",
+        "description": "Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review."
+      }
+    },
+    "testimonial_scroll_dRjFFV": {
+      "type": "testimonial-scroll",
+      "blocks": {
+        "testimonial_CiWFgt": {
+          "type": "testimonial",
+          "settings": {
+            "avatar": "shopify://shop_images/IMG_3359.webp",
+            "name": "Laura Warner-Gray",
+            "title": "Certified Nutritionist, Best-Selling Author, Curries with Food",
+            "text": "THE FIRST THING I DID WHEN SAW THE CONSCIOUS BAR CHOCOLATE WAS TO LOOK AT THE INGREDIENTS AND I JUST SAY WOW! A PREMIUM CHOCOLATE BAR, VEGAN & GENTLY SWEETENED WITH ORGANIC DATES. I WAS SO EXCITED TO TRY IT, AND AS SOON AS I TASTED IT I WAS AMAZED. THE FLAVORS ARE INCREDIBLE, VERY JUSTIFYING AND YOU CAN CLEARLY TASTE THE PURE INGREDIENTS WHICH ARE ESSENTIALLY TWO SUPERFOODS AND NOTHING ELSE."
+          }
+        },
+        "testimonial_zRD7hd": {
+          "type": "testimonial",
+          "settings": {
+            "avatar": "shopify://shop_images/IMG_3359.webp",
+            "name": "Rose Shafaei",
+            "title": "Health and Wellness Advocate, Co-Founder of Wellness Brand",
+            "text": "TRANSPARENCY AND INTEGRITY ARE AT THE CORE OF EVERYTHING CARNIVOREGAMI STAND FOR, AND THE CONSCIOUS BAR PERFECTLY ALIGNS WITH THAT MISSION. IT'S NOT JUST A CHOICE, ARE SAFE, IT'S THE CLEANEST ON THE PLANET — TRULY SUSTAINABLE, ETHICALLY SOURCED, AND INCREDIBLY INDULGENT YOU CAN FEEL GOOD ABOUT EVERY BITE, KNOWING YOU'RE CHOOSING A PRODUCT THAT PRIORITIZES HEALTH AND THE ENVIRONMENT. THANK YOU FOR SETTING THE BAR RIDICULOUSLY HIGH."
+          }
+        },
+        "testimonial_6dcBc6": {
+          "type": "testimonial",
+          "settings": {
+            "avatar": "shopify://shop_images/IMG_3359.webp",
+            "name": "John Iannella",
+            "title": "Corporate Executive Chef, Epicurean Words",
+            "text": "THE CONSCIOUS BAR IS TRULY INNOVATING THE CRAFT CHOCOLATE SPACE. AS A CHEF, WE TRY TO SPEAK THE LANGUAGE OF THE FOOD FROM THE LANDS IN WHICH OUR JOURNEY HAS ALLOWED US TO EXPERIENCE. THESE GUYS SPEAK IN THE MOST FLUENT AND NATURAL EPICUREAN LANGUAGE WITH DELICIOUS, CLEAN & HONEST INGREDIENTS THAT FUEL THE SOUL AND LITERALLY GIVE BACK TO MOTHER NATURE THROUGH THEIR COMMITMENT TO SUSTAINABILITY."
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_CiWFgt",
+        "testimonial_zRD7hd",
+        "testimonial_6dcBc6"
+      ],
+      "name": "Testimonial Scroll",
+      "settings": {
+        "bg_color": "#f5ece0",
+        "text_color": "#2f130c",
+        "heading_color": "#2f130c",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "heading_line1": "WHAT EXPERTS",
+        "heading_line2": "ARE SAYING",
+        "card_bg_color": "#f5eddebf",
+        "name_color": "#2f130c",
+        "title_color": "#2f130c",
+        "card_text_color": "#2f130c"
+      }
+    },
+    "marquee_scroll_exzL3F": {
+      "type": "marquee-scroll",
+      "name": "Marquee Scroll",
+      "settings": {
+        "text": "We're not just any chocolate brand.",
+        "font_size": 60,
+        "font_size_mobile": 24,
+        "circle_size": 20,
+        "circle_size_mobile": 10,
+        "circle_border": 1,
+        "circle_color": "#f5ece0",
+        "item_gap": 40,
+        "item_gap_mobile": 20,
+        "scroll_speed": 1,
+        "bg_color": "#2f130c",
+        "text_color": "#f5ece0",
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "blog_inova_6NwJ4B": {
+      "type": "blog-inova",
+      "name": "Blog Inova",
+      "settings": {
+        "heading": "WE DON'T CUT CORNERS.",
+        "subtitle": "We set out to build a chocolate brand you can trust, all the way through. From our farmers to our ingredients, to our packaging, we are intentional in making sure sustainability and ethics lie at the core of what we do.",
+        "blog": "",
+        "posts_limit": 3,
+        "heading_size": 64,
+        "heading_color": "#2f130c",
+        "heading_align": "center",
+        "subtitle_size": 20,
+        "subtitle_color": "#6b5a50",
+        "content_align": "center",
+        "content_gap": 16,
+        "card_title_size": 30,
+        "card_title_color": "#2f130c",
+        "card_text_size": 16,
+        "card_text_color": "#6b5a50",
+        "btn_size": 16,
+        "btn_color": "#2f130c",
+        "btn_bg": "#f5ece0",
+        "btn_hover_color": "#f5ece0",
+        "btn_hover_bg": "#2f130c",
+        "bg_color": "#f5ece0",
+        "text_color": "#2f130c",
+        "padding_top": 60,
+        "padding_bottom": 80
+      }
+    },
+    "faq_inova_6BH9az": {
+      "type": "faq-inova",
+      "blocks": {
+        "question_fpVRUb": {
+          "type": "question",
+          "settings": {
+            "question": "What makes The Conscious Bar healthier than other chocolate?",
+            "answer": "<p>We consciously created bean-to-bar chocolate using two superfoods - Organic Cacao & OrganicDates. We intentionally wanted to use a sweetener that is rich both in taste and nutrients to create a memorable, and guilt free experience.</p>"
+          }
+        },
+        "question_UVQbKL": {
+          "type": "question",
+          "settings": {
+            "question": "What does Indulge Freely mean exactly?",
+            "answer": "<p>We consciously created bean-to-bar chocolate using two superfoods - Organic Cacao & Organic Dates. We intentionally wanted to use a sweetener that is rich both in taste and nutrients to create a memorable, and guilt free experience.</p>"
+          }
+        },
+        "question_8Hxk3A": {
+          "type": "question",
+          "settings": {
+            "question": "What are the health benefits of dark chocolate?",
+            "answer": "<p>We consciously created bean-to-bar chocolate using two superfoods - Organic Cacao & Organic Dates. We intentionally wanted to use a sweetener that is rich both in taste and nutrients to create a memorable, and guilt free experience.</p>"
+          }
+        },
+        "question_HUabKT": {
+          "type": "question",
+          "settings": {
+            "question": "Why do we use organic dates to sweeten our bars?",
+            "answer": "<p>We consciously created bean-to-bar chocolate using two superfoods - Organic Cacao & Organic Dates. We intentionally wanted to use a sweetener that is rich both in taste and nutrients to create a memorable, and guilt free experience.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_fpVRUb",
+        "question_UVQbKL",
+        "question_8Hxk3A",
+        "question_HUabKT"
+      ],
+      "name": "FAQ Inova",
+      "settings": {
+        "bg_color": "#f5ece0",
+        "text_color": "#2f130c",
+        "heading_color": "#2f130c",
+        "padding_top": 120,
+        "padding_bottom": 80,
+        "heading": "FREQUENTLY ASKED QUESTIONS"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "inova_hero_f84Kgr",
+    "power_of_dates_c6Q6yk",
+    "image_scroll_overlay_XVqQXT",
+    "testimonial_scroll_dRjFFV",
+    "marquee_scroll_exzL3F",
+    "blog_inova_6NwJ4B",
+    "faq_inova_6BH9az"
+  ]
+}

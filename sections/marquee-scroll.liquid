@@ -1,0 +1,304 @@
+{%- style -%}
+  /* ========== MARQUEE SCROLL ========== */
+  .mscroll {
+    --ms-text: {{ section.settings.text_color }};
+    --ms-bg: {{ section.settings.bg_color }};
+    --ms-circle-color: {{ section.settings.circle_color }};
+    --ms-circle-size: {{ section.settings.circle_size }}px;
+    --ms-circle-border: {{ section.settings.circle_border }}px;
+    --ms-font-size: {{ section.settings.font_size }}px;
+    --ms-item-gap: {{ section.settings.item_gap }}px;
+    --ms-pt: {{ section.settings.padding_top }}px;
+    --ms-pb: {{ section.settings.padding_bottom }}px;
+    background: var(--ms-bg);
+    padding: var(--ms-pt) 0 var(--ms-pb);
+    overflow: hidden;
+  }
+
+  .mscroll__track {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    will-change: transform;
+    animation: mscroll-auto 20s linear infinite;
+  }
+
+  @keyframes mscroll-auto {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .mscroll__set {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .mscroll__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ms-item-gap);
+    padding: 0 var(--ms-item-gap);
+    flex-shrink: 0;
+  }
+
+  /* Hollow circle separator */
+  .mscroll__circle {
+    width: var(--ms-circle-size);
+    height: var(--ms-circle-size);
+    border-radius: 50%;
+    border: var(--ms-circle-border) solid var(--ms-circle-color);
+    background: transparent;
+    flex-shrink: 0;
+  }
+
+  .mscroll__text {
+    font-family: var(--font-body-family);
+    font-size: var(--ms-font-size);
+    color: var(--ms-text);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 749px) {
+    .mscroll {
+      --ms-font-size: {{ section.settings.font_size_mobile }}px;
+      --ms-circle-size: {{ section.settings.circle_size_mobile }}px;
+      --ms-item-gap: {{ section.settings.item_gap_mobile }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="mscroll" id="MScroll-{{ section.id }}">
+  <div class="mscroll__track" data-mscroll-track>
+    {%- assign marquee_text = section.settings.text | default: 'We are not just any chocolate brand.' -%}
+    {%- for set in (1..2) -%}
+      <div class="mscroll__set">
+        {%- for i in (1..8) -%}
+          <div class="mscroll__item">
+            <span class="mscroll__circle">&nbsp;</span>
+            <span class="mscroll__text">{{ marquee_text }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  var section = document.getElementById('MScroll-{{ section.id }}');
+  if (!section) return;
+
+  var track = section.querySelector('[data-mscroll-track]');
+  if (!track) return;
+
+  var proxy = { shift: 0 };
+
+  gsap.to(proxy, {
+    shift: -300,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 0.1,
+      onUpdate: function() {
+        track.style.setProperty('--scroll-shift', proxy.shift + 'px');
+      }
+    }
+  });
+
+  var style = document.createElement('style');
+  style.textContent =
+    '#MScroll-{{ section.id }} .mscroll__track {' +
+    '  animation: none;' +
+    '}';
+  document.head.appendChild(style);
+
+  var pos = 0;
+  var setWidth = track.querySelector('.mscroll__set').offsetWidth;
+  var speed = {{ section.settings.scroll_speed | default: 1 }};
+
+  gsap.ticker.add(function() {
+    pos -= speed;
+    if (pos <= -setWidth) pos += setWidth;
+    var total = pos + proxy.shift;
+    track.style.transform = 'translateX(' + total + 'px)';
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Marquee Scroll",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Marquee text",
+      "default": "We're not just any chocolate brand."
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size (desktop)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size (mobile)",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Circle separator"
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "min": 4,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Circle size (desktop)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "circle_size_mobile",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Circle size (mobile)",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "circle_border",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Circle border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "circle_color",
+      "label": "Circle color",
+      "default": "#2f130c"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 8,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Item gap (desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "item_gap_mobile",
+      "min": 8,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Item gap (mobile)",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Speed"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "x",
+      "label": "Auto scroll speed",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#2a1208"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#f5ece0"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Scroll"
+    }
+  ]
+}
+{% endschema %}

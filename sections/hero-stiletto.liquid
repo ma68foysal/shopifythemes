@@ -1,0 +1,858 @@
+<style>
+  /* Hero Stiletto - Split Hero (Slideshow Left + Static Right) */
+  .hero-stiletto {
+    position: relative;
+    margin-top: calc(-1 * var(--header-stiletto-height, 120px));
+    width: 100%;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+    overflow: hidden;
+  }
+
+  .hero-stiletto__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    gap: {{ section.settings.column_gap }}px;
+  }
+
+  /* Left side - Slideshow */
+  .hero-stiletto__slideshow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-stiletto__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 0;
+  }
+
+  .hero-stiletto__slide.is-active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .hero-stiletto__slide-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-stiletto__slide-media img,
+  .hero-stiletto__slide-media svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-stiletto__slide-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .hero-stiletto__slide-content,
+  .hero-stiletto__static-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 50px;
+    z-index: 2;
+  }
+
+  /* Content position: vertical */
+  .hero-stiletto__content--top-left,
+  .hero-stiletto__content--top-center,
+  .hero-stiletto__content--top-right {
+    justify-content: flex-start;
+    padding-top: 100px;
+  }
+
+  .hero-stiletto__content--middle-left,
+  .hero-stiletto__content--middle-center,
+  .hero-stiletto__content--middle-right {
+    justify-content: center;
+  }
+
+  .hero-stiletto__content--bottom-left,
+  .hero-stiletto__content--bottom-center,
+  .hero-stiletto__content--bottom-right {
+    justify-content: flex-end;
+    padding-bottom: 70px;
+  }
+
+  /* Content position: horizontal */
+  .hero-stiletto__content--top-left,
+  .hero-stiletto__content--middle-left,
+  .hero-stiletto__content--bottom-left {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero-stiletto__content--top-center,
+  .hero-stiletto__content--middle-center,
+  .hero-stiletto__content--bottom-center {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-stiletto__content--top-right,
+  .hero-stiletto__content--middle-right,
+  .hero-stiletto__content--bottom-right {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .hero-stiletto__slide-subtitle {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+
+  .hero-stiletto__slide-heading {
+    font-weight: 300;
+    line-height: 1.15;
+    margin: 0 0 20px;
+    letter-spacing: 0.02em;
+    font-family: var(--font-heading-family);
+  }
+
+  /* Button base with left-to-right italic sweep hover */
+  .hero-stiletto__slide-btn,
+  .hero-stiletto__static-btn {
+    display: inline-block;
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.4s ease, border-color 0.3s ease;
+  }
+
+  .hero-stiletto__slide-btn span,
+  .hero-stiletto__static-btn span {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Pseudo-element: italic/skewed shape sweeps left-to-right */
+  .hero-stiletto__slide-btn::before,
+  .hero-stiletto__static-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10%;
+    width: 0;
+    height: 100%;
+    z-index: -1;
+    transform: skewX(12deg);
+    transition: width 0.45s ease;
+  }
+
+  .hero-stiletto__slide-btn:hover::before,
+  .hero-stiletto__static-btn:hover::before {
+    width: 130%;
+  }
+
+  /* Slideshow dots */
+  .hero-stiletto__dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50px;
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+  }
+
+  .hero-stiletto__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s ease;
+  }
+
+  .hero-stiletto__dot.is-active {
+    background: #fff;
+    border-color: #fff;
+  }
+
+  /* Right side - Static image + content */
+  .hero-stiletto__static {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-stiletto__static-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-stiletto__static-media img,
+  .hero-stiletto__static-media svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-stiletto__placeholder-bg {
+    position: absolute;
+    inset: 0;
+    background: #f0ebe5;
+  }
+
+  .hero-stiletto__static-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* static-content styles merged with slide-content above */
+
+  .hero-stiletto__static-subtitle {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: 0.6;
+  }
+
+  .hero-stiletto__static-heading {
+    font-weight: 300;
+    line-height: 1.15;
+    margin: 0 0 20px;
+    letter-spacing: 0.02em;
+    font-family: var(--font-heading-family);
+  }
+
+  /* Responsive */
+  @media screen and (max-width: 749px) {
+    .hero-stiletto__grid {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .hero-stiletto {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .hero-stiletto__slideshow {
+      min-height: 70vh;
+    }
+
+    .hero-stiletto__static {
+      min-height: 60vh;
+    }
+
+    .hero-stiletto__slide-content,
+    .hero-stiletto__static-content {
+      padding: 30px 24px;
+    }
+
+    .hero-stiletto__content--top-left,
+    .hero-stiletto__content--top-center,
+    .hero-stiletto__content--top-right {
+      padding-top: 80px;
+    }
+
+    .hero-stiletto__content--bottom-left,
+    .hero-stiletto__content--bottom-center,
+    .hero-stiletto__content--bottom-right {
+      padding-bottom: 50px;
+    }
+
+    .hero-stiletto__dots {
+      left: 24px;
+      bottom: 18px;
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .hero-stiletto__grid {
+      grid-template-columns: 1fr 1fr;
+      min-height: 70vh;
+    }
+
+    .hero-stiletto__slide-content,
+    .hero-stiletto__static-content {
+      padding: 30px 30px;
+    }
+
+    .hero-stiletto__dots {
+      left: 30px;
+    }
+  }
+</style>
+
+{%- comment -%} Hero Stiletto - Split hero: Left slideshow + Right static {%- endcomment -%}
+
+<section class="hero-stiletto">
+  <div class="hero-stiletto__grid">
+
+    {%- comment -%} LEFT: Slideshow {%- endcomment -%}
+    <hero-stiletto-slider class="hero-stiletto__slideshow" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.slide_speed }}">
+      {%- assign slide_blocks = section.blocks | where: "type", "slide" -%}
+      {%- for block in slide_blocks -%}
+        <div class="hero-stiletto__slide{% if forloop.first %} is-active{% endif %}" data-slide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <div class="hero-stiletto__slide-media">
+            {%- if block.settings.image != blank -%}
+              {%- assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round -%}
+              {%- if forloop.first -%}
+                {{ block.settings.image | image_url: width: 1920 | image_tag: sizes: '50vw', widths: '375, 550, 750, 1100, 1500, 1920', fetchpriority: 'high', height: height }}
+              {%- else -%}
+                {{ block.settings.image | image_url: width: 1920 | image_tag: loading: 'lazy', sizes: '50vw', widths: '375, 550, 750, 1100, 1500, 1920', height: height }}
+              {%- endif -%}
+            {%- else -%}
+              {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="hero-stiletto__slide-overlay" style="background: linear-gradient(to top, {{ block.settings.overlay_color | default: '#000000' | color_modify: 'alpha', block.settings.overlay_opacity | divided_by: 100.0 }} 0%, transparent 60%);">&nbsp;</div>
+          <div class="hero-stiletto__slide-content hero-stiletto__content--{{ block.settings.content_position }}" style="color: {{ block.settings.text_color }};">
+            {%- if block.settings.subtitle != blank -%}
+              <div class="hero-stiletto__slide-subtitle">{{ block.settings.subtitle | escape }}</div>
+            {%- endif -%}
+            {%- if block.settings.heading != blank -%}
+              <h2 class="hero-stiletto__slide-heading" style="font-size: clamp(24px, {{ block.settings.heading_font_size | times: 0.035 }}vw, {{ block.settings.heading_font_size }}px);color: {{ block.settings.text_color }};">{{ block.settings.heading }}</h2>
+            {%- endif -%}
+            {%- if block.settings.button_label != blank -%}
+              <a
+                {% if block.settings.button_link %}href="{{ block.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+                class="hero-stiletto__slide-btn"
+                style="
+                  color: {{ block.settings.btn_text_color }};
+                  background: {{ block.settings.btn_bg_color }};
+                  border-color: {{ block.settings.btn_bg_color }};
+                  font-size: {{ block.settings.btn_font_size }}px;
+                  --hover-bg: {{ block.settings.btn_hover_bg_color }};
+                  --hover-color: {{ block.settings.btn_hover_text_color }};
+                "
+              >
+                <span>{{ block.settings.button_label | escape }}</span>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+
+      {%- if slide_blocks.size > 1 -%}
+        <div class="hero-stiletto__dots">
+          {%- for block in slide_blocks -%}
+            <button class="hero-stiletto__dot{% if forloop.first %} is-active{% endif %}" data-dot-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </hero-stiletto-slider>
+
+    {%- comment -%} RIGHT: Static image + content {%- endcomment -%}
+    {%- assign static_block = section.blocks | where: "type", "static" | first -%}
+    <div class="hero-stiletto__static"{% if static_block %} {{ static_block.shopify_attributes }}{% endif %}>
+      {%- if static_block.settings.image != blank -%}
+        <div class="hero-stiletto__static-media">
+          {%- assign height = static_block.settings.image.width | divided_by: static_block.settings.image.aspect_ratio | round -%}
+          {{ static_block.settings.image | image_url: width: 1920 | image_tag: loading: 'lazy', sizes: '50vw', widths: '375, 550, 750, 1100, 1500, 1920', height: height }}
+        </div>
+      {%- else -%}
+        <div class="hero-stiletto__placeholder-bg"></div>
+        <div class="hero-stiletto__static-media">
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+      {%- if static_block -%}
+        <div class="hero-stiletto__static-overlay" style="background: linear-gradient(to top, {{ static_block.settings.overlay_color | default: '#000000' | color_modify: 'alpha', static_block.settings.overlay_opacity | divided_by: 100.0 }} 0%, transparent 60%);">&nbsp;</div>
+        <div class="hero-stiletto__static-content hero-stiletto__content--{{ static_block.settings.content_position }}" style="color: {{ static_block.settings.text_color }};">
+          {%- if static_block.settings.subtitle != blank -%}
+            <div class="hero-stiletto__static-subtitle">{{ static_block.settings.subtitle | escape }}</div>
+          {%- endif -%}
+          {%- if static_block.settings.heading != blank -%}
+            <h2 class="hero-stiletto__static-heading" style="font-size: clamp(24px, {{ static_block.settings.heading_font_size | times: 0.035 }}vw, {{ static_block.settings.heading_font_size }}px);color: {{ static_block.settings.text_color }};">{{ static_block.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if static_block.settings.button_label != blank -%}
+            <a
+              {% if static_block.settings.button_link %}href="{{ static_block.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+              class="hero-stiletto__static-btn"
+              style="
+                color: {{ static_block.settings.btn_text_color }};
+                background: {{ static_block.settings.btn_bg_color }};
+                border-color: {{ static_block.settings.btn_bg_color }};
+                font-size: {{ static_block.settings.btn_font_size }}px;
+                --hover-bg: {{ static_block.settings.btn_hover_bg_color }};
+                --hover-color: {{ static_block.settings.btn_hover_text_color }};
+              "
+            >
+              <span>{{ static_block.settings.button_label | escape }}</span>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Button hover sweep - uses CSS custom properties from inline styles */
+  .hero-stiletto__slide-btn::before {
+    background: var(--hover-bg, #fff);
+  }
+  .hero-stiletto__slide-btn:hover {
+    color: var(--hover-color, #000) !important;
+    border-color: var(--hover-bg, #fff) !important;
+  }
+
+  .hero-stiletto__static-btn::before {
+    background: var(--hover-bg, #1a1a1a);
+  }
+  .hero-stiletto__static-btn:hover {
+    color: var(--hover-color, #fff) !important;
+    border-color: var(--hover-bg, #1a1a1a) !important;
+  }
+</style>
+
+{% javascript %}
+  class HeroStilettoSlider extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.slides = this.querySelectorAll('.hero-stiletto__slide');
+      this.dots = this.querySelectorAll('.hero-stiletto__dot');
+      this.currentIndex = 0;
+      this.autoplay = this.getAttribute('data-autoplay') === 'true';
+      this.speed = (parseInt(this.getAttribute('data-speed')) || 5) * 1000;
+
+      if (this.slides.length <= 1) return;
+
+      // Dot clicks
+      this.dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          this.goTo(parseInt(dot.getAttribute('data-dot-index')));
+        });
+      });
+
+      // Autoplay
+      if (this.autoplay) {
+        this.startAutoplay();
+
+        this.addEventListener('mouseenter', () => this.stopAutoplay());
+        this.addEventListener('mouseleave', () => this.startAutoplay());
+      }
+
+      // Touch swipe
+      let touchStartX = 0;
+      this.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      this.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) {
+            this.next();
+          } else {
+            this.prev();
+          }
+        }
+      }, { passive: true });
+    }
+
+    goTo(index) {
+      this.slides[this.currentIndex].classList.remove('is-active');
+      this.dots[this.currentIndex].classList.remove('is-active');
+      this.currentIndex = index;
+      this.slides[this.currentIndex].classList.add('is-active');
+      this.dots[this.currentIndex].classList.add('is-active');
+    }
+
+    next() {
+      this.goTo((this.currentIndex + 1) % this.slides.length);
+    }
+
+    prev() {
+      this.goTo((this.currentIndex - 1 + this.slides.length) % this.slides.length);
+    }
+
+    startAutoplay() {
+      this.stopAutoplay();
+      this.interval = setInterval(() => this.next(), this.speed);
+    }
+
+    stopAutoplay() {
+      if (this.interval) clearInterval(this.interval);
+    }
+
+    disconnectedCallback() {
+      this.stopAutoplay();
+    }
+  }
+
+  customElements.define('hero-stiletto-slider', HeroStilettoSlider);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Hero Stiletto",
+  "tag": "section",
+  "class": "section-hero-stiletto",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slideshow settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "default": true,
+      "label": "Auto-rotate slides"
+    },
+    {
+      "type": "range",
+      "id": "slide_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5,
+      "label": "Slide change speed"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "label": "Column gap"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "label": "Padding top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "label": "Padding bottom"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "label": "Padding left"
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "label": "Padding right"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 40,
+          "label": "Overlay opacity"
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "New Arrivals"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "The City Edit"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size",
+          "min": 24,
+          "max": 72,
+          "step": 2,
+          "unit": "px",
+          "default": 48,
+          "label": "Heading font size"
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top center" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle center" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom center" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ],
+          "default": "bottom-left"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "View Lookbook"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "range",
+          "id": "btn_font_size",
+          "min": 10,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 12,
+          "label": "Button font size"
+        },
+        {
+          "type": "color",
+          "id": "btn_text_color",
+          "label": "Button text color",
+          "default": "#1a1a1a"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg_color",
+          "label": "Button background color",
+          "default": "#f5e6a3"
+        },
+        {
+          "type": "color",
+          "id": "btn_hover_text_color",
+          "label": "Button hover text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "btn_hover_bg_color",
+          "label": "Button hover background color",
+          "default": "#1a1a1a"
+        }
+      ]
+    },
+    {
+      "type": "static",
+      "name": "Static image (right)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 20,
+          "label": "Overlay opacity"
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Edit, merges and curates"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Resort Collection"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#1a1a1a"
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size",
+          "min": 24,
+          "max": 72,
+          "step": 2,
+          "unit": "px",
+          "default": 48,
+          "label": "Heading font size"
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top center" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle center" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom center" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ],
+          "default": "bottom-left"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "range",
+          "id": "btn_font_size",
+          "min": 10,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 12,
+          "label": "Button font size"
+        },
+        {
+          "type": "color",
+          "id": "btn_text_color",
+          "label": "Button text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg_color",
+          "label": "Button background color",
+          "default": "#c0392b"
+        },
+        {
+          "type": "color",
+          "id": "btn_hover_text_color",
+          "label": "Button hover text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "btn_hover_bg_color",
+          "label": "Button hover background color",
+          "default": "#1a1a1a"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Stiletto",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "static" }
+      ]
+    }
+  ]
+}
+{% endschema %}

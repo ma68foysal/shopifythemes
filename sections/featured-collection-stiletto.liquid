@@ -1,0 +1,880 @@
+<link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+<style>
+  .fc-stiletto {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    overflow: hidden;
+  }
+
+  .fc-stiletto__inner {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ---- Header: tabs + arrow ---- */
+  .fc-stiletto__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .fc-stiletto__tabs {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .fc-stiletto__tab {
+    font-size: {{ section.settings.tab_font_size }}px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: {{ section.settings.text_color }};
+    opacity: 0.4;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    font-family: inherit;
+    transition: opacity 0.2s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .fc-stiletto__tab:hover {
+    opacity: 0.7;
+  }
+
+  .fc-stiletto__tab.is-active {
+    opacity: 1;
+    border-bottom-color: {{ section.settings.text_color }};
+  }
+
+  .fc-stiletto__arrows {
+    display: flex;
+    gap: 8px;
+  }
+
+  .fc-stiletto__arrow-btn {
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: {{ section.settings.text_color }};
+    transition: opacity 0.2s ease;
+  }
+
+  .fc-stiletto__arrow-btn:hover {
+    opacity: 0.6;
+  }
+
+  .fc-stiletto__arrow-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  /* ---- Slider ---- */
+  .fc-stiletto__slider-viewport {
+    overflow: hidden;
+    cursor: grab;
+  }
+
+  .fc-stiletto__slider-viewport.is-dragging {
+    cursor: grabbing;
+  }
+
+  .fc-stiletto__slider-viewport.is-dragging .fc-stiletto__card {
+    pointer-events: none;
+  }
+
+  .fc-stiletto__slider-track {
+    display: flex;
+    gap: {{ section.settings.card_gap }}px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    will-change: transform;
+  }
+
+  .fc-stiletto__slider-track.is-dragging {
+    transition: none;
+  }
+
+  /* ---- Product card ---- */
+  .fc-stiletto__card {
+    flex: 0 0 calc((100% - {{ section.settings.card_gap | times: 3 }}px) / {{ section.settings.cards_per_row }});
+    min-width: 0;
+    position: relative;
+  }
+
+  .fc-stiletto__card-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: {{ section.settings.card_ratio }};
+    background: #f0f0f0;
+    margin-bottom: 12px;
+  }
+
+  .fc-stiletto__card-image a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .fc-stiletto__card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.35s ease;
+  }
+
+  /* Secondary image on hover */
+  .fc-stiletto__card-img--secondary {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  .fc-stiletto__card:hover .fc-stiletto__card-img--secondary {
+    opacity: 1;
+  }
+
+  .fc-stiletto__card:hover .fc-stiletto__card-img--primary {
+    opacity: 0;
+  }
+
+  /* Choose options overlay on hover */
+  .fc-stiletto__card-quick {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .fc-stiletto__card:hover .fc-stiletto__card-quick {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .fc-stiletto__quick-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #fff;
+    color: #1a1a1a;
+    border: none;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .fc-stiletto__quick-btn:hover {
+    opacity: 0.8;
+  }
+
+  .fc-stiletto__quick-btn .loading__spinner {
+    width: 14px;
+    height: 14px;
+  }
+
+  .fc-stiletto__quick-btn .loading__spinner svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Card info */
+  .fc-stiletto__card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2px;
+  }
+
+  .fc-stiletto__card-title {
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0 0 4px;
+    letter-spacing: 0.01em;
+  }
+
+  .fc-stiletto__card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .fc-stiletto__card-title a:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .fc-stiletto__card-price {
+    font-size: 13px;
+    margin: 0 0 8px;
+  }
+
+  .fc-stiletto__card-price s {
+    opacity: 0.5;
+    margin-right: 4px;
+  }
+
+  .fc-stiletto__card-price .sale-price {
+    color: #c0392b;
+  }
+
+  /* Variant swatches below card – hidden by default, show on hover */
+  .fc-stiletto__card-swatches {
+    display: none;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
+  .fc-stiletto__card:hover .fc-stiletto__card-swatches {
+    display: flex;
+  }
+
+  .fc-stiletto__swatch {
+    width: 28px;
+    height: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    padding: 0;
+    background: none;
+    transition: border-color 0.2s ease;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-family: inherit;
+  }
+
+  .fc-stiletto__swatch--color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+
+  .fc-stiletto__swatch:hover,
+  .fc-stiletto__swatch.is-active {
+    border-color: #1a1a1a;
+  }
+
+  /* ---- "View all" CTA card ---- */
+  .fc-stiletto__cta-card {
+    flex: 0 0 calc((100% - {{ section.settings.card_gap | times: 3 }}px) / {{ section.settings.cards_per_row }});
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+  }
+
+  .fc-stiletto__cta-title {
+    font-size: 24px;
+    font-weight: 300;
+    font-style: normal;
+    font-family: var(--font-heading-family);
+    margin: 0 0 8px;
+  }
+
+  .fc-stiletto__cta-link {
+    font-size: 13px;
+    color: {{ section.settings.text_color }};
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s ease;
+  }
+
+  .fc-stiletto__cta-link:hover {
+    opacity: 0.6;
+  }
+
+  .fc-stiletto__cta-count {
+    font-size: 12px;
+    opacity: 0.5;
+    margin-top: 4px;
+  }
+
+  /* ---- Tab content panels ---- */
+  .fc-stiletto__panel {
+    display: none;
+  }
+
+  .fc-stiletto__panel.is-active {
+    display: block;
+  }
+
+  /* ---- Responsive ---- */
+  @media screen and (max-width: 989px) {
+    .fc-stiletto__inner {
+      padding: 0 20px;
+    }
+
+    .fc-stiletto__card {
+      flex: 0 0 calc((100% - {{ section.settings.card_gap }}px) / 2.3);
+    }
+
+    .fc-stiletto__cta-card {
+      flex: 0 0 calc((100% - {{ section.settings.card_gap }}px) / 2.3);
+    }
+  }
+
+  @media screen and (max-width: 549px) {
+    .fc-stiletto__card {
+      flex: 0 0 70%;
+    }
+
+    .fc-stiletto__cta-card {
+      flex: 0 0 70%;
+    }
+
+    .fc-stiletto__tabs {
+      gap: 16px;
+    }
+  }
+</style>
+
+<section class="fc-stiletto">
+  <div class="fc-stiletto__inner">
+    <fc-slider-stiletto
+      data-cards-per-row="{{ section.settings.cards_per_row }}"
+      data-gap="{{ section.settings.card_gap }}"
+    >
+      {%- comment -%} ---- Header: tabs + arrows ---- {%- endcomment -%}
+      <div class="fc-stiletto__header">
+        <ul class="fc-stiletto__tabs" role="tablist">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'collection_tab' -%}
+              <li>
+                <button
+                  class="fc-stiletto__tab{% if forloop.first %} is-active{% endif %}"
+                  role="tab"
+                  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                  data-tab-index="{{ forloop.index0 }}"
+                  data-panel="fc-panel-{{ section.id }}-{{ forloop.index0 }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.tab_label | default: block.settings.collection.title | escape }}
+                </button>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+        <div class="fc-stiletto__arrows">
+          <button class="fc-stiletto__arrow-btn" data-prev-arrow aria-label="Previous">
+            <svg viewBox="0 0 24 24">
+              <path d="M19 12H5M5 12L12 5M5 12L12 19"/>
+            </svg>
+          </button>
+          <button class="fc-stiletto__arrow-btn" data-next-arrow aria-label="Next">
+            <svg viewBox="0 0 24 24">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {%- comment -%} ---- Tab panels ---- {%- endcomment -%}
+      {%- assign tab_index = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'collection_tab' -%}
+          {%- assign collection = block.settings.collection -%}
+          <div
+            class="fc-stiletto__panel{% if tab_index == 0 %} is-active{% endif %}"
+            id="fc-panel-{{ section.id }}-{{ tab_index }}"
+            role="tabpanel"
+            data-panel
+          >
+            <div class="fc-stiletto__slider-viewport" data-viewport>
+              <div class="fc-stiletto__slider-track" data-track>
+                {%- if collection != blank -%}
+                  {%- for product in collection.products limit: section.settings.products_limit -%}
+                    <div class="fc-stiletto__card">
+                      <div class="fc-stiletto__card-image">
+                        <a href="{{ product.url }}">
+                          {%- if product.featured_image != blank -%}
+                            {{
+                              product.featured_image
+                              | image_url: width: 600
+                              | image_tag:
+                                class: 'fc-stiletto__card-img--primary',
+                                loading: 'lazy',
+                                sizes: '(max-width: 549px) 70vw, (max-width: 989px) 40vw, 25vw',
+                                widths: '200, 300, 400, 600'
+                            }}
+                          {%- else -%}
+                            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg fc-stiletto__card-img--primary' }}
+                          {%- endif -%}
+                          {%- if product.images[1] != blank -%}
+                            {{
+                              product.images[1]
+                              | image_url: width: 600
+                              | image_tag:
+                                class: 'fc-stiletto__card-img--secondary',
+                                loading: 'lazy',
+                                sizes: '(max-width: 549px) 70vw, (max-width: 989px) 40vw, 25vw',
+                                widths: '200, 300, 400, 600'
+                            }}
+                          {%- endif -%}
+                        </a>
+
+                        {%- comment -%} Quick-add button overlay on hover {%- endcomment -%}
+                        <div class="fc-stiletto__card-quick">
+                          <modal-opener data-modal="#QuickAddModal-FC-{{ section.id }}">
+                            <button
+                              class="fc-stiletto__quick-btn"
+                              type="button"
+                              aria-haspopup="dialog"
+                              data-product-url="{{ product.url }}"
+                            >
+                              Choose options
+                              <div class="loading__spinner hidden">
+                                <svg
+                                  aria-hidden="true"
+                                  focusable="false"
+                                  class="spinner"
+                                  viewBox="0 0 66 66"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                                </svg>
+                              </div>
+                            </button>
+                          </modal-opener>
+                        </div>
+                      </div>
+
+                      <div class="fc-stiletto__card-info">
+                        <p class="fc-stiletto__card-title">
+                          <a href="{{ product.url }}">{{ product.title | escape }}</a>
+                        </p>
+                        <p class="fc-stiletto__card-price">
+                          {%- if product.compare_at_price > product.price -%}
+                            <s>{{ product.compare_at_price | money }}</s>
+                            <span class="sale-price">{{ product.price | money }}</span>
+                          {%- else -%}
+                            {{ product.price | money }}
+                          {%- endif -%}
+                        </p>
+
+                        {%- comment -%} Variant swatches {%- endcomment -%}
+                        {%- for option in product.options_with_values -%}
+                          {%- assign option_name_lower = option.name | downcase -%}
+                          {%- if option_name_lower == 'color' or option_name_lower == 'colour' -%}
+                            <div class="fc-stiletto__card-swatches">
+                              {%- for value in option.values -%}
+                                {%- assign color_handle = value | handleize -%}
+                                <button
+                                  class="fc-stiletto__swatch fc-stiletto__swatch--color{% if forloop.first %} is-active{% endif %}"
+                                  style="background-color: {{ color_handle }};"
+                                  aria-label="{{ value }}"
+                                  title="{{ value }}"
+                                ></button>
+                              {%- endfor -%}
+                            </div>
+                          {%- elsif option_name_lower == 'size' -%}
+                            <div class="fc-stiletto__card-swatches">
+                              {%- for value in option.values -%}
+                                <button
+                                  class="fc-stiletto__swatch{% if forloop.first %} is-active{% endif %}"
+                                  aria-label="{{ value }}"
+                                  title="{{ value }}"
+                                >
+                                  {{ value }}
+                                </button>
+                              {%- endfor -%}
+                            </div>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endfor -%}
+
+                  {%- comment -%} CTA "View all" card at end {%- endcomment -%}
+                  {%- if block.settings.show_view_all -%}
+                    <div class="fc-stiletto__cta-card">
+                      <h3 class="fc-stiletto__cta-title">
+                        {{ block.settings.tab_label | default: collection.title | escape }}
+                      </h3>
+                      <a href="{{ collection.url }}" class="fc-stiletto__cta-link">View all</a>
+                      <p class="fc-stiletto__cta-count">{{ collection.products_count }} products</p>
+                    </div>
+                  {%- endif -%}
+                {%- else -%}
+                  {%- for i in (1..4) -%}
+                    <div class="fc-stiletto__card">
+                      <div class="fc-stiletto__card-image">
+                        {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                      <div class="fc-stiletto__card-info">
+                        <p class="fc-stiletto__card-title">Product title</p>
+                        <p class="fc-stiletto__card-price">$99.00</p>
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+          {%- assign tab_index = tab_index | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </fc-slider-stiletto>
+  </div>
+</section>
+
+
+{%- comment -%} Quick Add Modal {%- endcomment -%}
+<quick-add-modal id="QuickAddModal-FC-{{ section.id }}" class="quick-add-modal">
+  <div role="dialog" aria-label="Product quick add" aria-modal="true" class="quick-add-modal__content" tabindex="-1">
+    <button
+      id="ModalClose-FC-{{ section.id }}"
+      class="quick-add-modal__toggle"
+      aria-label="{{ 'accessibility.close' | t }}"
+    >
+      <span class="svg-wrapper">{{ 'icon-close.svg' | inline_asset_content }}</span>
+    </button>
+    <div id="QuickAddInfo-FC-{{ section.id }}" class="quick-add-modal__content-info"></div>
+  </div>
+</quick-add-modal>
+
+{% javascript %}
+  class FcSliderStilettoElement extends HTMLElement {
+    connectedCallback() {
+      this.tabs = this.querySelectorAll('.fc-stiletto__tab');
+      this.panels = this.querySelectorAll('[data-panel]');
+      this.prevArrow = this.querySelector('[data-prev-arrow]');
+      this.nextArrow = this.querySelector('[data-next-arrow]');
+      this.perRow = parseInt(this.getAttribute('data-cards-per-row')) || 4;
+      this.gap = parseInt(this.getAttribute('data-gap')) || 16;
+
+      // Tab switching
+      this.tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          this.tabs.forEach((t) => {
+            t.classList.remove('is-active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          this.panels.forEach((p) => p.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          tab.setAttribute('aria-selected', 'true');
+          const panel = this.querySelector('#' + tab.getAttribute('data-panel'));
+          if (panel) {
+            panel.classList.add('is-active');
+            // Reset slider position
+            const track = panel.querySelector('[data-track]');
+            if (track) {
+              track.style.transform = 'translateX(0)';
+              track.dataset.position = '0';
+            }
+          }
+        });
+      });
+
+      // Prev arrow
+      if (this.prevArrow) {
+        this.prevArrow.addEventListener('click', () => {
+          const activePanel = this.querySelector('.fc-stiletto__panel.is-active');
+          if (!activePanel) return;
+          const track = activePanel.querySelector('[data-track]');
+          const viewport = activePanel.querySelector('[data-viewport]');
+          this.slidePrev(track, viewport);
+        });
+      }
+
+      // Next arrow
+      if (this.nextArrow) {
+        this.nextArrow.addEventListener('click', () => this.slideNext());
+      }
+
+      // Init drag on all viewports
+      this.querySelectorAll('[data-viewport]').forEach((vp) => this.initDrag(vp));
+    }
+
+    slideNext() {
+      const activePanel = this.querySelector('.fc-stiletto__panel.is-active');
+      if (!activePanel) return;
+      const track = activePanel.querySelector('[data-track]');
+      const viewport = activePanel.querySelector('[data-viewport]');
+      if (!track || !viewport) return;
+
+      const cards = track.children;
+      const cardWidth = cards[0] ? cards[0].offsetWidth + this.gap : 0;
+      if (!cardWidth) return;
+
+      const pos = parseInt(track.dataset.position || '0');
+      const maxScroll = track.scrollWidth - viewport.offsetWidth;
+      const newPos = Math.min(pos + cardWidth, maxScroll);
+
+      track.style.transform = 'translateX(-' + newPos + 'px)';
+      track.dataset.position = String(newPos);
+    }
+
+    slidePrev(track, viewport) {
+      if (!track || !viewport) return;
+      const cards = track.children;
+      const cardWidth = cards[0] ? cards[0].offsetWidth + this.gap : 0;
+      if (!cardWidth) return;
+
+      const pos = parseInt(track.dataset.position || '0');
+      const newPos = Math.max(pos - cardWidth, 0);
+
+      track.style.transform = 'translateX(-' + newPos + 'px)';
+      track.dataset.position = String(newPos);
+    }
+
+    initDrag(viewport) {
+      const track = viewport.querySelector('[data-track]');
+      if (!track) return;
+
+      let isDragging = false;
+      let startX = 0;
+      let startPos = 0;
+      let currentDelta = 0;
+
+      const getPos = () => parseInt(track.dataset.position || '0');
+      const maxScroll = () => Math.max(0, track.scrollWidth - viewport.offsetWidth);
+
+      // Mouse
+      viewport.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startPos = getPos();
+        track.classList.add('is-dragging');
+        viewport.classList.add('is-dragging');
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        currentDelta = startX - e.clientX;
+        const newPos = Math.max(0, Math.min(maxScroll(), startPos + currentDelta));
+        track.style.transform = 'translateX(-' + newPos + 'px)';
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        track.classList.remove('is-dragging');
+        viewport.classList.remove('is-dragging');
+
+        const finalPos = Math.max(0, Math.min(maxScroll(), startPos + currentDelta));
+        track.dataset.position = String(Math.round(finalPos));
+        track.style.transform = 'translateX(-' + Math.round(finalPos) + 'px)';
+        currentDelta = 0;
+      });
+
+      // Touch
+      viewport.addEventListener(
+        'touchstart',
+        (e) => {
+          startX = e.touches[0].clientX;
+          startPos = getPos();
+          track.classList.add('is-dragging');
+        },
+        { passive: true }
+      );
+
+      viewport.addEventListener(
+        'touchmove',
+        (e) => {
+          currentDelta = startX - e.touches[0].clientX;
+          const newPos = Math.max(0, Math.min(maxScroll(), startPos + currentDelta));
+          track.style.transform = 'translateX(-' + newPos + 'px)';
+        },
+        { passive: true }
+      );
+
+      viewport.addEventListener(
+        'touchend',
+        () => {
+          track.classList.remove('is-dragging');
+          const finalPos = Math.max(0, Math.min(maxScroll(), startPos + currentDelta));
+          track.dataset.position = String(Math.round(finalPos));
+          track.style.transform = 'translateX(-' + Math.round(finalPos) + 'px)';
+          currentDelta = 0;
+        },
+        { passive: true }
+      );
+    }
+  }
+
+  customElements.define('fc-slider-stiletto', FcSliderStilettoElement);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Collection Stiletto",
+  "tag": "section",
+  "class": "featured-collection-stiletto-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "cards_per_row",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "label": "Cards per row (desktop)",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "label": "Products per tab",
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "card_ratio",
+      "label": "Card image ratio",
+      "options": [
+        { "value": "2 / 3", "label": "Tall portrait (2:3)" },
+        { "value": "3 / 4", "label": "Portrait (3:4)" },
+        { "value": "4 / 5", "label": "Classic (4:5)" },
+        { "value": "1 / 1", "label": "Square (1:1)" }
+      ],
+      "default": "2 / 3"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Tab font size",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection tab",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "info": "Overrides collection title"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_view_all",
+          "default": true,
+          "label": "Show 'View all' card at end"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Stiletto",
+      "blocks": [
+        { "type": "collection_tab", "settings": { "tab_label": "Outerwear" } },
+        { "type": "collection_tab", "settings": { "tab_label": "Nudes" } },
+        { "type": "collection_tab", "settings": { "tab_label": "Minis" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
